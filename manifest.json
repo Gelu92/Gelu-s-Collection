@@ -72,6 +72,18 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Nuova nota",
+      "short_name": "Nota",
+      "url": "./?azione=nota",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

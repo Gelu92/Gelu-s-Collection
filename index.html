@@ -59,6 +59,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backgroun
 .btn-install svg{width:16px;height:16px}
 .hdr-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none;color:var(--ink)}
 .hdr-btn svg{width:20px;height:20px}
+.hdr-btn:disabled{opacity:.3;cursor:default}
 .hdr-btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 @media (max-width:340px){.brand-mark{display:none}}
 
@@ -127,6 +128,36 @@ section.block{display:flex;flex-direction:column;gap:8px}
 .more summary::before{content:"+ "}
 .more[open] summary::before{content:"− "}
 .more[open]{padding-bottom:14px}
+.daily{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 12px 10px;display:flex;flex-direction:column;gap:10px}
+.dbars{display:grid;gap:3px;align-items:end;height:150px}
+.dcol{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%;min-width:0;border:0;background:none;padding:0;border-radius:6px}
+.dcol .stk{width:78%;max-width:26px;display:flex;flex-direction:column-reverse;border-radius:4px 4px 1px 1px;overflow:hidden;min-height:2px;background:var(--sunk)}
+.dcol .stk span{display:block;width:100%}
+.dcol .dl{font-size:10px;color:var(--muted);height:13px;white-space:nowrap}
+.dcol .dv{font-size:9px;color:var(--muted);font-family:var(--f-num);height:12px;white-space:nowrap}
+.dcol[aria-pressed="true"] .dl{color:var(--ink);font-weight:700}
+.dcol[aria-pressed="true"] .stk{outline:2px solid var(--ink);outline-offset:1px}
+.dsum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;text-align:center}
+.dsum b{display:block;font-family:var(--f-display);font-size:18px}
+.dsum small{font-size:11px;color:var(--muted)}
+.ngrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
+.ncard{background:color-mix(in srgb, var(--nc) 14%, var(--surface));border:1px solid color-mix(in srgb, var(--nc) 40%, var(--line));border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0;cursor:pointer;text-align:left;color:inherit}
+.ncard .nt{font-weight:700;overflow-wrap:anywhere}
+.nbody{white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden;font-size:14px;color:var(--muted)}
+.nit{display:flex;gap:8px;align-items:flex-start;border:0;background:none;padding:3px 0;text-align:left;font-size:14px;width:100%;min-width:0;color:inherit}
+.nit span:last-child{overflow-wrap:anywhere;min-width:0}
+.box{width:17px;height:17px;border-radius:5px;border:2px solid var(--muted);flex:none;margin-top:1px;display:grid;place-items:center;color:var(--accent-ink)}
+.box svg{width:11px;height:11px}
+.nit.ok .box{background:var(--accent);border-color:var(--accent)}
+.nit.ok span:last-child{text-decoration:line-through;color:var(--muted)}
+.nfoot{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.nlink{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink);background:var(--sunk);border-radius:999px;padding:2px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrows{display:flex;flex-direction:column;gap:6px}
+.lrow{display:flex;gap:8px;align-items:center}
+.lrow input[type=checkbox]{width:22px;height:22px;flex:none;margin:0;accent-color:var(--accent)}
+.lrow .lt{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.lrow .lt.ok{text-decoration:line-through;color:var(--muted)}
+.lx{width:36px;height:36px;flex:none;border-radius:50%;border:0;background:none;color:var(--muted);font-size:20px;line-height:1}
 .banner{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-radius:var(--r);padding:10px 14px;font-size:14px;background:var(--warn-soft)}
 .banner.info{background:var(--accent-soft)}
 .banner button{border:0;background:none;color:var(--accent);font-weight:600;text-decoration:underline;padding:4px 0}
@@ -194,8 +225,8 @@ section.block{display:flex;flex-direction:column;gap:8px}
 .fab svg{width:26px;height:26px}
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
   padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));
-  display:grid;grid-template-columns:repeat(4,1fr)}
-.tab{border:0;background:none;height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;color:var(--muted);font-weight:500;min-width:0}
+  display:grid;grid-template-columns:repeat(5,1fr)}
+.tab{border:0;background:none;height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;white-space:nowrap;color:var(--muted);font-weight:500;min-width:0}
 .tab svg{width:22px;height:22px}
 .tab[aria-current="page"]{color:var(--accent);font-weight:600}
 
@@ -271,6 +302,7 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surf
   <button class="tab" data-tab="lib" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><path d="M17.5 5.2l3.3 14.5"/></svg>Libreria</button>
   <button class="tab" data-tab="backlog" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10c2.8 0 4.5 2.3 5 5l.7 3.6c.4 2.3-2.2 3.5-3.7 1.8L17 15H7l-2 2.4c-1.5 1.7-4.1.5-3.7-1.8L2 12c.5-2.7 2.2-5 5-5z"/><path d="M7 10v3M5.5 11.5h3"/></svg>Da giocare</button>
   <button class="tab" data-tab="wish" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>Desideri</button>
+  <button class="tab" data-tab="note" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>Note</button>
   <button class="tab" data-tab="stats" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11M12 20V4M19 20v-6"/></svg>Statistiche</button>
 </nav>
 
@@ -280,7 +312,7 @@ nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surf
 (() => {
 'use strict';
 const APP = 'Gelu\'s Collection';
-const VERSION = '1.5.0';
+const VERSION = '1.7.0';
 const KEY = 'gelu-inc-gelus-collection-v1';
 const KEY_INST = 'gelu-inc-gelus-collection-installed';
 
@@ -339,7 +371,7 @@ function seed(){
   const dn = n => { const t = new Date(); t.setDate(t.getDate() + n); return iso(t); };
   const G = (titolo, con, formato, origine, stato, extra = {}) => ({id:uid(), titolo, con, formato, origine, stato, account:'', durata:null, sessioni:[], voto:0, ore:null, prezzo:null, data:null, inizio:null, fine:null, genere:'', note:'', abbo:'', pref:false, agg:new Date().toISOString(), esempio:true, ...extra});
   const giochi = [
-    G('Elden Ring', 'ps5', 'digitale', 'acquisto', 'finito', {account:'PSN principale', durata:60, trofei:64, edizione:'Deluxe', dlc:['Shadow of the Erdtree'], multi:['solo','online'], voto:5, ore:112, prezzo:59.99, data:d(600), inizio:d(590), fine:d(420), genere:'GdR', pref:true}),
+    G('Elden Ring', 'ps5', 'digitale', 'acquisto', 'finito', {note:'Build forza e fede. Prossimo giro: build magia.', account:'PSN principale', durata:60, trofei:64, edizione:'Deluxe', dlc:['Shadow of the Erdtree'], multi:['solo','online'], voto:5, ore:112, prezzo:59.99, data:d(600), inizio:d(590), fine:d(420), genere:'GdR', pref:true}),
     G('God of War Ragnarök', 'ps5', 'fisico', 'acquisto', 'finito', {voto:5, ore:48, prezzo:49.9, data:d(500), fine:d(380), genere:'Azione'}),
     G("Marvel's Spider-Man 2", 'ps5', 'digitale', 'acquisto', 'corso', {account:'PSN principale', durata:18, trofei:35, sessioni:[{data:d(20), min:95}, {data:d(12), min:160}, {data:d(5), min:120}, {data:d(2), min:75}], ore:14, prezzo:39.99, data:d(40), inizio:d(20), genere:'Azione'}),
     G('Astro Bot', 'ps5', 'digitale', 'acquisto', 'cento', {trofei:100, voto:5, ore:22, prezzo:49.99, data:d(300), fine:d(240), genere:'Piattaforme', pref:true}),
@@ -355,7 +387,7 @@ function seed(){
     G('Hades', 'nsw', 'digitale', 'acquisto', 'finito', {voto:5, ore:35, prezzo:12.49, fine:d(150), genere:'Indie'}),
     G('Animal Crossing: New Horizons', 'nsw', 'fisico', 'regalo', 'mollato', {racc:['r-relax'], multi:['solo','locale','online'], ore:80, genere:'Simulazione'}),
     G('The Witcher 3', 'ps4', 'fisico', 'acquisto', 'mollato', {ore:20, prezzo:19.9, genere:'GdR'}),
-    G("Baldur's Gate 3", 'steam', 'digitale', 'acquisto', 'corso', {ore:58, prezzo:59.99, data:d(200), inizio:d(60), genere:'GdR'}),
+    G("Baldur's Gate 3", 'steam', 'digitale', 'acquisto', 'corso', {note:'Atto 2, sono alla Torre di Luna. Party: Shadowheart, Karlach, Astarion.', ore:58, prezzo:59.99, data:d(200), inizio:d(60), genere:'GdR'}),
     G('Stardew Valley', 'steam', 'digitale', 'acquisto', 'finito', {multi:['solo','online'], racc:['r-coppia','r-relax'], voto:5, ore:90, prezzo:13.99, fine:d(100), genere:'Simulazione'}),
     G('Hollow Knight', 'steam', 'digitale', 'acquisto', 'da', {saga:'Hollow Knight', sagaN:1, durata:28, prezzo:7.49, data:d(320), genere:'Indie'}),
     G('Cyberpunk 2077', 'steam', 'digitale', 'acquisto', 'da', {durata:40, prezzo:24.99, data:d(180), genere:'GdR'}),
@@ -369,9 +401,21 @@ function seed(){
     G('Metaphor: ReFantazio', 'ps5', 'fisico', 'acquisto', 'wish', {prezzoMax:35, genere:'GdR'}),
     G('Balatro', 'steam', 'digitale', 'acquisto', 'wish', {prezzoMax:10, genere:'Indie'})
   ];
+  const addS = (title, pattern) => { const g = giochi.find(x => x.titolo === title); if (!g) return; pattern.forEach(([back, min]) => g.sessioni.push({data:d(back), min})); g.sessioni.sort((a, b) => a.data.localeCompare(b.data)); };
+  addS("Marvel's Spider-Man 2", [[0, 50], [1, 85], [3, 40], [6, 110], [9, 70], [13, 60], [16, 95]]);
+  addS("Baldur's Gate 3", [[1, 45], [2, 130], [4, 90], [7, 180], [8, 150], [14, 200], [15, 120], [21, 160], [22, 90]]);
+  addS('Hades', [[0, 25], [5, 35], [10, 30], [18, 40]]);
+  addS('Mario Kart 8 Deluxe', [[7, 60], [14, 45], [20, 75], [27, 50]]);
   const raccolte = [{id:'r-coppia', nome:'Da giocare in coppia', col:'#E4572E'}, {id:'r-relax', nome:'Per rilassarsi', col:'#3BA88E'}];
   const abbonamenti = [{id:uid(), nome:'PS Plus', scade:dn(20)}, {id:uid(), nome:'Game Pass', scade:dn(5)}];
-  return {v:1, obiettivo:{[String(new Date().getFullYear())]:12}, console:cons, giochi, raccolte, abbonamenti, tema:'auto', onboard:'pending'};
+  const er = giochi.find(g => g.titolo === 'Elden Ring'), now = new Date().toISOString();
+  const note = [
+    {id:uid(), tipo:'lista', titolo:'Trofei che mi mancano', testo:'', items:[{t:'Sconfiggere Malenia', ok:false}, {t:'Tutte le armi leggendarie', ok:false}, {t:'Finale della Signora delle stelle', ok:true}], col:'#FF4F8B', pin:true, gioco:er ? er.id : null, agg:now, esempio:true},
+    {id:uid(), tipo:'testo', titolo:'Codici e account', testo:'PSN principale: mail personale\nAccount giapponese: per i giochi solo JP\nPIN genitori Switch: chiedere a Marco', items:[], col:'#3EE6C1', pin:true, gioco:null, agg:now, esempio:true},
+    {id:uid(), tipo:'lista', titolo:'Da prendere in offerta', testo:'', items:[{t:'Persona 5 Royal sotto 20 €', ok:false}, {t:'It Takes Two per giocare in coppia', ok:false}, {t:'Abbonamento Game Pass annuale', ok:false}], col:'#FFD84D', pin:false, gioco:null, agg:now, esempio:true},
+    {id:uid(), tipo:'testo', titolo:'Serata giochi venerdì', testo:'Portare il secondo controller.\nMario Kart e Overcooked per tutti.', items:[], col:'#7C6CFF', pin:false, gioco:null, agg:now, esempio:true}
+  ];
+  return {v:1, note, obiettivo:{[String(new Date().getFullYear())]:12}, console:cons, giochi, raccolte, abbonamenti, tema:'auto', onboard:'pending'};
 }
 function migrate(o){
   if (!Array.isArray(o.console) || !o.console.length) o.console = CONSOLE_PRESET.map(([id, nome, sigla, col]) => ({id, nome, sigla, col, mia:false}));
@@ -381,6 +425,8 @@ function migrate(o){
   if (!Array.isArray(o.raccolte)) o.raccolte = [];
   if (!Array.isArray(o.abbonamenti)) o.abbonamenti = [];
   if (!o.obiettivo || typeof o.obiettivo !== 'object') o.obiettivo = {};
+  if (!Array.isArray(o.note)) o.note = [];
+  o.note.forEach(n => { if (!Array.isArray(n.items)) n.items = []; if (n.gioco && !o.giochi.some(g => g.id === n.gioco)) n.gioco = null; });
   o.giochi.forEach(g => { if (!Array.isArray(g.racc)) g.racc = []; if (!Array.isArray(g.multi)) g.multi = []; if (!Array.isArray(g.dlc)) g.dlc = []; g.racc = g.racc.filter(r => o.raccolte.some(x => x.id === r)); });
   o.tema = o.tema || 'auto';
   if (o.sessione && !o.giochi.some(g => g.id === o.sessione.gid)) o.sessione = null;
@@ -391,10 +437,10 @@ function load(){
   S = migrate(seed()); save();
 }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(_){} }
-const hasSamples = () => S.giochi.some(g => g.esempio);
+const hasSamples = () => S.giochi.some(g => g.esempio) || (S.note || []).some(n => n.esempio);
 
 /* ---------- stato vista ---------- */
-const V = {saga:'tutte', view:'lista', racc:'tutte', mp:'tutti', year:null, tab:'lib', q:'', con:'tutte', stato:'tutti', formato:'tutti', acc:'tutti', sort:'agg', pickCon:'tutte', wishCon:'tutte', dur:'tutte'};
+const V = {nq:'', daysR:'sett', dOff:0, daySel:null, saga:'tutte', view:'lista', racc:'tutte', mp:'tutti', year:null, tab:'lib', q:'', con:'tutte', stato:'tutti', formato:'tutti', acc:'tutti', sort:'agg', pickCon:'tutte', wishCon:'tutte', dur:'tutte'};
 try { const vw = localStorage.getItem(KEY + '-view'); if (vw) V.view = vw; const t = localStorage.getItem(KEY + '-tab'); if (t) V.tab = t; const so = localStorage.getItem(KEY + '-sort'); if (so) V.sort = so; } catch(_){}
 
 /* ---------- account, durata, sessioni ---------- */
@@ -693,6 +739,7 @@ function renderStats(){
   <section class="block"><div class="block-head"><h3>Come li hai avuti</h3></div>
     <div class="bars">${orig.map(x => `<div class="brow"><span>${x.n}</span><span class="num">${x.v}</span><div class="bar"><span style="width:${x.v / all.length * 100}%;background:var(--accent)"></span></div></div>`).join('')}</div></section>
   ${spendC.length ? `<section class="block"><div class="block-head"><h3>Speso per console</h3></div><div class="bars">${spendC.map(x => `<div class="brow"><span><span class="dot" style="background:${x.c.col};margin-right:6px"></span>${esc(x.c.nome)}</span><span class="num">${eur.format(x.v)}</span><div class="bar"><span style="width:${x.v / spendC[0].v * 100}%;background:${x.c.col}"></span></div></div>`).join('')}</div></section>` : ''}
+  ${dailyBlock()}
   ${hasMin || hasFin ? `<section class="block"><div class="block-head"><h3>Mese per mese</h3></div>
     <div class="legend"><span><i style="background:var(--accent)"></i>Ore col timer</span><span><i style="background:#3BA88E"></i>Giochi finiti</span></div>
     <div class="bars" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;align-items:end;height:150px;padding:12px 10px 8px">${mon.map(m => `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;min-width:0" title="${m.k}: ${fmtMin(m.min)}, ${m.fin} finiti">
@@ -765,10 +812,12 @@ function renderImpo(){
 }
 
 function render(){
-  $('#view').innerHTML = playingBar() + ({lib:renderLib, backlog:renderBacklog, wish:renderWish, stats:renderStats, impo:renderImpo}[V.tab] || renderLib)();
+  $('#view').innerHTML = playingBar() + ({lib:renderLib, backlog:renderBacklog, wish:renderWish, note:renderNote, stats:renderStats, impo:renderImpo}[V.tab] || renderLib)();
   document.querySelectorAll('.tab').forEach(t => { if (t.dataset.tab === V.tab) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current'); });
   $('#setBtn').setAttribute('aria-pressed', String(V.tab === 'impo'));
   $('#fab').hidden = V.tab === 'impo' || V.tab === 'stats';
+  const nq = $('#nq');
+  if (nq) nq.addEventListener('input', e => { V.nq = e.target.value; const pos = e.target.selectionStart; render(); const n = $('#nq'); n.focus(); try { n.setSelectionRange(pos, pos); } catch(_){} });
   const q = $('#q');
   if (q) q.addEventListener('input', e => { V.q = e.target.value; const pos = e.target.selectionStart; render(); const n = $('#q'); n.focus(); try { n.setSelectionRange(pos, pos); } catch(_){} });
   for (const [id, k] of [['f-stato', 'stato'], ['f-formato', 'formato'], ['f-sort', 'sort'], ['f-acc', 'acc'], ['f-racc', 'racc'], ['f-saga', 'saga']]){
@@ -835,6 +884,7 @@ function formGame(id, preset = {}){
     ${g.origine === 'abbonamento' && abboOf(g.abbo) && daysTo(abboOf(g.abbo).scade) < 0 ? `<div class="banner"><span>Il tuo ${esc(g.abbo)} è scaduto il ${fmtShort(abboOf(g.abbo).scade)}: per giocarlo devi rinnovarlo.</span></div>` : ''}` : ''}
     ${g && wishMode ? '<button type="button" class="btn wide" data-q="bought">L\'ho comprato!</button>' : ''}
     ${g && !wishMode ? sessBlock(g) : ''}
+    ${g ? linkedNotes(g) : ''}
     <div id="gm-photo"></div>
     <form id="fg" class="settings" novalidate>
       <div class="field"><label for="gm-t">Titolo</label><input id="gm-t" value="${esc(g?.titolo || preset.titolo || '')}" placeholder="Es. Elden Ring" ${g ? '' : 'autofocus'} autocomplete="off"><div class="err" id="gm-dup" style="color:var(--warn)"></div></div>
@@ -910,6 +960,8 @@ function formGame(id, preset = {}){
     root.querySelectorAll('[data-also]').forEach(b => b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on)); if (on) st.extra.add(b.dataset.also); else st.extra.delete(b.dataset.also); }));
     wireChips(root, 'fm', v => { st.formato = v; $r('#gm-acc-w').hidden = v === 'fisico'; });
     root.querySelectorAll('[data-sq]').forEach(b => b.addEventListener('click', () => sessQuick(g, b.dataset.sq)));
+    root.querySelectorAll('[data-newnote]').forEach(b => b.addEventListener('click', () => formNota(null, 'testo', b.dataset.newnote)));
+    root.querySelectorAll('[data-opennote]').forEach(b => b.addEventListener('click', () => formNota(b.dataset.opennote)));
     st.multi = new Set(g?.multi || []); st.racc = new Set(g?.racc || []);
     const togg = (key, set) => root.querySelectorAll(`[data-${key}]`).forEach(b => b.onclick = () => { const v = b.dataset[key], on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on)); if (on) set.add(v); else set.delete(v); });
     togg('mu', st.multi); togg('rc', st.racc);
@@ -968,7 +1020,7 @@ function formGame(id, preset = {}){
       save(); closeSheet(); keepScroll(render);
       toast(wishMode ? `${titolo} aggiunto ai desideri` : `${titolo} aggiunto${n > 1 ? ` su ${n} console` : ''}`);
     });
-    const del = $r('#gm-del'); if (del) twoTap(del, 'Tocca di nuovo per eliminare', () => { S.giochi = S.giochi.filter(x => x !== g); fotoCleanup(); save(); closeSheet(); keepScroll(render); toast(`Eliminato: ${g.titolo}`); });
+    const del = $r('#gm-del'); if (del) twoTap(del, 'Tocca di nuovo per eliminare', () => { S.giochi = S.giochi.filter(x => x !== g); S.note.forEach(n => { if (n.gioco === g.id) n.gioco = null; }); fotoCleanup(); save(); closeSheet(); keepScroll(render); toast(`Eliminato: ${g.titolo}`); });
   });
 }
 function sessBlock(g){
@@ -1120,6 +1172,172 @@ function boughtSheet(g){
       save(); closeSheet(); keepScroll(render);
       toast((saved > 0 ? `In libreria! Hai speso ${eur.format(saved)} meno del previsto` : `${g.titolo} è in libreria`) + (sent ? ' · in Bilancino' : '')); offerUndo(snap);
     });
+  });
+}
+
+/* ---------- ore giornaliere ---------- */
+function dRange(){
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  if (V.daysR === 'mese'){ const a = new Date(t.getFullYear(), t.getMonth() + V.dOff, 1), b = new Date(a.getFullYear(), a.getMonth() + 1, 0); return {a, b}; }
+  const a = new Date(t); a.setDate(t.getDate() - ((t.getDay() + 6) % 7) + V.dOff * 7); const b = new Date(a); b.setDate(a.getDate() + 6); return {a, b};
+}
+function dailyData(){
+  const {a, b} = dRange(), days = [];
+  for (const t = new Date(a); t <= b; t.setDate(t.getDate() + 1)) days.push({d:iso(t), min:0, byCon:{}, games:{}, fut:iso(t) > today()});
+  const idx = Object.fromEntries(days.map((x, i) => [x.d, i]));
+  for (const g of S.giochi) for (const x of g.sessioni || []){
+    const i = idx[x.data]; if (i === undefined) continue;
+    const day = days[i]; day.min += x.min; day.byCon[g.con] = (day.byCon[g.con] || 0) + x.min; day.games[g.id] = (day.games[g.id] || 0) + x.min;
+  }
+  if (S.sessione && days.some(x => x.d === today())){ const day = days.find(x => x.d === today()), g = S.giochi.find(x => x.id === S.sessione.gid); if (g){ const m = Math.max(0, Math.round((Date.now() - Math.max(S.sessione.start, new Date().setHours(0, 0, 0, 0))) / 60000)); day.min += m; day.byCon[g.con] = (day.byCon[g.con] || 0) + m; day.games[g.id] = (day.games[g.id] || 0) + m; day.live = true; } }
+  return days;
+}
+function streak(){
+  const played = new Set(S.giochi.flatMap(g => (g.sessioni || []).map(x => x.data)));
+  if (S.sessione) played.add(today());
+  let n = 0; const t = new Date();
+  if (!played.has(iso(t))) t.setDate(t.getDate() - 1);
+  while (played.has(iso(t))){ n++; t.setDate(t.getDate() - 1); }
+  return n;
+}
+function dailyBlock(){
+  const days = dailyData(), n = days.length, tot = days.reduce((t, x) => t + x.min, 0), past = days.filter(x => !x.fut).length || 1, week = V.daysR === 'sett';
+  const anySes = S.giochi.some(g => (g.sessioni || []).length) || S.sessione;
+  if (!anySes) return `<section class="block"><div class="block-head"><h3>Ore al giorno</h3></div><div class="empty">Usa il timer «Sto giocando» o i pulsanti +30 min / +1 h nella scheda di un gioco: qui vedrai quanto giochi ogni giorno.</div></section>`;
+  const mx = Math.max(60, ...days.map(x => x.min)), playedDays = days.filter(x => x.min).length;
+  const {a, b} = dRange(), cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const title = week ? (V.dOff === 0 ? 'Questa settimana' : V.dOff === -1 ? 'Settimana scorsa' : `${a.getDate()} ${a.toLocaleDateString('it-IT', {month:'short'}).replace('.', '')} – ${b.getDate()} ${b.toLocaleDateString('it-IT', {month:'short'}).replace('.', '')}`) : cap(a.toLocaleDateString('it-IT', {month:'long', year:'numeric'}));
+  const best = days.reduce((a, b) => b.min > a.min ? b : a, days[0]);
+  if (!V.daySel || !days.some(x => x.d === V.daySel)) V.daySel = days.some(x => x.d === today()) ? today() : [...days].reverse().find(x => x.min)?.d || days[days.length - 1].d;
+  const sel = days.find(x => x.d === V.daySel);
+  const lbl = (x, i) => week ? parseD(x.d).toLocaleDateString('it-IT', {weekday:'short'}).replace('.', '').slice(0, 3) : ((i + 1) % 5 === 0 || i === 0 ? String(i + 1) : '');
+  const short = m => !m ? '' : m >= 60 ? `${Math.floor(m / 60)}h${m % 60 >= 30 && week ? '½' : ''}` : `${m}'`;
+  const selGames = Object.entries(sel.games).sort((a, b) => b[1] - a[1]).map(([id, m]) => ({g:S.giochi.find(x => x.id === id), m})).filter(x => x.g);
+  return `<section class="block"><div class="block-head"><h3>Ore al giorno</h3><div class="vt" role="group" aria-label="Periodo"><button data-dr="sett" aria-pressed="${week}">Settimana</button><button data-dr="mese" aria-pressed="${!week}">Mese</button></div></div>
+    <div class="daily">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><button class="hdr-btn" data-doff="-1" aria-label="${week ? 'Settimana' : 'Mese'} precedente" style="width:34px;height:34px">‹</button><b>${title}</b><button class="hdr-btn" data-doff="1" aria-label="${week ? 'Settimana' : 'Mese'} successivo" style="width:34px;height:34px" ${V.dOff >= 0 ? 'disabled' : ''}>›</button></div>
+      <div class="dsum">
+        <div><b class="num">${fmtHours(tot / 60).replace(' min', "'")}</b><small>in tutto</small></div>
+        <div><b class="num">${fmtMin(tot / past).replace(' min', "'")}</b><small>al giorno</small></div>
+        <div><b class="num">${playedDays}/${past}</b><small>giorni giocati</small></div>
+        <div><b class="num">${streak()}🔥</b><small>giorni di fila</small></div>
+      </div>
+      <div class="dbars" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${days.map((x, i) => `<button class="dcol" data-day="${x.d}" aria-pressed="${x.d === V.daySel}" ${x.fut ? 'disabled style="opacity:.35"' : ''} aria-label="${parseD(x.d).toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long'})}: ${x.min ? fmtMin(x.min) : 'niente'}">
+        ${week ? `<span class="dv">${short(x.min)}</span>` : ''}
+        <span class="stk" style="height:${x.min ? Math.max(4, x.min / mx * 110) : 2}px">${Object.entries(x.byCon).sort((a, b) => b[1] - a[1]).map(([c, m]) => `<span style="height:${m / x.min * 100}%;background:${conOf(c).col}"></span>`).join('')}</span>
+        <span class="dl">${lbl(x, i)}</span></button>`).join('')}</div>
+      <div style="font-size:13px;border-top:1px solid var(--line);padding-top:8px">
+        <b>${(s => s.charAt(0).toUpperCase() + s.slice(1))(parseD(sel.d).toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long'}))}</b>${sel.live ? ' · <span class="pill st-corso">⏱ in corso</span>' : ''}
+        ${selGames.length ? `<div style="display:flex;flex-direction:column;gap:4px;margin-top:6px">${selGames.map(x => `<div style="display:flex;justify-content:space-between;gap:8px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><span class="dot" style="background:${conOf(x.g.con).col};margin-right:6px"></span>${esc(x.g.titolo)}</span><span class="num">${fmtMin(x.m)}</span></div>`).join('')}</div>` : '<div class="muted" style="margin-top:4px">Nessuna partita registrata.</div>'}
+      </div>
+      ${best.min ? `<p class="count" style="margin:0">Giorno record ${week ? 'della settimana' : 'del mese'}: ${parseD(best.d).toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'short'})} con ${fmtMin(best.min)}. Contano le partite col timer e quelle aggiunte con +30 min, +1 h, +2 h.</p>` : ''}
+    </div></section>`;
+}
+
+/* ---------- note ---------- */
+const NOTE_COLS = ['#FF4F8B', '#3EE6C1', '#FFD84D', '#7C6CFF', '#2F6BEA', '#9C97B4'];
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+const gameOf = id => id ? S.giochi.find(g => g.id === id) : null;
+function noteCard(n){
+  const g = gameOf(n.gioco);
+  let body;
+  if (n.tipo === 'lista'){
+    const order = n.items.map((it, i) => ({it, i})).sort((a, b) => (a.it.ok ? 1 : 0) - (b.it.ok ? 1 : 0));
+    const shown = order.slice(0, 7), more = n.items.length - shown.length, done = n.items.filter(x => x.ok).length;
+    body = `<div>${shown.map(({it, i}) => `<button type="button" class="nit${it.ok ? ' ok' : ''}" data-ntog="${n.id}:${i}" aria-pressed="${it.ok}"><span class="box">${it.ok ? CHECK : ''}</span><span>${esc(it.t)}</span></button>`).join('')}${more > 0 ? `<span class="count">+ altre ${more}</span>` : ''}${!n.items.length ? '<span class="count">Lista vuota</span>' : ''}</div>${n.items.length ? `<span class="count num">${done}/${n.items.length} fatte</span>` : ''}`;
+  } else body = `<div class="nbody">${esc(n.testo || '')}</div>`;
+  return `<div class="ncard" data-nota="${n.id}" role="button" tabindex="0" style="--nc:${n.col}">
+    <div class="nt">${n.pin ? '📌 ' : ''}${esc(n.titolo || 'Senza titolo')}</div>${body}
+    <div class="nfoot">${g ? `<span class="nlink"><span class="dot" style="background:${conOf(g.con).col};width:8px;height:8px"></span>${esc(g.titolo)}</span>` : '<span></span>'}${n.esempio ? '<span>esempio</span>' : ''}</div></div>`;
+}
+function renderNote(){
+  const q = norm(V.nq);
+  let l = [...(S.note || [])];
+  if (q) l = l.filter(n => [n.titolo, n.testo, ...n.items.map(x => x.t), gameOf(n.gioco)?.titolo].some(x => norm(x).includes(q)));
+  l.sort((a, b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0) || (b.agg || '').localeCompare(a.agg || ''));
+  const pinned = l.filter(n => n.pin), others = l.filter(n => !n.pin);
+  let gn = S.giochi.filter(g => (g.note || '').trim());
+  if (q) gn = gn.filter(g => norm(g.titolo).includes(q) || norm(g.note).includes(q));
+  gn.sort((a, b) => (b.agg || '').localeCompare(a.agg || ''));
+  const grid = arr => `<div class="ngrid">${arr.map(noteCard).join('')}</div>`;
+  return `${sampleNote()}
+  <div class="btnrow"><button class="btn" data-act="newNota">+ Nota</button><button class="btn ghost" data-act="newLista">+ Lista con spunte</button></div>
+  <input class="search" id="nq" type="search" placeholder="Cerca nelle note e nelle schede dei giochi" value="${esc(V.nq)}" autocomplete="off">
+  ${!l.length && !gn.length ? `<div class="empty">${q ? 'Nessuna nota trovata.' : 'Scrivi qui trucchi, codici, trofei da fare, giochi da comprare in offerta. Puoi collegare una nota a un gioco.'}</div>` : ''}
+  ${pinned.length ? `<section class="block"><div class="block-head"><h3>Fissate</h3></div>${grid(pinned)}</section>` : ''}
+  ${others.length ? `<section class="block">${pinned.length ? '<div class="block-head"><h3>Altre</h3></div>' : ''}${grid(others)}</section>` : ''}
+  ${gn.length ? `<section class="block"><div class="block-head"><h3>Dalle schede dei giochi · ${gn.length}</h3></div><div class="list">${gn.map(g => `<button class="g" data-game="${g.id}">${tile(conOf(g.con))}<div class="main"><div class="t">${esc(g.titolo)}</div><div class="s" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(g.note.replace(/\s+/g, ' '))}</div></div></button>`).join('')}</div></section>` : ''}`;
+}
+function linkedNotes(g){
+  const l = (S.note || []).filter(n => n.gioco === g.id);
+  return `<div class="banner info" style="flex-direction:column;align-items:stretch;gap:6px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>📝 Note${l.length ? ` · ${l.length}` : ''}</b><button type="button" data-newnote="${g.id}">+ Nota per questo gioco</button></div>
+    ${l.map(n => `<button type="button" class="g" data-opennote="${n.id}" style="padding:6px 0;border-top:1px solid var(--line)"><div class="main"><div class="t">${esc(n.titolo || 'Senza titolo')}</div><div class="s">${n.tipo === 'lista' ? `${n.items.filter(x => x.ok).length}/${n.items.length} fatte` : esc((n.testo || '').replace(/\s+/g, ' ').slice(0, 60))}</div></div></button>`).join('')}</div>`;
+}
+function toggleItem(key){
+  const [id, i] = key.split(':'), n = S.note.find(x => x.id === id);
+  if (!n || !n.items[+i]) return;
+  n.items[+i].ok = !n.items[+i].ok; n.agg = new Date().toISOString(); delete n.esempio;
+  save(); keepScroll(render);
+}
+function formNota(id, presetTipo, presetGioco){
+  const n = id ? S.note.find(x => x.id === id) : null;
+  let tipo = n?.tipo || presetTipo || 'testo', col = n?.col || NOTE_COLS[S.note.length % NOTE_COLS.length];
+  let items = (n?.items || []).map(x => ({...x})), testo = n?.testo || '';
+  const gid = n ? n.gioco : (presetGioco || null);
+  const games = S.giochi.filter(g => !g.venduto).slice().sort((a, b) => a.titolo.localeCompare(b.titolo));
+  openSheet(`<h2>${n ? 'Modifica nota' : tipo === 'lista' ? 'Nuova lista' : 'Nuova nota'}</h2>
+    <form id="fn" class="settings" novalidate>
+      <div class="seg" role="group" aria-label="Tipo di nota"><button type="button" data-nt="testo" aria-pressed="${tipo === 'testo'}">Testo</button><button type="button" data-nt="lista" aria-pressed="${tipo === 'lista'}">Lista con spunte</button></div>
+      <div class="field"><label for="n-tit">Titolo</label><input id="n-tit" value="${esc(n?.titolo || '')}" placeholder="${tipo === 'lista' ? 'Es. Trofei che mi mancano' : 'Es. Codici e account'}" autocomplete="off" ${n ? '' : 'autofocus'}></div>
+      <div id="n-body"></div>
+      <div class="field"><label for="n-g">Collega a un gioco (facoltativo)</label><select id="n-g"><option value="">Nessun gioco</option>${games.map(g => `<option value="${g.id}" ${g.id === gid ? 'selected' : ''}>${esc(g.titolo)} · ${esc(conOf(g.con).sigla)}${g.stato === 'wish' ? ' (desiderato)' : ''}</option>`).join('')}</select></div>
+      <div class="field"><span class="lbl">Colore</span><div class="swatches">${NOTE_COLS.map(p => `<button type="button" class="sw" data-col="${p}" aria-pressed="${p === col}" aria-label="Colore" style="background:${p}"></button>`).join('')}</div></div>
+      <label class="check"><input type="checkbox" id="n-pin" ${n?.pin ? 'checked' : ''}><span>Fissa in alto</span></label>
+      <div class="err" id="n-err"></div>
+      <button class="btn wide" type="submit">${n ? 'Salva' : 'Crea'}</button>
+      ${n ? '<button class="btn danger wide" type="button" id="n-del">Elimina nota</button>' : ''}
+      <button class="btn ghost wide" type="button" data-close>Annulla</button>
+    </form>`, root => {
+    const $r = q => root.querySelector(q), body = $r('#n-body');
+    wireChips(root, 'col', v => col = v);
+    const sync = () => {
+      if (tipo === 'testo'){ const ta = $r('#n-txt'); if (ta) testo = ta.value; }
+      else root.querySelectorAll('.lrow[data-i]').forEach(row => { const i = +row.dataset.i; if (items[i]){ items[i].t = row.querySelector('.lt').value; items[i].ok = row.querySelector('input[type=checkbox]').checked; } });
+    };
+    const paint = focusNew => {
+      if (tipo === 'testo'){ body.innerHTML = `<div class="field"><label for="n-txt">Testo</label><textarea id="n-txt" style="min-height:170px" placeholder="Scrivi qui…">${esc(testo)}</textarea></div>`; return; }
+      body.innerHTML = `<div class="field"><span class="lbl">Voci</span><div class="lrows">${items.map((it, i) => `<div class="lrow" data-i="${i}"><input type="checkbox" aria-label="Fatta" ${it.ok ? 'checked' : ''}><input class="lt${it.ok ? ' ok' : ''}" value="${esc(it.t)}" aria-label="Voce ${i + 1}"><button type="button" class="lx" data-rm="${i}" aria-label="Togli voce">×</button></div>`).join('')}
+        <div class="lrow"><input class="lt" id="n-new" placeholder="Aggiungi una voce e premi Invio" autocomplete="off" enterkeyhint="enter"><button type="button" class="chip" id="n-add">Aggiungi</button></div></div>
+        ${items.some(x => x.ok) ? '<button type="button" class="linkbtn" id="n-clean" style="align-self:flex-start">Togli le voci spuntate</button>' : ''}</div>`;
+      root.querySelectorAll('.lrow[data-i] input[type=checkbox]').forEach(cb => cb.addEventListener('change', () => { cb.nextElementSibling.classList.toggle('ok', cb.checked); sync(); }));
+      root.querySelectorAll('[data-rm]').forEach(b => b.addEventListener('click', () => { sync(); items.splice(+b.dataset.rm, 1); paint(); }));
+      const nw = $r('#n-new');
+      const add = () => { sync(); const v = nw.value.trim(); if (!v) return; v.split(/\n/).map(x => x.trim()).filter(Boolean).forEach(t => items.push({t, ok:false})); paint(true); };
+      nw.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); add(); } });
+      $r('#n-add').addEventListener('click', add);
+      const cl = $r('#n-clean'); if (cl) cl.addEventListener('click', () => { sync(); items = items.filter(x => !x.ok); paint(); });
+      if (focusNew) $r('#n-new').focus();
+    };
+    paint();
+    root.querySelectorAll('[data-nt]').forEach(b => b.addEventListener('click', () => {
+      if (tipo === b.dataset.nt) return;
+      sync();
+      if (b.dataset.nt === 'lista') items = testo.split('\n').map(t => t.trim()).filter(Boolean).map(t => ({t, ok:false}));
+      else testo = items.map(x => x.t).filter(Boolean).join('\n');
+      tipo = b.dataset.nt; root.querySelectorAll('[data-nt]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); paint();
+    }));
+    $r('#fn').addEventListener('submit', e => {
+      e.preventDefault(); sync();
+      const pend = $r('#n-new'); if (pend && pend.value.trim()) items.push({t:pend.value.trim(), ok:false});
+      items = items.filter(x => x.t.trim());
+      const titolo = $r('#n-tit').value.trim();
+      if (!titolo && (tipo === 'testo' ? !testo.trim() : !items.length)){ if (!n){ closeSheet(); return; } return $r('#n-err').textContent = 'La nota è vuota: scrivi qualcosa oppure eliminala.'; }
+      const obj = {tipo, titolo, testo:tipo === 'testo' ? testo : '', items:tipo === 'lista' ? items : [], col, pin:$r('#n-pin').checked, gioco:$r('#n-g').value || null, agg:new Date().toISOString()};
+      if (n){ Object.assign(n, obj); delete n.esempio; } else S.note.push({id:uid(), ...obj});
+      save(); closeSheet(); keepScroll(render); toast(n ? 'Nota salvata' : 'Nota creata');
+      if (presetGioco && !n) setTimeout(() => formGame(presetGioco), 50);
+    });
+    const del = $r('#n-del'); if (del) twoTap(del, 'Tocca di nuovo per eliminare', () => { S.note = S.note.filter(x => x !== n); save(); closeSheet(); keepScroll(render); toast('Nota eliminata'); });
   });
 }
 
@@ -1428,12 +1646,17 @@ function applyTheme(){ const t = S.tema || 'auto', el = document.documentElement
 /* ---------- eventi ---------- */
 document.querySelector('nav.tabs').addEventListener('click', e => { const t = e.target.closest('[data-tab]'); if (t) goTab(t.dataset.tab); });
 $('#setBtn').addEventListener('click', () => goTab(V.tab === 'impo' ? 'lib' : 'impo'));
-$('#fab').addEventListener('click', () => V.tab === 'wish' ? formGame(null, {stato:'wish'}) : formGame());
+$('#fab').addEventListener('click', () => V.tab === 'note' ? formNota(null, 'testo') : V.tab === 'wish' ? formGame(null, {stato:'wish'}) : formGame());
 $('#view').addEventListener('click', e => {
   const gm = e.target.closest('[data-game]'); if (gm) return formGame(gm.dataset.game);
   const cn = e.target.closest('[data-con]'); if (cn){ V.con = cn.dataset.con; return keepScroll(render); }
   const pc = e.target.closest('[data-pcon]'); if (pc){ V.pickCon = pc.dataset.pcon; return keepScroll(render); }
   const wc = e.target.closest('[data-wcon]'); if (wc){ V.wishCon = wc.dataset.wcon; return keepScroll(render); }
+  const ntg = e.target.closest('[data-ntog]'); if (ntg){ e.stopPropagation(); return toggleItem(ntg.dataset.ntog); }
+  const nto = e.target.closest('[data-nota]'); if (nto) return formNota(nto.dataset.nota);
+  const dyr = e.target.closest('[data-dr]'); if (dyr){ V.daysR = dyr.dataset.dr; V.dOff = 0; V.daySel = null; return keepScroll(render); }
+  const dof = e.target.closest('[data-doff]'); if (dof){ V.dOff = Math.min(0, V.dOff + +dof.dataset.doff); V.daySel = null; return keepScroll(render); }
+  const dyb = e.target.closest('[data-day]'); if (dyb){ V.daySel = dyb.dataset.day; return keepScroll(render); }
   const stl = e.target.closest('[data-stale]'); if (stl){ const [k, id] = stl.dataset.stale.split(':'), g = S.giochi.find(x => x.id === id); if (g){ const snap = snapshot(); if (k === 'pausa'){ g.stato = 'pausa'; toast(`${g.titolo} in pausa`); } else { g.ripreso = today(); toast(`Buon ritorno su ${g.titolo}!`); } save(); keepScroll(render); offerUndo(snap); } return; }
   const vw = e.target.closest('[data-view]'); if (vw){ V.view = vw.dataset.view; try { localStorage.setItem(KEY + '-view', V.view); } catch(_){} return keepScroll(render); }
   const mp = e.target.closest('[data-mp]'); if (mp){ V.mp = mp.dataset.mp; return keepScroll(render); }
@@ -1450,6 +1673,8 @@ $('#view').addEventListener('click', e => {
   else if (act === 'year') yearSheet(a.dataset.y);
   else if (act === 'newAbbo') formAbbo();
   else if (act === 'goal') goalSheet();
+  else if (act === 'newNota') formNota(null, 'testo');
+  else if (act === 'newLista') formNota(null, 'lista');
   else if (act === 'csv') csvSheet();
   else if (act === 'showLent'){ Object.assign(V, {formato:'prestati', con:'tutte', stato:'tutti', racc:'tutte', acc:'tutti', q:''}); render(); }
   else if (act === 'bulk') bulkSheet();
@@ -1457,12 +1682,13 @@ $('#view').addEventListener('click', e => {
   else if (act === 'newCon') formCon();
   else if (act === 'export') exportSheet(false);
   else if (act === 'restore') restoreSheet();
-  else if (act === 'clearSamples'){ const snap = snapshot(); S.giochi = S.giochi.filter(g => !g.esempio); fotoCleanup(); save(); render(); toast('Esempi cancellati'); offerUndo(snap); }
+  else if (act === 'clearSamples'){ const snap = snapshot(); S.giochi = S.giochi.filter(g => !g.esempio); S.note = S.note.filter(n => !n.esempio); S.note.forEach(n => { if (n.gioco && !S.giochi.some(g => g.id === n.gioco)) n.gioco = null; }); fotoCleanup(); save(); render(); toast('Esempi cancellati'); offerUndo(snap); }
   else if (act === 'wipe'){
     if (a.dataset.armed){ const snap = snapshot(); S.giochi = []; fotoCleanup(); save(); render(); toast('Giochi cancellati'); offerUndo(snap); }
     else { a.dataset.armed = '1'; a.textContent = 'Tocca di nuovo per cancellare tutto'; setTimeout(() => { if (a.isConnected){ delete a.dataset.armed; a.textContent = 'Cancella tutti i giochi'; } }, 3500); }
   }
 });
+$('#view').addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[data-nota]')){ e.preventDefault(); formNota(e.target.dataset.nota); } });
 $('#view').addEventListener('change', e => { const m = e.target.closest('[data-mia]'); if (m){ const c = S.console.find(x => x.id === m.dataset.mia); if (c){ c.mia = m.checked; save(); } } });
 
 /* ---------- installazione ---------- */
@@ -1527,6 +1753,7 @@ function handleAzione(){
   try { history.replaceState(null, '', location.pathname); } catch(_){}
   if (a === 'nuovo'){ goTab('lib'); formGame(); }
   else if (a === 'caso'){ goTab('backlog'); randomSheet(); }
+  else if (a === 'nota'){ goTab('note'); formNota(null, 'testo'); }
   else if (a === 'timer'){ if (S.sessione) stopSheet(); else goTab('backlog'); }
   else return false;
   return true;
