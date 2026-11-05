@@ -1,0 +1,1544 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Gelu's Collection: la collezione dei tuoi videogiochi, digitali e fisici, su tutte le console.">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Gelu's Collection</title>
+<meta name="theme-color" content="#14121F">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: app a una colonna; header in alto, schede in basso, pulsante + flottante */
+:root{
+  --bg:#F1F0F7; --surface:#FFFFFF; --sunk:#E6E3F1; --ink:#1B1830; --muted:#615C78; --line:#DAD6EA;
+  --accent:#5A48E0; --accent-ink:#FFFFFF; --accent-soft:#E4E0FC; --gold:#E9B44C; --tomato:#E4572E; --mint:#3BA88E;
+  --ok:#2E7D5B; --warn:#A8690F; --warn-soft:#FBEBCF; --bad:#C2412D; --bad-soft:#F8DDD7;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-num:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:14px; --nav-h:62px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#110F1C; --surface:#1B1829; --sunk:#151223; --ink:#ECE9F7; --muted:#9C97B4; --line:#2D2942;
+  --accent:#9D90FF; --accent-ink:#14121F; --accent-soft:#2A2550; --gold:#E9B44C; --tomato:#F07A5A; --mint:#5CC4A8;
+  --ok:#5CC491; --warn:#E9B44C; --warn-soft:#3A2E16; --bad:#F07A63; --bad-soft:#3D1F1A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#110F1C; --surface:#1B1829; --sunk:#151223; --ink:#ECE9F7; --muted:#9C97B4; --line:#2D2942;
+  --accent:#9D90FF; --accent-ink:#14121F; --accent-soft:#2A2550; --gold:#E9B44C; --tomato:#F07A5A; --mint:#5CC4A8;
+  --ok:#5CC491; --warn:#E9B44C; --warn-soft:#3A2E16; --bad:#F07A63; --bad-soft:#3D1F1A; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.muted{color:var(--muted)}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);
+  padding-block:12px 10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.brand-mark{width:30px;height:30px;border-radius:8px;flex:none}
+.brand h1{font-family:var(--f-display);font-weight:800;font-size:clamp(17px,4.8vw,20px);margin:0;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn-install{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:8px 12px;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:14px;flex:none}
+.btn-install svg{width:16px;height:16px}
+.hdr-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none;color:var(--ink)}
+.hdr-btn svg{width:20px;height:20px}
+.hdr-btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media (max-width:340px){.brand-mark{display:none}}
+
+main{max-width:640px;margin:0 auto;padding-block:14px calc(var(--nav-h) + 96px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:16px}
+
+.sample-note{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--warn-soft);border-radius:var(--r);padding:10px 14px;font-size:14px}
+.sample-note button{border:0;background:transparent;color:var(--warn);font-weight:600;padding:4px 0;text-decoration:underline}
+
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 12px;font-size:14px;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .c{font-size:12px;opacity:.7}
+.chip.add{border-style:dashed;color:var(--accent);font-weight:600}
+.wrapchips{display:flex;flex-wrap:wrap;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;display:inline-block}
+
+.search{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px}
+.filters select{width:100%;min-width:0;padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:14px}
+
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.hero div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hero b{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1.1}
+.hero small{font-size:12px;color:var(--muted)}
+
+section.block{display:flex;flex-direction:column;gap:8px}
+.block-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.block-head h3{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:8px}
+.linkbtn{color:var(--accent);font-weight:600;font-size:14px;border:0;background:none;padding:0}
+.empty{color:var(--muted);font-size:14px;padding:16px;border:1px dashed var(--line);border-radius:var(--r);text-align:center}
+.count{font-size:13px;color:var(--muted)}
+
+.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.g{display:flex;align-items:center;gap:12px;padding:11px 12px;border-top:1px solid var(--line);width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left}
+.g:first-child{border-top:0}
+.tile{width:42px;height:42px;border-radius:10px;flex:none;display:grid;place-items:center;color:#fff;font-family:var(--f-num);font-size:11px;font-weight:600;letter-spacing:-.02em;line-height:1;text-align:center;padding:2px;overflow:hidden}
+.cov{position:relative;width:42px;height:54px;flex:none;border-radius:8px;overflow:hidden;background:var(--sunk)}
+.cov img{width:100%;height:100%;object-fit:cover;display:block}
+.cov i{position:absolute;right:3px;bottom:3px;width:10px;height:10px;border-radius:50%;border:2px solid #fff}
+.photo{display:flex;flex-direction:column;gap:8px;align-items:center}
+.photo img{max-width:100%;max-height:260px;border-radius:12px;object-fit:contain;cursor:zoom-in;background:var(--sunk)}
+.photo .btnrow{width:100%}
+.photo-add{display:flex;align-items:center;justify-content:center;gap:8px;border:1px dashed var(--line);border-radius:12px;padding:14px;background:var(--surface);color:var(--accent);font-weight:600;cursor:pointer;width:100%}
+.photo-add svg{width:20px;height:20px}
+#viewer{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.9);display:grid;place-items:center;padding:16px}
+#viewer img{max-width:100%;max-height:100%;border-radius:8px}
+.gridv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 10px}
+@media (min-width:520px){.gridv{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.gc{border:0;background:none;padding:0;text-align:left;display:flex;flex-direction:column;gap:6px;min-width:0;color:inherit}
+.gc .cv{aspect-ratio:3/4;width:100%;max-width:100%;border-radius:10px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;color:#fff;padding:8px;text-align:center;font-weight:700;font-size:13px;line-height:1.2;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.gc .cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gc .cv .ttl{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.gc .cv .sg{position:absolute;right:5px;bottom:5px;background:rgba(0,0,0,.6);color:#fff;font-family:var(--f-num);font-size:10px;padding:2px 6px;border-radius:6px}
+.gc .cv .pill{position:absolute;left:5px;top:5px;font-size:9px;padding:1px 6px}
+.gc .tt{font-size:13px;font-weight:600;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.vt{display:flex;gap:4px;background:var(--sunk);border-radius:10px;padding:3px}
+.vt button{border:0;background:none;border-radius:8px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--muted)}
+.vt button[aria-pressed="true"]{background:var(--surface);color:var(--ink)}
+.countrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.more{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 14px}
+.more summary{padding:12px 0;font-weight:600;cursor:pointer;color:var(--accent);list-style:none}
+.more summary::-webkit-details-marker{display:none}
+.more summary::before{content:"+ "}
+.more[open] summary::before{content:"− "}
+.more[open]{padding-bottom:14px}
+.banner{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-radius:var(--r);padding:10px 14px;font-size:14px;background:var(--warn-soft)}
+.banner.info{background:var(--accent-soft)}
+.banner button{border:0;background:none;color:var(--accent);font-weight:600;text-decoration:underline;padding:4px 0}
+.wrapped{background:linear-gradient(150deg,#14121F,#3A2F8F 45%,#FF4F8B);color:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.wrapped h2{color:#fff}
+.wrapped .wk{font-size:12px;text-transform:uppercase;letter-spacing:.1em;opacity:.8;font-weight:600}
+.wrapped .wb{font-family:var(--f-display);font-size:30px;font-weight:800;line-height:1.05}
+.wrapped .wg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wrapped .wc{background:rgba(255,255,255,.12);border-radius:14px;padding:12px;min-width:0}
+.wrapped .wc b{display:block;font-family:var(--f-display);font-size:22px;overflow-wrap:anywhere}
+.wrapped ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px;font-size:14px}
+.g .main{flex:1;min-width:0}
+.g .t{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g .s{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;margin-top:2px}
+.g .r{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:none;font-size:12px;color:var(--muted)}
+.stars{color:var(--gold);letter-spacing:1px;font-size:12px;white-space:nowrap}
+.pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.03em;padding:2px 8px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.st-da{background:var(--sunk);color:var(--muted)}
+.st-corso{background:var(--accent-soft);color:var(--accent)}
+.st-finito{background:#D6EEDF;color:#23704A}
+.st-cento{background:#FBEBCF;color:#8A5A0B}
+.st-mollato{background:var(--bad-soft);color:var(--bad)}
+.st-pausa{background:var(--warn-soft);color:var(--warn)}
+.st-wish{background:#F7DDEB;color:#A33B70}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .st-finito{background:#173A2A;color:#5CC491}:root:not([data-theme="light"]) .st-cento{background:#3A2E16;color:#E9B44C}:root:not([data-theme="light"]) .st-wish{background:#3A1A2C;color:#F08CBC}}
+:root[data-theme="dark"] .st-finito{background:#173A2A;color:#5CC491}
+:root[data-theme="dark"] .st-cento{background:#3A2E16;color:#E9B44C}
+:root[data-theme="dark"] .st-wish{background:#3A1A2C;color:#F08CBC}
+.tag{font-size:11px;font-weight:600;padding:1px 6px;border-radius:6px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:600;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn.danger{background:var(--bad-soft);color:var(--bad)}
+.btn.wide{width:100%}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.btnrow>*{flex:1}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
+.card h4{margin:0;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.settings{display:flex;flex-direction:column;gap:12px}
+.sub{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+.check input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--accent)}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--sunk);border-radius:12px;padding:4px;gap:4px}
+.seg button{border:0;background:none;padding:9px 4px;border-radius:9px;font-weight:600;color:var(--muted);font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+
+.pick{background:linear-gradient(135deg,#14121F 0%,#3A2F8F 55%,#7C6CFF 100%);color:#fff;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px;border:0;text-align:left}
+.pick h2{font-family:var(--f-display);font-size:22px;margin:0;line-height:1.15}
+.pick p{margin:0;opacity:.9;font-size:14px}
+
+.bars{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:baseline;font-size:14px}
+.brow .bar{grid-column:1/-1;height:8px;border-radius:999px;background:var(--sunk);overflow:hidden;display:flex}
+.brow .bar span{display:block;height:100%}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat b{font-size:20px;font-family:var(--f-display);font-weight:600}
+.stat small{color:var(--muted);font-size:12px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+.fab{position:fixed;z-index:21;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom,0px));
+  width:58px;height:58px;border-radius:18px;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;box-shadow:0 6px 18px rgba(60,40,200,.35)}
+.fab svg{width:26px;height:26px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));
+  display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{border:0;background:none;height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;color:var(--muted);font-weight:500;min-width:0}
+.tab svg{width:22px;height:22px}
+.tab[aria-current="page"]{color:var(--accent);font-weight:600}
+
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(12,10,22,.5);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:20px 20px 0 0;
+  padding-block:10px calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:14px;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){.sheet{animation:none}}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);align-self:center}
+.sheet h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0;overflow-wrap:anywhere}
+.sheet p{margin:0;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field .lbl{font-size:13px;font-weight:600;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
+.field textarea{min-height:150px}
+.field textarea.mono{font-family:var(--f-num);font-size:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2>*{min-width:0}
+.err{color:var(--bad);font-size:13px;min-height:1em}
+.rate{display:flex;gap:4px}
+.rate button{width:42px;height:42px;border:0;background:none;font-size:28px;line-height:1;color:var(--line);padding:0}
+.rate button.on{color:var(--gold)}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.sw{width:34px;height:34px;border-radius:50%;border:3px solid var(--bg);box-shadow:0 0 0 1px var(--line)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.crow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)}
+.crow:first-child{border-top:0}
+.crow .main{flex:1;min-width:0}
+.crow .t{font-weight:600}
+.crow .s{font-size:12px;color:var(--muted)}
+.ed{width:36px;height:36px;border:0;background:none;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex:none}
+.ed svg{width:17px;height:17px}
+
+.playing{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:15;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border-radius:var(--r);padding:10px 12px 10px 14px;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.playing .main{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.playing .tm{font-family:var(--f-num);font-weight:600;font-size:16px;color:var(--gold)}
+.playing button{border:0;border-radius:999px;padding:7px 14px;background:var(--tomato);color:#fff;font-weight:700;flex:none}
+.pulse{width:9px;height:9px;border-radius:50%;background:var(--tomato);flex:none;animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+@media (prefers-reduced-motion: reduce){.pulse{animation:none}}
+.sess{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.sess .big{font-family:var(--f-display);font-size:24px;font-weight:600}
+.sess ul{list-style:none;margin:0;padding:0;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.sess li{display:flex;justify-content:space-between}
+.toast{position:fixed;z-index:50;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + 90px + env(safe-area-inset-bottom,0px));
+  background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);display:flex;align-items:center;gap:14px}
+.toast button{border:0;background:none;color:var(--gold);font-weight:700;padding:4px 2px;flex:none}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <img class="brand-mark" src="icon-192.png" alt="">
+    <h1>Gelu's Collection</h1>
+  </div>
+  <button class="btn-install" id="installBtn" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+    Installa
+  </button>
+  <button class="hdr-btn" id="setBtn" type="button" aria-label="Impostazioni" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </button>
+</header>
+
+<main id="view"></main>
+
+<button class="fab" id="fab" type="button" aria-label="Aggiungi gioco"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+
+<nav class="tabs" aria-label="Sezioni">
+  <button class="tab" data-tab="lib" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><path d="M17.5 5.2l3.3 14.5"/></svg>Libreria</button>
+  <button class="tab" data-tab="backlog" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10c2.8 0 4.5 2.3 5 5l.7 3.6c.4 2.3-2.2 3.5-3.7 1.8L17 15H7l-2 2.4c-1.5 1.7-4.1.5-3.7-1.8L2 12c.5-2.7 2.2-5 5-5z"/><path d="M7 10v3M5.5 11.5h3"/></svg>Da giocare</button>
+  <button class="tab" data-tab="wish" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>Desideri</button>
+  <button class="tab" data-tab="stats" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V11M12 20V4M19 20v-6"/></svg>Statistiche</button>
+</nav>
+
+<div id="toast" class="toast" hidden role="status"><span id="toast-t"></span><button type="button" id="toast-u" hidden>Annulla</button></div>
+
+<script>
+(() => {
+'use strict';
+const APP = 'Gelu\'s Collection';
+const VERSION = '1.5.0';
+const KEY = 'gelu-inc-gelus-collection-v1';
+const KEY_INST = 'gelu-inc-gelus-collection-installed';
+
+const CONSOLE_PRESET = [
+  ['ps5','PlayStation 5','PS5','#2F5FB3'], ['ps4','PlayStation 4','PS4','#3A6BC4'], ['ps3','PlayStation 3','PS3','#4A5A80'], ['psv','PS Vita','Vita','#5874A8'], ['psp','PSP','PSP','#6B7C99'], ['ps2','PlayStation 2','PS2','#3B4766'],
+  ['ns2','Nintendo Switch 2','NS2','#D93A3A'], ['nsw','Nintendo Switch','Switch','#E4572E'], ['wiiu','Wii U','Wii U','#2C9AC9'], ['wii','Wii','Wii','#7FA6B8'], ['3ds','Nintendo 3DS','3DS','#C94C4C'], ['ds','Nintendo DS','DS','#9A9AA5'],
+  ['xsx','Xbox Series X|S','XS','#2E8B3A'], ['xb1','Xbox One','XB1','#3A9A47'], ['x360','Xbox 360','360','#7BAF3B'],
+  ['steam','PC · Steam','Steam','#1F3A5A'], ['epic','PC · Epic Games','Epic','#33333D'], ['gog','PC · GOG','GOG','#7A3FA8'], ['pcalt','PC · altro','PC','#5D6470'],
+  ['mobile','Telefono','Mobile','#8A6A3A'], ['retro','Retro e altro','Retro','#9A7B4F']
+];
+const STATI = [
+  {id:'da', nome:'Da iniziare', breve:'Da iniziare'},
+  {id:'corso', nome:'In corso', breve:'In corso'},
+  {id:'pausa', nome:'In pausa', breve:'In pausa'},
+  {id:'finito', nome:'Finito', breve:'Finito'},
+  {id:'cento', nome:'Completato al 100%', breve:'100%'},
+  {id:'mollato', nome:'Abbandonato', breve:'Mollato'},
+  {id:'wish', nome:'Desiderato', breve:'Desiderato'}
+];
+const ST = Object.fromEntries(STATI.map(s => [s.id, s]));
+const ORIGINI = [['acquisto','Comprato'], ['abbonamento','Abbonamento'], ['gratis','Gratis'], ['regalo','Regalo']];
+const ORN = Object.fromEntries(ORIGINI);
+const ABBO = ['PS Plus', 'Game Pass', 'Nintendo Switch Online', 'Ubisoft+', 'EA Play', 'Apple Arcade', 'Netflix Giochi'];
+const GENERI = ['Azione', 'Avventura', 'GdR', 'Sparatutto', 'Piattaforme', 'Corse', 'Sport', 'Strategia', 'Puzzle', 'Simulazione', 'Picchiaduro', 'Horror', 'Party', 'Indie', 'Musicale'];
+const MULTI = [['solo','Da solo'], ['locale','In compagnia, stesso schermo'], ['online','Online']];
+const EDIZIONI = ['Standard', 'Deluxe', 'Gold', 'Ultimate', 'Complete', 'Game of the Year', 'Definitive', 'Collector\'s'];
+const PALETTE = ['#2F5FB3','#E4572E','#2E8B3A','#1F3A5A','#7A3FA8','#C9A227','#D24F84','#20A3A3','#5D6470','#9A7B4F'];
+
+/* ---------- utilità ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur = new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'});
+const eur0 = new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR', maximumFractionDigits:0});
+const pad = n => String(n).padStart(2, '0');
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseD = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const today = () => iso(new Date());
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const norm = s => String(s || '').trim().toLowerCase().replace(/[^a-z0-9àèéìòù]+/g, ' ').trim();
+const fmtShort = s => parseD(s).toLocaleDateString('it-IT', {day:'numeric', month:'short', year:'numeric'});
+function parseAmount(v){ const n = parseFloat(String(v).replace(/\s/g,'').replace('€','').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',', '.')); return isFinite(n) ? Math.round(n*100)/100 : NaN; }
+const amtIn = v => String(v).replace('.', ',');
+const stars = n => n ? '★'.repeat(n) + '☆'.repeat(5 - n) : '';
+const PEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>';
+const HEART = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>';
+
+/* ---------- dati ---------- */
+let S;
+const conOf = id => S.console.find(c => c.id === id) || {id, nome:'Console eliminata', sigla:'?', col:'#8A96A3'};
+const mine = () => S.console.filter(c => c.mia);
+const library = () => S.giochi.filter(g => g.stato !== 'wish' && !g.venduto);
+const sold = () => S.giochi.filter(g => g.venduto);
+function seed(){
+  const cons = CONSOLE_PRESET.map(([id, nome, sigla, col]) => ({id, nome, sigla, col, mia:['ps5','ps4','nsw','steam','epic','xsx'].includes(id)}));
+  const d = n => { const t = new Date(); t.setDate(t.getDate() - n); return iso(t); };
+  const dn = n => { const t = new Date(); t.setDate(t.getDate() + n); return iso(t); };
+  const G = (titolo, con, formato, origine, stato, extra = {}) => ({id:uid(), titolo, con, formato, origine, stato, account:'', durata:null, sessioni:[], voto:0, ore:null, prezzo:null, data:null, inizio:null, fine:null, genere:'', note:'', abbo:'', pref:false, agg:new Date().toISOString(), esempio:true, ...extra});
+  const giochi = [
+    G('Elden Ring', 'ps5', 'digitale', 'acquisto', 'finito', {account:'PSN principale', durata:60, trofei:64, edizione:'Deluxe', dlc:['Shadow of the Erdtree'], multi:['solo','online'], voto:5, ore:112, prezzo:59.99, data:d(600), inizio:d(590), fine:d(420), genere:'GdR', pref:true}),
+    G('God of War Ragnarök', 'ps5', 'fisico', 'acquisto', 'finito', {voto:5, ore:48, prezzo:49.9, data:d(500), fine:d(380), genere:'Azione'}),
+    G("Marvel's Spider-Man 2", 'ps5', 'digitale', 'acquisto', 'corso', {account:'PSN principale', durata:18, trofei:35, sessioni:[{data:d(20), min:95}, {data:d(12), min:160}, {data:d(5), min:120}, {data:d(2), min:75}], ore:14, prezzo:39.99, data:d(40), inizio:d(20), genere:'Azione'}),
+    G('Astro Bot', 'ps5', 'digitale', 'acquisto', 'cento', {trofei:100, voto:5, ore:22, prezzo:49.99, data:d(300), fine:d(240), genere:'Piattaforme', pref:true}),
+    G('Final Fantasy VII Rebirth', 'ps5', 'digitale', 'acquisto', 'da', {account:'PSN principale', durata:45, prezzo:34.99, data:d(90), genere:'GdR'}),
+    G('Stray', 'ps5', 'digitale', 'abbonamento', 'finito', {account:'PSN principale', durata:6, abbo:'PS Plus', voto:4, ore:6, fine:d(200), genere:'Avventura'}),
+    G('Ghost of Tsushima', 'ps5', 'digitale', 'abbonamento', 'da', {account:'PSN principale', durata:30, esce:dn(10), abbo:'PS Plus', genere:'Azione'}),
+    G('Red Dead Redemption 2', 'ps4', 'fisico', 'acquisto', 'mollato', {prestito:{a:'Marco', dal:d(40)}, voto:4, ore:31, prezzo:19.9, genere:'Avventura'}),
+    G('The Witcher 3', 'ps5', 'digitale', 'acquisto', 'da', {account:'PSN giapponese', durata:50, prezzo:9.99, data:d(700), genere:'GdR'}),
+    G('The Legend of Zelda: Breath of the Wild', 'nsw', 'fisico', 'acquisto', 'finito', {saga:'The Legend of Zelda', sagaN:1, voto:5, ore:95, fine:d(500), genere:'Avventura'}),
+    G('The Legend of Zelda: Tears of the Kingdom', 'nsw', 'fisico', 'acquisto', 'corso', {saga:'The Legend of Zelda', sagaN:2, sessioni:[{data:d(48), min:120}], ore:63, prezzo:59.99, data:d(400), inizio:d(380), genere:'Avventura', pref:true}),
+    G('Mario Kart 8 Deluxe', 'nsw', 'digitale', 'acquisto', 'finito', {multi:['solo','locale','online'], racc:['r-coppia'], dlc:['Pass percorsi aggiuntivi'], voto:4, ore:40, prezzo:49.99, genere:'Corse'}),
+    G('Metroid Dread', 'nsw', 'digitale', 'acquisto', 'da', {account:'Nintendo di casa', durata:9, prezzo:29.99, data:d(250), genere:'Azione'}),
+    G('Hades', 'nsw', 'digitale', 'acquisto', 'finito', {voto:5, ore:35, prezzo:12.49, fine:d(150), genere:'Indie'}),
+    G('Animal Crossing: New Horizons', 'nsw', 'fisico', 'regalo', 'mollato', {racc:['r-relax'], multi:['solo','locale','online'], ore:80, genere:'Simulazione'}),
+    G('The Witcher 3', 'ps4', 'fisico', 'acquisto', 'mollato', {ore:20, prezzo:19.9, genere:'GdR'}),
+    G("Baldur's Gate 3", 'steam', 'digitale', 'acquisto', 'corso', {ore:58, prezzo:59.99, data:d(200), inizio:d(60), genere:'GdR'}),
+    G('Stardew Valley', 'steam', 'digitale', 'acquisto', 'finito', {multi:['solo','online'], racc:['r-coppia','r-relax'], voto:5, ore:90, prezzo:13.99, fine:d(100), genere:'Simulazione'}),
+    G('Hollow Knight', 'steam', 'digitale', 'acquisto', 'da', {saga:'Hollow Knight', sagaN:1, durata:28, prezzo:7.49, data:d(320), genere:'Indie'}),
+    G('Cyberpunk 2077', 'steam', 'digitale', 'acquisto', 'da', {durata:40, prezzo:24.99, data:d(180), genere:'GdR'}),
+    G('Celeste', 'epic', 'digitale', 'gratis', 'da', {durata:8, genere:'Piattaforme'}),
+    G('Control', 'epic', 'digitale', 'gratis', 'da', {durata:12, genere:'Azione'}),
+    G('Forza Horizon 5', 'xsx', 'digitale', 'abbonamento', 'finito', {abbo:'Game Pass', edizione:'Premium', voto:4, ore:25, fine:d(60), genere:'Corse'}),
+    G('Starfield', 'xsx', 'digitale', 'abbonamento', 'mollato', {abbo:'Game Pass', voto:2, ore:9, genere:'GdR'}),
+    G('EA Sports FC 24', 'ps5', 'fisico', 'acquisto', 'finito', {prezzo:69.99, data:d(400), venduto:{data:d(200), prezzo:18, nota:'Venduto su Subito'}, genere:'Sport', multi:['solo','locale','online']}),
+    G('Overcooked! 2', 'nsw', 'digitale', 'acquisto', 'da', {prezzo:9.99, durata:12, multi:['locale','online'], racc:['r-coppia'], genere:'Party'}),
+    G('Hollow Knight: Silksong', 'nsw', 'digitale', 'acquisto', 'wish', {prezzoMax:20, genere:'Indie', saga:'Hollow Knight', sagaN:2}),
+    G('Metaphor: ReFantazio', 'ps5', 'fisico', 'acquisto', 'wish', {prezzoMax:35, genere:'GdR'}),
+    G('Balatro', 'steam', 'digitale', 'acquisto', 'wish', {prezzoMax:10, genere:'Indie'})
+  ];
+  const raccolte = [{id:'r-coppia', nome:'Da giocare in coppia', col:'#E4572E'}, {id:'r-relax', nome:'Per rilassarsi', col:'#3BA88E'}];
+  const abbonamenti = [{id:uid(), nome:'PS Plus', scade:dn(20)}, {id:uid(), nome:'Game Pass', scade:dn(5)}];
+  return {v:1, obiettivo:{[String(new Date().getFullYear())]:12}, console:cons, giochi, raccolte, abbonamenti, tema:'auto', onboard:'pending'};
+}
+function migrate(o){
+  if (!Array.isArray(o.console) || !o.console.length) o.console = CONSOLE_PRESET.map(([id, nome, sigla, col]) => ({id, nome, sigla, col, mia:false}));
+  for (const [id, nome, sigla, col] of CONSOLE_PRESET) if (!o.console.some(c => c.id === id)) o.console.push({id, nome, sigla, col, mia:false});
+  if (!Array.isArray(o.giochi)) o.giochi = [];
+  o.giochi.forEach(g => { if (!Array.isArray(g.sessioni)) g.sessioni = []; if (g.account === undefined) g.account = ''; if (g.durata === undefined) g.durata = null; if (!ST[g.stato]) g.stato = 'da'; if (!ORN[g.origine]) g.origine = 'acquisto'; if (g.formato !== 'fisico') g.formato = 'digitale'; });
+  if (!Array.isArray(o.raccolte)) o.raccolte = [];
+  if (!Array.isArray(o.abbonamenti)) o.abbonamenti = [];
+  if (!o.obiettivo || typeof o.obiettivo !== 'object') o.obiettivo = {};
+  o.giochi.forEach(g => { if (!Array.isArray(g.racc)) g.racc = []; if (!Array.isArray(g.multi)) g.multi = []; if (!Array.isArray(g.dlc)) g.dlc = []; g.racc = g.racc.filter(r => o.raccolte.some(x => x.id === r)); });
+  o.tema = o.tema || 'auto';
+  if (o.sessione && !o.giochi.some(g => g.id === o.sessione.gid)) o.sessione = null;
+  o.v = 1; return o;
+}
+function load(){
+  try { const r = localStorage.getItem(KEY); if (r){ const o = JSON.parse(r); if (o && Array.isArray(o.giochi)){ S = migrate(o); return; } } } catch(_){}
+  S = migrate(seed()); save();
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(_){} }
+const hasSamples = () => S.giochi.some(g => g.esempio);
+
+/* ---------- stato vista ---------- */
+const V = {saga:'tutte', view:'lista', racc:'tutte', mp:'tutti', year:null, tab:'lib', q:'', con:'tutte', stato:'tutti', formato:'tutti', acc:'tutti', sort:'agg', pickCon:'tutte', wishCon:'tutte', dur:'tutte'};
+try { const vw = localStorage.getItem(KEY + '-view'); if (vw) V.view = vw; const t = localStorage.getItem(KEY + '-tab'); if (t) V.tab = t; const so = localStorage.getItem(KEY + '-sort'); if (so) V.sort = so; } catch(_){}
+
+/* ---------- account, durata, sessioni ---------- */
+const accounts = () => [...new Set(S.giochi.map(g => (g.account || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+const DUR = [{id:'tutte', nome:'Qualsiasi'}, {id:'breve', nome:'Una serata o due', test:h => h <= 8}, {id:'media', nome:'Qualche settimana', test:h => h > 8 && h <= 25}, {id:'lunga', nome:'Una lunga avventura', test:h => h > 25}];
+const durOk = (g, d = V.dur) => d === 'tutte' || (g.durata > 0 && DUR.find(x => x.id === d).test(g.durata));
+const fmtMin = m => { m = Math.round(m); const h = Math.floor(m / 60), r = m % 60; return h ? `${h} h${r ? ` ${r} min` : ''}` : `${r} min`; };
+const fmtClock = ms => { const m = Math.floor(ms / 60000), h = Math.floor(m / 60); return `${h}:${pad(m % 60)}`; };
+function addSession(g, min, data){
+  if (!(min > 0)) return;
+  g.sessioni = g.sessioni || [];
+  g.sessioni.push({data:data || today(), min:Math.round(min)});
+  g.ore = Math.round(((g.ore || 0) + min / 60) * 10) / 10;
+  if (g.stato === 'da'){ g.stato = 'corso'; g.inizio = g.inizio || (data || today()); }
+  delete g.esempio;
+}
+function startTimer(g){
+  const snap = snapshot();
+  if (S.sessione && S.sessione.gid !== g.id){
+    const old = S.giochi.find(x => x.id === S.sessione.gid), min = (Date.now() - S.sessione.start) / 60000;
+    if (old && min >= 1) addSession(old, Math.min(min, 720), iso(new Date(S.sessione.start)));
+  }
+  S.sessione = {gid:g.id, start:Date.now()};
+  if (g.stato === 'da'){ g.stato = 'corso'; g.inizio = today(); }
+  save(); closeSheet(); render(); window.scrollTo(0, 0);
+  toast(`Timer avviato: buona partita a ${g.titolo}!`); offerUndo(snap);
+}
+function stopSheet(){
+  const ses = S.sessione; if (!ses) return;
+  const g = S.giochi.find(x => x.id === ses.gid); if (!g){ S.sessione = null; save(); render(); return; }
+  const min = Math.max(1, Math.round((Date.now() - ses.start) / 60000)), long = min > 600;
+  openSheet(`<h2>${esc(g.titolo)}</h2><p>${long ? 'Il timer è rimasto acceso a lungo: forse hai dimenticato di fermarlo. Correggi i minuti se serve.' : 'Ecco quanto hai giocato.'}</p>
+    <div class="grid2">
+      <div class="field"><label for="ss-h">Ore</label><input id="ss-h" class="num" type="number" min="0" max="24" inputmode="numeric" value="${Math.floor(Math.min(min, 1440) / 60)}"></div>
+      <div class="field"><label for="ss-m">Minuti</label><input id="ss-m" class="num" type="number" min="0" max="59" inputmode="numeric" value="${Math.min(min, 1440) % 60}"></div>
+    </div>
+    <div class="err" id="ss-err"></div>
+    <button class="btn wide" id="ss-ok">Salva la sessione</button>
+    <button class="btn ghost wide" id="ss-cont">Continuo a giocare</button>
+    <button class="btn danger wide" id="ss-no">Scarta il timer</button>`, root => {
+    const $r = q => root.querySelector(q);
+    $r('#ss-ok').addEventListener('click', () => {
+      const m = (parseInt($r('#ss-h').value, 10) || 0) * 60 + (parseInt($r('#ss-m').value, 10) || 0);
+      if (!(m > 0)) return $r('#ss-err').textContent = 'Scrivi quanto hai giocato, oppure scarta il timer.';
+      const snap = snapshot();
+      addSession(g, m, iso(new Date(ses.start))); S.sessione = null;
+      save(); closeSheet(); render(); toast(`${fmtMin(m)} a ${g.titolo} · in tutto ${Math.round(g.ore)} h`); offerUndo(snap);
+    });
+    $r('#ss-cont').addEventListener('click', closeSheet);
+    twoTap($r('#ss-no'), 'Tocca di nuovo per scartarlo', () => { S.sessione = null; save(); closeSheet(); render(); toast('Timer scartato'); });
+  });
+}
+function playingBar(){
+  const ses = S.sessione; if (!ses) return '';
+  const g = S.giochi.find(x => x.id === ses.gid); if (!g) return '';
+  return `<div class="playing" role="status"><span class="pulse" aria-hidden="true"></span><span class="main">Stai giocando a <b>${esc(g.titolo)}</b></span><span class="tm" id="tmr">${fmtClock(Date.now() - ses.start)}</span><button data-act="stopTimer">Ferma</button></div>`;
+}
+setInterval(() => { const t = document.getElementById('tmr'); if (t && S && S.sessione) t.textContent = fmtClock(Date.now() - S.sessione.start); }, 15000);
+
+/* ---------- foto ---------- */
+const FOTO = new Map();
+let dbP = null;
+function idb(){
+  return dbP ||= new Promise((res, rej) => {
+    try { const r = indexedDB.open('gelu-inc-gelus-collection-foto', 1); r.onupgradeneeded = () => r.result.createObjectStore('foto'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }
+    catch(e){ rej(e); }
+  });
+}
+async function fotoLoadAll(){
+  try {
+    const db = await idb();
+    await new Promise(res => {
+      const st = db.transaction('foto').objectStore('foto'), req = st.openCursor();
+      req.onsuccess = () => { const c = req.result; if (c){ FOTO.set(c.key, c.value); c.continue(); } else res(); };
+      req.onerror = () => res();
+    });
+  } catch(_){}
+}
+async function fotoPut(id, data){ FOTO.set(id, data); const db = await idb(); return new Promise((res, rej) => { const tx = db.transaction('foto', 'readwrite'); tx.objectStore('foto').put(data, id); tx.oncomplete = res; tx.onerror = () => rej(tx.error); }); }
+async function fotoDel(id){ FOTO.delete(id); try { const db = await idb(); db.transaction('foto', 'readwrite').objectStore('foto').delete(id); } catch(_){} }
+function fotoCleanup(){ setTimeout(() => { for (const id of [...FOTO.keys()]) if (!S.giochi.some(g => g.id === id)) fotoDel(id); }, 8000); }
+function compressImage(file, max = 640){
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, max / Math.max(img.width, img.height)), c = document.createElement('canvas');
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg', 0.78));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('img')); };
+    img.src = url;
+  });
+}
+function viewImage(src){
+  const el = document.createElement('div'); el.id = 'viewer'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Foto, tocca per chiudere');
+  el.innerHTML = `<img src="${src}" alt="">`; el.addEventListener('click', () => el.remove()); document.body.appendChild(el);
+}
+const CAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+
+/* ---------- abbonamenti, prestiti, raccolte ---------- */
+const daysTo = s => Math.round((parseD(s) - parseD(today())) / 864e5);
+const abboOf = name => S.abbonamenti.find(a => norm(a.nome) === norm(name));
+const leaving = (days = 30) => library().filter(g => g.origine === 'abbonamento' && g.esce && (g.stato === 'da' || g.stato === 'corso') && daysTo(g.esce) <= days && daysTo(g.esce) >= -3).sort((a, b) => a.esce.localeCompare(b.esce));
+const BIL_KEY = 'gelu-inc-bilancino-v1', BIL_INBOX = 'gelu-inc-bilancino-inbox';
+const bilOn = () => { try { return localStorage.getItem(BIL_KEY) !== null; } catch(_){ return false; } };
+function sendToBil(g){
+  if (!(g.prezzo > 0)) return false;
+  try {
+    const a = JSON.parse(localStorage.getItem(BIL_INBOX) || '[]');
+    a.push({id:'gc-' + g.id, data:g.data || today(), importo:g.prezzo, descr:`Gioco: ${g.titolo}`, cat:'svago', note:`${conOf(g.con).nome}${g.formato === 'fisico' ? ', fisico' : ', digitale'}`, app:APP});
+    localStorage.setItem(BIL_INBOX, JSON.stringify(a));
+    g.bil = true; return true;
+  } catch(_){ return false; }
+}
+const lastPlay = g => [g.inizio, g.ripreso, ...(g.sessioni || []).map(x => x.data)].filter(Boolean).sort().pop() || null;
+const stale = () => library().filter(g => g.stato === 'corso').map(g => ({g, last:lastPlay(g)})).filter(x => x.last && daysTo(x.last) <= -30).sort((a, b) => a.last.localeCompare(b.last));
+const sagas = () => [...new Set(S.giochi.map(g => (g.saga || '').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+const sagaList = n => S.giochi.filter(g => norm(g.saga) === norm(n)).sort((a, b) => (a.sagaN || 999) - (b.sagaN || 999) || a.titolo.localeCompare(b.titolo));
+const raccOf = id => S.raccolte.find(r => r.id === id);
+const mpOk = (g, m = V.mp) => m === 'tutti' || (g.multi || []).includes(m);
+const inDays = n => n === 0 ? 'oggi' : n === 1 ? 'domani' : n > 0 ? `tra ${n} gg` : n === -1 ? 'ieri' : `${-n} gg fa`;
+
+/* ---------- pezzi ---------- */
+const tile = c => `<span class="tile" style="background:${c.col}" aria-hidden="true">${esc(c.sigla)}</span>`;
+const statoPill = s => `<span class="pill st-${s}">${ST[s].breve}</span>`;
+function gameRow(g){
+  const c = conOf(g.con), bits = [];
+  if (g.stato !== 'wish') bits.push(statoPill(g.stato));
+  bits.push(`<span>${esc(c.sigla)} · ${g.formato === 'fisico' ? 'Fisico' : 'Digitale'}</span>`);
+  if (g.origine === 'abbonamento') bits.push(`<span class="tag">${esc(g.abbo || 'Abbonamento')}</span>`);
+  else if (g.origine === 'gratis') bits.push('<span class="tag">Gratis</span>');
+  else if (g.origine === 'regalo') bits.push('<span class="tag">Regalo</span>');
+  if (g.account && accounts().length > 1) bits.push(`<span class="tag">${esc(g.account)}</span>`);
+  if (g.saga && V.saga === 'tutte') bits.push(`<span class="tag">${esc(g.saga)}${g.sagaN ? ` #${g.sagaN}` : ''}</span>`);
+  else if (g.saga && g.sagaN) bits.push(`<span class="tag">#${g.sagaN}</span>`);
+  if (g.edizione && g.edizione !== 'Standard') bits.push(`<span class="tag">${esc(g.edizione)}</span>`);
+  if (g.dlc && g.dlc.length) bits.push(`<span class="tag">+${g.dlc.length} DLC</span>`);
+  if ((g.multi || []).includes('locale')) bits.push('<span class="tag">In compagnia</span>');
+  if (g.prestito) bits.push(`<span class="pill st-cento">Prestato a ${esc(g.prestito.a)}</span>`);
+  if (g.venduto) bits.push(`<span class="pill st-mollato">Venduto</span>`);
+  if (g.esce && !g.venduto && (g.stato === 'da' || g.stato === 'corso') && daysTo(g.esce) <= 30) bits.push(`<span class="pill ${daysTo(g.esce) <= 7 ? 'st-mollato' : 'st-cento'}">Esce dal catalogo ${inDays(daysTo(g.esce))}</span>`);
+  if (g.esempio) bits.push('<span>esempio</span>');
+  const right = g.stato === 'wish' ? (g.prezzoMax ? `<span class="num">≤ ${eur0.format(g.prezzoMax)}</span>` : '')
+    : `${g.voto ? `<span class="stars" aria-label="${g.voto} stelle su 5">${stars(g.voto)}</span>` : ''}${g.trofei ? `<span class="num">🏆 ${g.trofei}%</span>` : ''}${S.sessione && S.sessione.gid === g.id ? '<span class="pill st-corso">⏱ ora</span>' : ''}${g.ore ? `<span class="num">${Math.round(g.ore)} h${g.durata && g.stato === 'corso' ? ` / ~${g.durata}` : ''}</span>` : g.durata && g.stato === 'da' ? `<span class="num">~${g.durata} h</span>` : ''}`;
+  const pic = FOTO.get(g.id);
+  return `<button class="g" data-game="${g.id}">${pic ? `<span class="cov"><img src="${pic}" alt="" loading="lazy"><i style="background:${c.col}"></i></span>` : tile(c)}<div class="main"><div class="t">${g.pref ? `<span style="color:var(--tomato);margin-right:4px" aria-label="Preferito">${HEART}</span>` : ''}${esc(g.titolo)}</div><div class="s">${bits.join('')}</div></div>${right ? `<span class="r">${right}</span>` : ''}</button>`;
+}
+function gameCard(g){
+  const c = conOf(g.con), pic = FOTO.get(g.id);
+  return `<button class="gc" data-game="${g.id}"><span class="cv" style="background:${pic ? 'var(--sunk)' : `linear-gradient(160deg, ${c.col}, ${c.col}cc)`}">${pic ? `<img src="${pic}" alt="" loading="lazy">` : `<span class="ttl">${esc(g.titolo)}</span>`}${g.stato !== 'wish' ? statoPill(g.stato) : ''}<span class="sg">${esc(c.sigla)}</span></span><span class="tt">${g.pref ? '♥ ' : ''}${esc(g.titolo)}</span></button>`;
+}
+const listOrGrid = l => V.view === 'griglia' ? `<div class="gridv">${l.map(gameCard).join('')}</div>` : `<div class="list">${l.map(gameRow).join('')}</div>`;
+const viewToggle = () => `<div class="vt" role="group" aria-label="Vista"><button data-view="lista" aria-pressed="${V.view !== 'griglia'}">Elenco</button><button data-view="griglia" aria-pressed="${V.view === 'griglia'}">Copertine</button></div>`;
+const sampleNote = () => hasSamples() ? `<div class="sample-note"><span>Stai vedendo giochi di esempio.</span><button data-act="clearSamples">Cancella esempi</button></div>` : '';
+function sortGames(l){
+  const by = {
+    agg:(a, b) => (b.agg || '').localeCompare(a.agg || ''),
+    az:(a, b) => a.titolo.localeCompare(b.titolo, 'it', {sensitivity:'base'}),
+    voto:(a, b) => (b.voto || 0) - (a.voto || 0) || a.titolo.localeCompare(b.titolo),
+    ore:(a, b) => (b.ore || 0) - (a.ore || 0) || a.titolo.localeCompare(b.titolo),
+    con:(a, b) => conOf(a.con).nome.localeCompare(conOf(b.con).nome) || a.titolo.localeCompare(b.titolo)
+  }[V.sort] || ((a, b) => 0);
+  return l.sort(by);
+}
+
+/* ---------- viste ---------- */
+function renderLib(){
+  const all = library(), q = norm(V.q);
+  const accs = accounts(); if (V.acc !== 'tutti' && !accs.includes(V.acc)) V.acc = 'tutti';
+  if (V.racc !== 'tutte' && !raccOf(V.racc)) V.racc = 'tutte';
+  const sg = sagas(); if (V.saga !== 'tutte' && !sg.some(x => norm(x) === norm(V.saga))) V.saga = 'tutte';
+  const base = V.formato === 'venduti' ? sold() : all;
+  let l = base.filter(g => (V.saga === 'tutte' || norm(g.saga) === norm(V.saga)) && (V.acc === 'tutti' || g.account === V.acc) && (V.racc === 'tutte' || (g.racc || []).includes(V.racc)) && (V.con === 'tutte' || g.con === V.con) && (V.stato === 'tutti' || g.stato === V.stato) && (V.formato === 'tutti' || V.formato === 'venduti' || (V.formato === 'abbonamento' ? g.origine === 'abbonamento' : V.formato === 'prestati' ? !!g.prestito : g.formato === V.formato)));
+  const lent = all.filter(g => g.prestito);
+  if (q) l = l.filter(g => [g.titolo, g.saga, g.genere, g.note, g.account, g.edizione, ...(g.dlc || []), g.prestito ? g.prestito.a : ''].some(x => norm(x).includes(q)));
+  if (V.saga !== 'tutte') l.sort((a, b) => (a.sagaN || 999) - (b.sagaN || 999) || a.titolo.localeCompare(b.titolo)); else sortGames(l);
+  const used = S.console.filter(c => c.mia || all.some(g => g.con === c.id));
+  const fin = all.filter(g => g.stato === 'finito' || g.stato === 'cento').length;
+  return `${sampleNote()}
+  <div class="hero">
+    <div><b class="num">${all.length}</b><small>giochi</small></div>
+    <div><b class="num">${all.filter(g => g.stato === 'corso').length}</b><small>in corso</small></div>
+    <div><b class="num">${all.filter(g => g.stato === 'da').length}</b><small>da iniziare</small></div>
+    <div><b class="num">${fin}</b><small>finiti</small></div>
+  </div>
+  ${lent.length && V.formato !== 'prestati' ? `<div class="banner"><span>${lent.length === 1 ? `Hai prestato ${esc(lent[0].titolo)} a ${esc(lent[0].prestito.a)} ${inDays(daysTo(lent[0].prestito.dal)).replace('gg fa', 'giorni fa')}` : `Hai ${lent.length} giochi prestati`}.</span><button data-act="showLent">Vedi</button></div>` : ''}
+  <input class="search" id="q" type="search" placeholder="Cerca un gioco" value="${esc(V.q)}" autocomplete="off">
+  <div class="chips" role="group" aria-label="Console"><button class="chip" data-con="tutte" aria-pressed="${V.con === 'tutte'}">Tutte <span class="c num">${all.length}</span></button>${used.map(c => `<button class="chip" data-con="${c.id}" aria-pressed="${V.con === c.id}"><span class="dot" style="background:${c.col}"></span>${esc(c.sigla)} <span class="c num">${all.filter(g => g.con === c.id).length}</span></button>`).join('')}</div>
+  <div class="filters">
+    <select id="f-stato" aria-label="Stato"><option value="tutti">Ogni stato</option>${STATI.filter(s => s.id !== 'wish').map(s => `<option value="${s.id}" ${V.stato === s.id ? 'selected' : ''}>${s.nome}</option>`).join('')}</select>
+    <select id="f-formato" aria-label="Formato"><option value="tutti">Ogni formato</option><option value="digitale" ${V.formato === 'digitale' ? 'selected' : ''}>Digitali</option><option value="fisico" ${V.formato === 'fisico' ? 'selected' : ''}>Fisici</option><option value="abbonamento" ${V.formato === 'abbonamento' ? 'selected' : ''}>Da abbonamento</option><option value="prestati" ${V.formato === 'prestati' ? 'selected' : ''}>Prestati</option><option value="venduti" ${V.formato === 'venduti' ? 'selected' : ''}>Venduti o scambiati</option></select>
+    <select id="f-sort" aria-label="Ordine"><option value="agg" ${V.sort === 'agg' ? 'selected' : ''}>Ultimi aggiunti</option><option value="az" ${V.sort === 'az' ? 'selected' : ''}>A–Z</option><option value="con" ${V.sort === 'con' ? 'selected' : ''}>Per console</option><option value="voto" ${V.sort === 'voto' ? 'selected' : ''}>Voto</option><option value="ore" ${V.sort === 'ore' ? 'selected' : ''}>Ore giocate</option></select>
+    ${sg.length ? `<select id="f-saga" aria-label="Saga"><option value="tutte">Ogni saga</option>${sg.map(x => `<option value="${esc(x)}" ${norm(V.saga) === norm(x) ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select>` : ''}
+    ${S.raccolte.length ? `<select id="f-racc" aria-label="Raccolta"><option value="tutte">Ogni raccolta</option>${S.raccolte.map(r => `<option value="${r.id}" ${V.racc === r.id ? 'selected' : ''}>${esc(r.nome)}</option>`).join('')}</select>` : ''}
+    ${accs.length > 1 ? `<select id="f-acc" aria-label="Account"><option value="tutti">Ogni account</option>${accs.map(a => `<option value="${esc(a)}" ${V.acc === a ? 'selected' : ''}>${esc(a)}</option>`).join('')}</select>` : ''}
+  </div>
+  ${V.saga !== 'tutte' ? (() => { const sl = sagaList(V.saga), own = sl.filter(g => g.stato !== 'wish' && !g.venduto), done = own.filter(g => g.stato === 'finito' || g.stato === 'cento').length, w = sl.filter(g => g.stato === 'wish').length; return `<div class="banner info"><span><b>${esc(V.saga)}</b>: ${own.length} ${own.length === 1 ? 'gioco' : 'giochi'}, ${done} finiti${w ? `, ${w} nei desideri` : ''}. In ordine di uscita.</span></div>`; })() : ''}
+  <div class="countrow"><span class="count">${V.formato === 'venduti' ? `${l.length} venduti o scambiati` : l.length === all.length ? `${l.length} giochi` : `${l.length} di ${all.length} giochi`}</span>${viewToggle()}</div>
+  ${l.length ? listOrGrid(l) : `<div class="empty">${all.length ? 'Nessun gioco con questi filtri.' : 'La libreria è vuota. Tocca + per aggiungere un gioco, oppure «Aggiungi tanti giochi» nelle Impostazioni per incollare un elenco intero.'}</div>`}
+  <button class="btn ghost wide" data-act="bulk">Aggiungi tanti giochi insieme</button>`;
+}
+
+function renderBacklog(){
+  const corso = sortByRecent(library().filter(g => g.stato === 'corso')), da = library().filter(g => g.stato === 'da');
+  const conIds = [...new Set(da.map(g => g.con))];
+  if (V.pickCon !== 'tutte' && !conIds.includes(V.pickCon)) V.pickCon = 'tutte';
+  const daC = V.pickCon === 'tutte' ? da : da.filter(g => g.con === V.pickCon), daF = daC.filter(g => durOk(g) && mpOk(g));
+  const lv = leaving(30), st0 = stale(), pausa = library().filter(g => g.stato === 'pausa');
+  const noDur = daC.filter(g => !g.durata).length;
+  const sub = da.filter(g => g.origine === 'abbonamento');
+  return `${sampleNote()}
+  ${da.length ? `<button class="pick" data-act="random"><span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.85;font-weight:600">${da.length} giochi da iniziare</span><h2>Cosa gioco adesso?</h2><p>Tocca e ti pesco un gioco a caso${V.pickCon !== 'tutte' ? ` per ${esc(conOf(V.pickCon).sigla)}` : ''}${V.dur !== 'tutte' ? `, tra quelli da «${DUR.find(x => x.id === V.dur).nome.toLowerCase()}»` : ''}.</p></button>
+  <div class="field"><span class="lbl">Quanto tempo hai?</span><div class="chips" role="group" aria-label="Durata">${DUR.map(x => `<button class="chip" data-dur="${x.id}" aria-pressed="${V.dur === x.id}">${x.nome}${x.test ? ` <span class="c num">${daC.filter(g => durOk(g, x.id)).length}</span>` : ''}</button>`).join('')}</div>${V.dur !== 'tutte' && noDur ? `<small class="muted">${noDur} ${noDur === 1 ? 'gioco non ha' : 'giochi non hanno'} la durata stimata e non ${noDur === 1 ? 'è compreso' : 'sono compresi'}: aggiungila dalla scheda del gioco.</small>` : ''}</div>
+  <div class="field"><span class="lbl">Con chi giochi?</span><div class="chips" role="group" aria-label="Con chi">${[['tutti', 'Non importa'], ['locale', 'In compagnia, stesso schermo'], ['online', 'Online con amici']].map(([k, n]) => `<button class="chip" data-mp="${k}" aria-pressed="${V.mp === k}">${n}${k !== 'tutti' ? ` <span class="c num">${daC.filter(g => mpOk(g, k)).length}</span>` : ''}</button>`).join('')}</div></div>
+  ${conIds.length > 1 ? `<div class="chips" role="group" aria-label="Console per il gioco a caso"><button class="chip" data-pcon="tutte" aria-pressed="${V.pickCon === 'tutte'}">Qualsiasi console</button>${conIds.map(id => { const c = conOf(id); return `<button class="chip" data-pcon="${id}" aria-pressed="${V.pickCon === id}"><span class="dot" style="background:${c.col}"></span>${esc(c.sigla)} <span class="c num">${da.filter(g => g.con === id).length}</span></button>`; }).join('')}</div>` : ''}` : ''}
+  ${lv.length ? `<section class="block"><div class="block-head"><h3>Escono presto dal catalogo</h3></div><div class="list">${lv.map(gameRow).join('')}</div></section>` : ''}
+  ${st0.length ? `<section class="block"><div class="block-head"><h3>Fermi da più di un mese</h3></div>
+    <div class="banner"><span>${st0.length === 1 ? 'Questo gioco è «in corso» ma non lo tocchi' : 'Questi giochi sono «in corso» ma non li tocchi'} da un po'. Lo riprendi o lo metti in pausa?</span></div>
+    <div class="list">${st0.map(x => `<div class="crow" style="flex-wrap:wrap">${tile(conOf(x.g.con))}<div class="main"><div class="t">${esc(x.g.titolo)}</div><div class="s">Ultima volta ${Math.abs(daysTo(x.last))} giorni fa</div></div><div class="btnrow" style="width:100%"><button class="btn ghost" data-stale="riprendo:${x.g.id}" style="padding:8px">▶ Lo riprendo</button><button class="btn ghost" data-stale="pausa:${x.g.id}" style="padding:8px">⏸ In pausa</button></div></div>`).join('')}</div></section>` : ''}
+  <section class="block"><div class="block-head"><h3>In corso · ${corso.length}</h3></div>
+    ${corso.length ? `<div class="list">${corso.map(gameRow).join('')}</div>` : '<div class="empty">Nessun gioco in corso. Scegline uno qui sotto.</div>'}</section>
+  ${pausa.length ? `<section class="block"><div class="block-head"><h3>In pausa · ${pausa.length}</h3></div><div class="list">${pausa.map(gameRow).join('')}</div></section>` : ''}
+  ${sub.length ? `<div class="sample-note" style="background:var(--accent-soft)"><span>${sub.length} ${sub.length === 1 ? 'gioco da iniziare viene' : 'giochi da iniziare vengono'} da un abbonamento: giocali finché è attivo.</span></div>` : ''}
+  <section class="block"><div class="block-head"><h3>Da iniziare · ${daF.length}</h3></div>
+    ${daF.length ? listOrGrid(sortGames(daF.slice())) : '<div class="empty">Niente da iniziare con questi filtri.</div>'}</section>`;
+}
+const sortByRecent = l => l.sort((a, b) => (b.inizio || '').localeCompare(a.inizio || '') || a.titolo.localeCompare(b.titolo));
+
+function renderWish(){
+  const all = S.giochi.filter(g => g.stato === 'wish'), conIds = [...new Set(all.map(g => g.con))];
+  if (V.wishCon !== 'tutte' && !conIds.includes(V.wishCon)) V.wishCon = 'tutte';
+  const l = all.filter(g => V.wishCon === 'tutte' || g.con === V.wishCon).sort((a, b) => a.titolo.localeCompare(b.titolo));
+  const tot = all.reduce((t, g) => t + (g.prezzoMax || 0), 0);
+  return `${sampleNote()}
+  <div class="hero" style="grid-template-columns:1fr 1fr"><div><b class="num">${all.length}</b><small>giochi desiderati</small></div><div><b class="num">${tot ? eur0.format(tot) : '–'}</b><small>se li compri ai tuoi prezzi</small></div></div>
+  ${conIds.length > 1 ? `<div class="chips"><button class="chip" data-wcon="tutte" aria-pressed="${V.wishCon === 'tutte'}">Tutte</button>${conIds.map(id => { const c = conOf(id); return `<button class="chip" data-wcon="${id}" aria-pressed="${V.wishCon === id}"><span class="dot" style="background:${c.col}"></span>${esc(c.sigla)}</button>`; }).join('')}</div>` : ''}
+  <div class="btnrow"><button class="btn" data-act="newWish">+ Aggiungi un desiderio</button>${all.length ? `<a class="btn ghost" href="https://wa.me/?text=${encodeURIComponent(wishText())}" target="_blank" rel="noopener" style="text-align:center;text-decoration:none">Manda su WhatsApp</a>` : ''}</div>
+  ${l.length ? `<div class="countrow"><span class="count">${l.length} giochi</span>${viewToggle()}</div>${listOrGrid(l)}` : '<div class="empty">Segna qui i giochi che vuoi, con il prezzo a cui li compreresti. Quando li prendi, tocca «L\'ho comprato».</div>'}
+  <p class="count" style="margin:0">Il prezzo indicato è quello massimo che vuoi spendere: ti aiuta a non comprare d'impulso.</p>`;
+}
+
+function renderStats(){
+  const all = library();
+  if (!all.length) return '<div class="empty">Le statistiche compaiono quando aggiungi i tuoi giochi.</div>';
+  const fin = all.filter(g => g.stato === 'finito' || g.stato === 'cento'), da = all.filter(g => g.stato === 'da');
+  const ric = sold().reduce((t, g) => t + (g.venduto.prezzo || 0), 0), tro = all.filter(g => g.trofei != null && g.trofei !== ''), troM = tro.length ? tro.reduce((t, g) => t + +g.trofei, 0) / tro.length : 0, cento = all.filter(g => g.stato === 'cento').length;
+  const years = [...new Set(S.giochi.flatMap(g => [g.fine, g.data, g.inizio, ...(g.sessioni || []).map(x => x.data)]).filter(Boolean).map(x => x.slice(0, 4)))].sort().reverse();
+  const spent = all.reduce((t, g) => t + (g.prezzo || 0), 0), ore = all.reduce((t, g) => t + (g.ore || 0), 0);
+  const voted = all.filter(g => g.voto), vm = voted.length ? voted.reduce((t, g) => t + g.voto, 0) / voted.length : 0;
+  const y = String(new Date().getFullYear());
+  const finY = fin.filter(g => g.fine && g.fine.startsWith(y)).length, finPY = fin.filter(g => g.fine && g.fine.startsWith(String(+y - 1))).length;
+  const lim = new Date(); lim.setFullYear(lim.getFullYear() - 1);
+  const last12 = fin.filter(g => g.fine && g.fine >= iso(lim)).length, perM = last12 / 12;
+  const months = perM ? Math.ceil(da.length / perM) : null;
+  const ym = today().slice(0, 7), minM = all.reduce((t, g) => t + (g.sessioni || []).filter(x => x.data.startsWith(ym)).reduce((a, x) => a + x.min, 0), 0);
+  const daDur = da.filter(g => g.durata), daH = daDur.reduce((t, g) => t + g.durata, 0);
+  const backlogTxt = !da.length ? 'Nessun gioco da iniziare.' : months === null ? 'Segna la data di fine dei giochi che finisci e ti dico quanto ci vorrà per il backlog.' : months <= 12 ? `Al tuo ritmo (${last12} finiti negli ultimi 12 mesi) ci vogliono circa ${months} ${months === 1 ? 'mese' : 'mesi'} per finire il backlog.` : `Al tuo ritmo (${last12} finiti negli ultimi 12 mesi) ci vogliono circa ${(months / 12).toFixed(1).replace('.', ',')} anni per finire il backlog.`;
+  const cons = S.console.map(c => ({c, l:all.filter(g => g.con === c.id)})).filter(x => x.l.length).sort((a, b) => b.l.length - a.l.length);
+  const mx = Math.max(...cons.map(x => x.l.length));
+  const SC = {finito:'#3BA88E', cento:'#E9B44C', corso:'var(--accent)', pausa:'#9C97B4', da:'var(--line)', mollato:'#E4572E'};
+  const dig = all.filter(g => g.formato === 'digitale').length;
+  const orig = ORIGINI.map(([k, n]) => ({k, n, v:all.filter(g => g.origine === k).length})).filter(x => x.v);
+  const topH = all.filter(g => g.ore).sort((a, b) => b.ore - a.ore).slice(0, 5);
+  const goal = S.obiettivo[y] || 0, doy = Math.floor((parseD(today()) - new Date(+y, 0, 1)) / 864e5) + 1, diy = (+y % 4 === 0 ? 366 : 365);
+  const expected = goal * doy / diy, diff = finY - expected;
+  const goalHTML = goal ? `<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><h4>🎯 Obiettivo ${y}</h4><button class="linkbtn" data-act="goal">Cambia</button></div>
+    <div style="display:flex;align-items:baseline;gap:8px"><b style="font-family:var(--f-display);font-size:30px" class="num">${finY}</b><span class="muted">di ${goal} giochi finiti</span></div>
+    <div class="brow"><div class="bar" style="height:12px"><span style="width:${Math.min(100, finY / goal * 100)}%;background:${finY >= goal ? '#3BA88E' : 'var(--accent)'}"></span></div></div>
+    <p>${finY >= goal ? 'Obiettivo raggiunto! 🎉' : Math.abs(diff) < 0.5 ? 'Sei perfettamente in linea con il ritmo.' : diff > 0 ? `Sei avanti di ${Math.round(diff)} rispetto al ritmo: bravo!` : `Sei indietro di ${Math.round(-diff)} rispetto al ritmo: ne mancano ${goal - finY} in ${Math.max(1, Math.round((diy - doy) / 30))} ${Math.round((diy - doy) / 30) === 1 ? 'mese' : 'mesi'}.`}</p></div>`
+    : `<div class="card"><h4>🎯 Obiettivo ${y}</h4><p>Quanti giochi vuoi finire quest'anno? Ti dico se sei in linea con il ritmo.</p><button class="btn ghost" data-act="goal">Fissa un obiettivo</button></div>`;
+  const gen = {}; all.forEach(g => { if (g.genere) gen[g.genere] = (gen[g.genere] || 0) + 1; });
+  const genL = Object.entries(gen).sort((a, b) => b[1] - a[1]).slice(0, 8), genMx = genL.length ? genL[0][1] : 1;
+  const mon = []; for (let i = 11; i >= 0; i--){ const d0 = new Date(); d0.setDate(1); d0.setMonth(d0.getMonth() - i); const k = iso(d0).slice(0, 7); mon.push({k, min:all.reduce((t, g) => t + (g.sessioni || []).filter(x => x.data.startsWith(k)).reduce((a, x) => a + x.min, 0), 0), fin:fin.filter(g => g.fine && g.fine.startsWith(k)).length}); }
+  const monMx = Math.max(1, ...mon.map(m => m.min)), hasMin = mon.some(m => m.min), hasFin = mon.some(m => m.fin);
+  const dupes = Object.values(all.reduce((acc, g) => { (acc[norm(g.titolo)] ||= []).push(g); return acc; }, {})).filter(l => l.length > 1);
+  const spendC = S.console.map(c => ({c, v:all.filter(g => g.con === c.id).reduce((t, g) => t + (g.prezzo || 0), 0)})).filter(x => x.v).sort((a, b) => b.v - a.v);
+  return `${sampleNote()}
+  ${years.length ? `<button class="pick" data-act="year" data-y="${years[0]}"><span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.85;font-weight:600">Riepilogo</span><h2>🎉 Il tuo ${years[0]} da giocatore</h2><p>Finiti, ore, console preferita e gioco dell'anno.</p></button>` : ''}
+  ${goalHTML}
+  <div class="stats">
+    <div class="stat"><small>Giochi in libreria</small><b class="num">${all.length}</b><small>${dig} digitali · ${all.length - dig} fisici</small></div>
+    <div class="stat"><small>Finiti</small><b class="num">${fin.length}</b><small>${Math.round(fin.length / all.length * 100)}% della libreria</small></div>
+    <div class="stat"><small>Finiti nel ${y}</small><b class="num">${finY}</b><small>${finPY ? `${finPY} nel ${+y - 1}` : '&nbsp;'}</small></div>
+    <div class="stat"><small>Da iniziare</small><b class="num">${da.length}</b><small>il tuo backlog</small></div>
+    <div class="stat"><small>Ore giocate</small><b class="num">${Math.round(ore).toLocaleString('it-IT')}</b><small>${minM ? `${fmtMin(minM)} questo mese` : 'dove le hai segnate'}</small></div>
+    <div class="stat"><small>Speso</small><b class="num">${eur0.format(spent)}</b><small>${ric ? `${eur0.format(ric)} ricavati vendendo` : voted.length ? `voto medio ${vm.toFixed(1).replace('.', ',')} / 5` : '&nbsp;'}</small></div>
+    <div class="stat"><small>Completati al 100%</small><b class="num">🏆 ${cento}</b><small>${tro.length ? `trofei in media al ${Math.round(troM)}%` : '&nbsp;'}</small></div>
+    <div class="stat"><small>Voto medio</small><b class="num">${voted.length ? vm.toFixed(1).replace('.', ',') : '–'}</b><small>${voted.length} giochi votati</small></div>
+  </div>
+  <div class="sample-note" style="background:var(--accent-soft)"><span>${backlogTxt}${daH ? ` ${daDur.length === da.length ? 'In tutto' : `Contando solo i ${daDur.length} con la durata stimata,`} ti aspettano circa ${Math.round(daH)} ore di gioco.` : ''}</span></div>
+  <section class="block"><div class="block-head"><h3>Per console</h3></div>
+    <div class="legend"><span><i style="background:#3BA88E"></i>Finiti</span><span><i style="background:#E9B44C"></i>100%</span><span><i style="background:var(--accent)"></i>In corso</span><span><i style="background:#9C97B4"></i>In pausa</span><span><i style="background:#E4572E"></i>Abbandonati</span><span><i style="background:var(--line)"></i>Da iniziare</span></div>
+    <div class="bars">${cons.map(x => `<div class="brow"><span><span class="dot" style="background:${x.c.col};margin-right:6px"></span>${esc(x.c.nome)}</span><span class="num">${x.l.length}</span>
+      <div class="bar" style="width:${x.l.length / mx * 100}%">${['finito','cento','corso','pausa','mollato','da'].map(s => { const n = x.l.filter(g => g.stato === s).length; return n ? `<span style="width:${n / x.l.length * 100}%;background:${SC[s]}"></span>` : ''; }).join('')}</div></div>`).join('')}</div></section>
+  <section class="block"><div class="block-head"><h3>Come li hai avuti</h3></div>
+    <div class="bars">${orig.map(x => `<div class="brow"><span>${x.n}</span><span class="num">${x.v}</span><div class="bar"><span style="width:${x.v / all.length * 100}%;background:var(--accent)"></span></div></div>`).join('')}</div></section>
+  ${spendC.length ? `<section class="block"><div class="block-head"><h3>Speso per console</h3></div><div class="bars">${spendC.map(x => `<div class="brow"><span><span class="dot" style="background:${x.c.col};margin-right:6px"></span>${esc(x.c.nome)}</span><span class="num">${eur.format(x.v)}</span><div class="bar"><span style="width:${x.v / spendC[0].v * 100}%;background:${x.c.col}"></span></div></div>`).join('')}</div></section>` : ''}
+  ${hasMin || hasFin ? `<section class="block"><div class="block-head"><h3>Mese per mese</h3></div>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Ore col timer</span><span><i style="background:#3BA88E"></i>Giochi finiti</span></div>
+    <div class="bars" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;align-items:end;height:150px;padding:12px 10px 8px">${mon.map(m => `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;min-width:0" title="${m.k}: ${fmtMin(m.min)}, ${m.fin} finiti">
+      ${m.fin ? `<span class="num" style="font-size:10px;color:#2E8B6E;font-weight:700">${m.fin}✓</span>` : ''}
+      <span style="width:70%;border-radius:4px 4px 1px 1px;background:${m.min ? 'var(--accent)' : 'var(--line)'};height:${Math.max(2, m.min / monMx * 90)}px"></span>
+      <span style="font-size:10px;color:var(--muted)">${new Date(+m.k.slice(0, 4), +m.k.slice(5) - 1, 1).toLocaleDateString('it-IT', {month:'short'}).replace('.', '').slice(0, 3)}</span></div>`).join('')}</div></section>` : ''}
+  ${genL.length ? `<section class="block"><div class="block-head"><h3>Generi</h3></div><div class="bars">${genL.map(([n, v]) => `<div class="brow"><span>${esc(n)}</span><span class="num">${v}</span><div class="bar"><span style="width:${v / genMx * 100}%;background:#FF4F8B"></span></div></div>`).join('')}</div></section>` : ''}
+  ${dupes.length ? `<section class="block"><div class="block-head"><h3>Ce l'hai su più console · ${dupes.length}</h3></div><div class="list">${dupes.map(l => `<button class="g" data-game="${l[0].id}"><div class="main"><div class="t">${esc(l[0].titolo)}</div><div class="s">${l.map(g => `${esc(conOf(g.con).sigla)} (${g.formato === 'fisico' ? 'fisico' : 'digitale'})`).join(' · ')}</div></div></button>`).join('')}</div><p class="count" style="margin:0">Se ne hai uno fisico in doppio, potresti venderlo.</p></section>` : ''}
+  ${topH.length ? `<section class="block"><div class="block-head"><h3>Più giocati</h3></div><div class="list">${topH.map(gameRow).join('')}</div></section>` : ''}`;
+}
+
+function renderImpo(){
+  const tema = S.tema || 'auto';
+  return `<div class="settings">
+  <div class="card">
+    <h4>Le mie console</h4>
+    <p>Spunta quelle che hai: compaiono quando aggiungi un gioco. Tocca la matita per cambiare nome o colore.</p>
+    <div class="list">${S.console.map(c => `<div class="crow">${tile(c)}<div class="main"><div class="t">${esc(c.nome)}</div><div class="s">${library().filter(g => g.con === c.id).length} giochi</div></div>
+      <button class="ed" data-cedit="${c.id}" aria-label="Modifica ${esc(c.nome)}">${PEN}</button>
+      <input type="checkbox" data-mia="${c.id}" ${c.mia ? 'checked' : ''} aria-label="Ho ${esc(c.nome)}" style="width:22px;height:22px;accent-color:var(--accent)"></div>`).join('')}</div>
+    <button class="btn ghost" data-act="newCon">+ Aggiungi una console o un negozio</button>
+  </div>
+  ${accounts().length ? `<div class="card">
+    <h4>Account</h4>
+    <p>Su quale account stanno i tuoi giochi digitali. Tocca per rinominarlo: il nuovo nome vale per tutti i suoi giochi.</p>
+    <div class="list">${accounts().map(a => `<button class="g" data-accedit="${esc(a)}"><div class="main"><div class="t">${esc(a)}</div><div class="s">${S.giochi.filter(g => g.account === a).length} giochi · ${[...new Set(S.giochi.filter(g => g.account === a).map(g => conOf(g.con).sigla))].join(', ')}</div></div><span class="ed" aria-hidden="true">${PEN}</span></button>`).join('')}</div>
+  </div>` : ''}
+  <div class="card">
+    <h4>Abbonamenti</h4>
+    <p>Segna quando scadono: ti avviso una settimana prima, e anche quando un gioco sta per uscire dal catalogo.</p>
+    ${S.abbonamenti.length ? `<div class="list">${S.abbonamenti.slice().sort((a, b) => a.scade.localeCompare(b.scade)).map(a => { const n = daysTo(a.scade); return `<button class="g" data-abedit="${a.id}"><div class="main"><div class="t">${esc(a.nome)}</div><div class="s">${n < 0 ? 'Scaduto' : 'Scade'} il ${fmtShort(a.scade)}</div></div><span class="pill ${n < 0 ? 'st-mollato' : n <= 7 ? 'st-cento' : 'st-finito'}">${n < 0 ? 'Scaduto' : inDays(n)}</span></button>`; }).join('')}</div>` : ''}
+    <button class="btn ghost" data-act="newAbbo">+ Aggiungi abbonamento</button>
+  </div>
+  <div class="card">
+    <h4>Raccolte</h4>
+    <p>Gruppi tuoi, come «Da giocare in coppia» o «Per il viaggio». Le crei dalla scheda di un gioco, in «Altri dettagli».</p>
+    ${S.raccolte.length ? `<div class="list">${S.raccolte.map(r => `<button class="g" data-rcedit="${r.id}"><span class="dot" style="background:${r.col}"></span><div class="main"><div class="t">${esc(r.nome)}</div><div class="s">${S.giochi.filter(g => (g.racc || []).includes(r.id)).length} giochi</div></div><span class="ed" aria-hidden="true">${PEN}</span></button>`).join('')}</div>` : ''}
+  </div>
+  <div class="card">
+    <h4>Aggiungi tanti giochi</h4>
+    <p>Incolla l'elenco dei giochi di una console, uno per riga: comodo per le librerie digitali.</p>
+    <button class="btn ghost" data-act="bulk">Incolla un elenco</button>
+  </div>
+  <div class="card">
+    <h4>Esporta per Excel</h4>
+    <p>Tutta la collezione in un file CSV, da aprire con Excel o Fogli Google o da stampare.</p>
+    <button class="btn ghost" data-act="csv">Esporta CSV</button>
+  </div>
+  <div class="card">
+    <h4>Collegamento a Bilancino</h4>
+    <p>${bilOn() ? 'Bilancino è su questo telefono: quando inserisci il prezzo di un gioco puoi mandarlo lì come uscita «Svago».' : 'Bilancino non risulta su questo telefono, o non è sullo stesso sito. Quando lo usi da gelu92.github.io, il collegamento funziona da solo.'}</p>
+  </div>
+  <div class="card">
+    <h4>Aspetto</h4>
+    <div class="seg" role="group" aria-label="Tema">${[['auto','Automatico'],['light','Chiaro'],['dark','Scuro']].map(([k, l]) => `<button data-tema="${k}" aria-pressed="${tema === k}">${l}</button>`).join('')}</div>
+  </div>
+  <div class="card">
+    <h4>Backup</h4>
+    <p>La collezione resta solo su questo telefono. Salva un backup ogni tanto. Puoi scegliere se includere le foto dei giochi.</p>
+    <div class="btnrow"><button class="btn ghost" data-act="export">Esporta backup</button><button class="btn ghost" data-act="restore">Ripristina</button></div>
+  </div>
+  ${hasSamples() ? `<div class="card"><h4>Giochi di esempio</h4><p>Toglie gli esempi e lascia i giochi che hai inserito tu.</p><button class="btn ghost" data-act="clearSamples">Cancella esempi</button></div>` : ''}
+  <div class="card">
+    <h4>Cancella tutto</h4>
+    <p>Elimina tutti i giochi e le loro foto da questo telefono. Le console restano.</p>
+    <button class="btn danger" data-act="wipe">Cancella tutti i giochi</button>
+  </div>
+  <p style="margin:0;color:var(--muted);font-size:13px;text-align:center">${APP} · versione ${VERSION}<br>© Gelu Inc.</p>
+  </div>`;
+}
+
+function render(){
+  $('#view').innerHTML = playingBar() + ({lib:renderLib, backlog:renderBacklog, wish:renderWish, stats:renderStats, impo:renderImpo}[V.tab] || renderLib)();
+  document.querySelectorAll('.tab').forEach(t => { if (t.dataset.tab === V.tab) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current'); });
+  $('#setBtn').setAttribute('aria-pressed', String(V.tab === 'impo'));
+  $('#fab').hidden = V.tab === 'impo' || V.tab === 'stats';
+  const q = $('#q');
+  if (q) q.addEventListener('input', e => { V.q = e.target.value; const pos = e.target.selectionStart; render(); const n = $('#q'); n.focus(); try { n.setSelectionRange(pos, pos); } catch(_){} });
+  for (const [id, k] of [['f-stato', 'stato'], ['f-formato', 'formato'], ['f-sort', 'sort'], ['f-acc', 'acc'], ['f-racc', 'racc'], ['f-saga', 'saga']]){
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', e => { V[k] = e.target.value; if (k === 'sort') try { localStorage.setItem(KEY + '-sort', V.sort); } catch(_){} render(); });
+  }
+}
+function goTab(t){ V.tab = t; try { localStorage.setItem(KEY + '-tab', t); } catch(_){} render(); window.scrollTo(0, 0); }
+const keepScroll = fn => { const y = window.scrollY; fn(); window.scrollTo(0, y); };
+
+/* ---------- sheet, toast, annulla ---------- */
+let sheetEl = null;
+function openSheet(html, mount){
+  closeSheet();
+  sheetEl = document.createElement('div'); sheetEl.className = 'scrim';
+  sheetEl.innerHTML = `<div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>${html}</div>`;
+  sheetEl.addEventListener('click', e => { if (e.target === sheetEl || e.target.closest('[data-close]')) closeSheet(); });
+  document.body.appendChild(sheetEl);
+  mount && mount(sheetEl);
+  const f = sheetEl.querySelector('[autofocus]'); if (f) setTimeout(() => f.focus(), 60);
+}
+function closeSheet(){ if (sheetEl){ sheetEl.remove(); sheetEl = null; } }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+let toastT, undoSnap = null;
+function toast(msg){ $('#toast-t').textContent = msg; $('#toast-u').hidden = true; undoSnap = null; $('#toast').hidden = false; clearTimeout(toastT); toastT = setTimeout(() => $('#toast').hidden = true, 2600); }
+const snapshot = () => JSON.stringify(S);
+function offerUndo(snap){ undoSnap = snap; $('#toast-u').hidden = false; $('#toast').hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { $('#toast').hidden = true; undoSnap = null; }, 6000); }
+$('#toast-u').addEventListener('click', () => { if (!undoSnap) return; S = JSON.parse(undoSnap); undoSnap = null; save(); applyTheme(); closeSheet(); render(); toast('Ripristinato'); });
+function twoTap(btn, label, fn){
+  let armed = false;
+  btn.addEventListener('click', () => {
+    if (!armed){ armed = true; const o = btn.textContent; btn.textContent = label; setTimeout(() => { armed = false; if (btn.isConnected) btn.textContent = o; }, 3500); return; }
+    const snap = snapshot(); fn(); offerUndo(snap);
+  });
+}
+function wireChips(root, key, cb){ const els = root.querySelectorAll(`[data-${key}]`); els.forEach(b => b.addEventListener('click', () => { els.forEach(x => x.setAttribute('aria-pressed', String(x === b))); cb(b.dataset[key]); })); }
+const conChips = (sel, key = 'pc', list = mine()) => `<div class="wrapchips">${(list.length ? list : S.console).map(c => `<button type="button" class="chip" data-${key}="${c.id}" aria-pressed="${c.id === sel}"><span class="dot" style="background:${c.col}"></span>${esc(c.sigla)}</button>`).join('')}<button type="button" class="chip add" data-allcon="1">Altre…</button></div>`;
+function rateWidget(root, sel, init, cb){
+  const box = root.querySelector(sel); let v = init || 0;
+  const draw = () => { box.innerHTML = [1,2,3,4,5].map(n => `<button type="button" class="${n <= v ? 'on' : ''}" data-r="${n}" aria-label="${n} ${n === 1 ? 'stella' : 'stelle'}" aria-pressed="${n === v}">★</button>`).join(''); };
+  box.addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (!b) return; const n = +b.dataset.r; v = v === n ? 0 : n; draw(); cb(v); });
+  draw();
+}
+
+/* ---------- scheda gioco ---------- */
+function dupOf(titolo, con, exceptId){ const k = norm(titolo); return S.giochi.find(g => g.id !== exceptId && norm(g.titolo) === k && g.con === con); }
+function formGame(id, preset = {}){
+  const g = id ? S.giochi.find(x => x.id === id) : null;
+  const wishMode = g ? g.stato === 'wish' : preset.stato === 'wish';
+  const st = {con:g?.con || preset.con || (V.con !== 'tutte' ? V.con : (mine()[0] || S.console[0]).id), formato:g?.formato || 'digitale', origine:g?.origine || 'acquisto', stato:g?.stato || preset.stato || 'da', voto:g?.voto || 0, extra:new Set()};
+  const showAll = () => { const box = sheetEl.querySelector('#gm-con'); box.innerHTML = conChips(st.con, 'pc', S.console).replace(/<button type="button" class="chip add"[^>]*>Altre…<\/button>/, ''); wireChips(box, 'pc', v => st.con = v); };
+  openSheet(`<h2>${g ? esc(g.titolo) : wishMode ? 'Nuovo desiderio' : 'Nuovo gioco'}</h2>
+    ${g && !wishMode ? `<div class="quick">
+      ${g.stato !== 'corso' ? `<button type="button" class="btn ghost" data-q="corso">▶ ${g.stato === 'pausa' ? 'Lo riprendo' : 'Inizio a giocarci'}</button>` : '<button type="button" class="btn ghost" data-q="pausa">⏸ In pausa</button>'}
+      ${g.stato !== 'finito' && g.stato !== 'cento' ? '<button type="button" class="btn ghost" data-q="finito">🏁 Finito!</button>' : ''}
+      ${g.stato === 'finito' ? '<button type="button" class="btn ghost" data-q="cento">🏆 Al 100%</button>' : ''}
+      <button type="button" class="btn ghost" data-q="pref">${g.pref ? 'Togli dai preferiti' : '♥ Preferito'}</button>
+      ${g.formato === 'fisico' && !g.venduto ? (g.prestito ? '<button type="button" class="btn ghost" data-q="back">↩ Restituito</button>' : '<button type="button" class="btn ghost" data-q="lend">📦 L\'ho prestato</button>') : ''}
+      ${!g.venduto ? '<button type="button" class="btn ghost" data-q="sell">💶 Venduto o scambiato</button>' : ''}
+    </div>
+    ${g.prestito ? `<div class="banner"><span>Prestato a <b>${esc(g.prestito.a)}</b> dal ${fmtShort(g.prestito.dal)} (${Math.max(0, -daysTo(g.prestito.dal))} giorni).</span></div>` : ''}
+    ${g.venduto ? `<div class="banner"><span>${g.venduto.prezzo ? `Venduto a <b>${eur.format(g.venduto.prezzo)}</b>` : 'Venduto o scambiato'} il ${fmtShort(g.venduto.data)}${g.venduto.nota ? ` · ${esc(g.venduto.nota)}` : ''}.</span><button type="button" data-q="unsell">Annulla la vendita</button></div>` : ''}
+    ${g.saga ? (() => { const sl = sagaList(g.saga); return sl.length > 1 ? `<div class="banner info"><span><b>${esc(g.saga)}</b>: ${sl.map(x => `${x.id === g.id ? '<b>' : ''}${x.sagaN ? x.sagaN + '. ' : ''}${esc(x.titolo)}${x.stato === 'wish' ? ' (desiderato)' : x.stato === 'finito' || x.stato === 'cento' ? ' ✓' : ''}${x.id === g.id ? '</b>' : ''}`).join(' · ')}</span></div>` : ''; })() : ''}
+    ${g.origine === 'abbonamento' && abboOf(g.abbo) && daysTo(abboOf(g.abbo).scade) < 0 ? `<div class="banner"><span>Il tuo ${esc(g.abbo)} è scaduto il ${fmtShort(abboOf(g.abbo).scade)}: per giocarlo devi rinnovarlo.</span></div>` : ''}` : ''}
+    ${g && wishMode ? '<button type="button" class="btn wide" data-q="bought">L\'ho comprato!</button>' : ''}
+    ${g && !wishMode ? sessBlock(g) : ''}
+    <div id="gm-photo"></div>
+    <form id="fg" class="settings" novalidate>
+      <div class="field"><label for="gm-t">Titolo</label><input id="gm-t" value="${esc(g?.titolo || preset.titolo || '')}" placeholder="Es. Elden Ring" ${g ? '' : 'autofocus'} autocomplete="off"><div class="err" id="gm-dup" style="color:var(--warn)"></div></div>
+      <div class="field"><span class="lbl">Console</span><div id="gm-con">${conChips(st.con)}</div></div>
+      ${!g ? `<div class="field" id="gm-also-w"><span class="lbl">Ce l'hai anche su altre console? (facoltativo)</span><div class="wrapchips">${mine().map(c => `<button type="button" class="chip" data-also="${c.id}" aria-pressed="false">${esc(c.sigla)}</button>`).join('')}</div></div>` : ''}
+      <div class="seg" role="group" aria-label="Formato"><button type="button" data-fm="digitale" aria-pressed="${st.formato === 'digitale'}">Digitale</button><button type="button" data-fm="fisico" aria-pressed="${st.formato === 'fisico'}">Fisico</button></div>
+      <div class="field" id="gm-acc-w" ${st.formato === 'fisico' ? 'hidden' : ''}><label for="gm-acc">Account (facoltativo)</label><input id="gm-acc" list="gm-accl" value="${esc(g?.account || '')}" placeholder="Es. PSN principale, account giapponese" autocomplete="off"><datalist id="gm-accl">${accounts().map(a => `<option value="${esc(a)}"></option>`).join('')}</datalist></div>
+      ${wishMode ? `<div class="field"><label for="gm-pm">Lo comprerei a (€, facoltativo)</label><input id="gm-pm" class="num" inputmode="decimal" placeholder="Es. 20" value="${g?.prezzoMax ? amtIn(g.prezzoMax) : ''}"></div>` : `
+      <div class="field"><label for="gm-or">Come l'hai avuto</label><select id="gm-or">${ORIGINI.map(([k, n]) => `<option value="${k}" ${st.origine === k ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+      <div class="grid2" id="gm-ab-w" ${st.origine === 'abbonamento' ? '' : 'hidden'}><div class="field"><label for="gm-ab">Quale abbonamento</label><input id="gm-ab" list="gm-abl" value="${esc(g?.abbo || '')}" placeholder="Es. PS Plus" autocomplete="off"><datalist id="gm-abl">${[...new Set([...S.abbonamenti.map(a => a.nome), ...ABBO])].map(a => `<option value="${esc(a)}"></option>`).join('')}</datalist></div>
+        <div class="field"><label for="gm-es">Esce dal catalogo il</label><input id="gm-es" type="date" value="${g?.esce || ''}"></div></div>
+      <div class="field"><label for="gm-st">Stato</label><select id="gm-st">${STATI.filter(s => s.id !== 'wish').map(s => `<option value="${s.id}" ${st.stato === s.id ? 'selected' : ''}>${s.nome}</option>`).join('')}</select></div>
+      <div class="field"><span class="lbl">Voto</span><div class="rate" id="gm-rate"></div></div>
+      <div class="grid2">
+        <div class="field"><label for="gm-h">Ore giocate</label><input id="gm-h" class="num" inputmode="text" placeholder="Es. 12 o 12:30" value="${hoursIn(g?.ore)}" autocomplete="off"></div>
+        <div class="field"><label for="gm-du">Durata stimata (ore)</label><input id="gm-du" class="num" inputmode="decimal" placeholder="Es. 20" value="${g?.durata ? amtIn(g.durata) : ''}"></div>
+      </div>
+      <div class="grid2">
+        <div class="field" id="gm-p-w"><label for="gm-p">Prezzo pagato (€)</label><input id="gm-p" class="num" inputmode="decimal" placeholder="—" value="${g?.prezzo ? amtIn(g.prezzo) : ''}"></div>
+        <div class="field"><label for="gm-d">Data di acquisto</label><input id="gm-d" type="date" value="${g?.data || ''}"></div>
+      </div>
+      <div class="field"><label for="gm-f">Finito il</label><input id="gm-f" type="date" value="${g?.fine || ''}"></div>`}
+      <details class="more" ${g && (g.saga || g.genere || g.note || g.edizione || (g.dlc || []).length || (g.multi || []).length || (g.racc || []).length || g.trofei) ? 'open' : ''}><summary>Altri dettagli: saga, genere, edizione, DLC, raccolte…</summary><div class="settings">
+      <div class="field"><label for="gm-ge">Genere</label><input id="gm-ge" list="gm-gel" value="${esc(g?.genere || '')}" placeholder="Es. GdR" autocomplete="off"><datalist id="gm-gel">${GENERI.map(x => `<option value="${x}"></option>`).join('')}</datalist></div>
+      <div class="grid2">
+        <div class="field"><label for="gm-ed">Edizione</label><input id="gm-ed" list="gm-edl" value="${esc(g?.edizione || '')}" placeholder="Standard" autocomplete="off"><datalist id="gm-edl">${EDIZIONI.map(x => `<option value="${esc(x)}"></option>`).join('')}</datalist></div>
+        ${wishMode ? '<span></span>' : `<div class="field"><label for="gm-tr">Trofei o obiettivi (%)</label><input id="gm-tr" class="num" type="number" min="0" max="100" inputmode="numeric" placeholder="—" value="${g?.trofei ?? ''}"></div>`}
+      </div>
+      <div class="grid2"><div class="field"><label for="gm-sa">Saga</label><input id="gm-sa" list="gm-sal" value="${esc(g?.saga || '')}" placeholder="Es. The Legend of Zelda" autocomplete="off"><datalist id="gm-sal">${sagas().map(x => `<option value="${esc(x)}"></option>`).join('')}</datalist></div>
+        <div class="field"><label for="gm-sn">Numero nella saga</label><input id="gm-sn" class="num" type="number" min="1" inputmode="numeric" placeholder="Es. 2" value="${g?.sagaN || ''}"></div></div>
+      <div class="field"><label for="gm-dlc">DLC ed espansioni, uno per riga</label><textarea id="gm-dlc" style="min-height:70px" placeholder="Es. Shadow of the Erdtree">${esc((g?.dlc || []).join('\n'))}</textarea></div>
+      <div class="field"><span class="lbl">Come si gioca</span><div class="wrapchips">${MULTI.map(([k, n]) => `<button type="button" class="chip" data-mu="${k}" aria-pressed="${(g?.multi || []).includes(k)}">${n}</button>`).join('')}</div></div>
+      <div class="field"><span class="lbl">Raccolte</span><div class="wrapchips" id="gm-rc">${S.raccolte.map(r => `<button type="button" class="chip" data-rc="${r.id}" aria-pressed="${(g?.racc || []).includes(r.id)}"><span class="dot" style="background:${r.col}"></span>${esc(r.nome)}</button>`).join('')}<button type="button" class="chip add" id="gm-rcnew">+ Nuova</button></div></div>
+      <div class="field"><label for="gm-n">Note</label><textarea id="gm-n" style="min-height:80px" placeholder="Es. dove sono arrivato, codici, salvataggi">${esc(g?.note || '')}</textarea></div>
+      </div></details>
+      ${!wishMode && (!g || !g.bil) && bilOn() ? `<label class="check" id="gm-bil-w" ${g && !g.prezzo ? 'hidden' : ''}><input type="checkbox" id="gm-bil" ${g ? '' : ''}><span>Registra il prezzo in Bilancino<br><span class="muted" style="font-size:13px">Arriva come uscita «Svago» la prossima volta che apri Bilancino.</span></span></label>` : ''}
+      ${g && g.bil ? '<p class="count" style="margin:0">Il prezzo è già stato mandato a Bilancino.</p>' : ''}
+      <div class="err" id="gm-err"></div>
+      <button class="btn wide" type="submit">${g ? 'Salva' : 'Aggiungi'}</button>
+      ${g ? '<button class="btn danger wide" type="button" id="gm-del">Elimina</button>' : ''}
+      <button class="btn ghost wide" type="button" data-close>Annulla</button>
+    </form>`, root => {
+    const $r = q => root.querySelector(q);
+    let foto = g ? FOTO.get(g.id) || null : null, fotoChanged = false;
+    const drawPhoto = () => {
+      const box = $r('#gm-photo');
+      box.innerHTML = foto ? `<div class="photo"><img src="${foto}" alt="Foto di ${esc(g?.titolo || 'questo gioco')}" id="gm-img"><div class="btnrow"><label class="btn ghost" for="gm-file" style="text-align:center">Cambia foto</label><button type="button" class="btn ghost" id="gm-frm">Togli foto</button></div></div>`
+        : `<label class="photo-add" for="gm-file">${CAM}Aggiungi una foto</label>`;
+      box.insertAdjacentHTML('beforeend', '<input id="gm-file" type="file" accept="image/*" hidden>');
+      const im = $r('#gm-img'); if (im) im.addEventListener('click', () => viewImage(foto));
+      const rm = $r('#gm-frm'); if (rm) rm.addEventListener('click', () => { foto = null; fotoChanged = true; drawPhoto(); if (g) commitPhoto(); });
+      $r('#gm-file').addEventListener('change', async e => {
+        const f = e.target.files[0]; if (!f) return;
+        try { foto = await compressImage(f); fotoChanged = true; drawPhoto(); if (g) commitPhoto(); }
+        catch(_){ $r('#gm-err').textContent = 'Non riesco a leggere questa immagine. Prova con una foto JPG o PNG.'; }
+      });
+    };
+    const commitPhoto = () => {
+      if (foto){ g.foto = true; fotoPut(g.id, foto).then(() => { keepScroll(render); }).catch(() => toast('Non sono riuscito a salvare la foto: memoria piena?')); }
+      else { delete g.foto; fotoDel(g.id); keepScroll(render); }
+      delete g.esempio; save(); fotoChanged = false;
+      toast(foto ? 'Foto salvata' : 'Foto tolta');
+    };
+    drawPhoto();
+    const wireCon = () => { wireChips($r('#gm-con'), 'pc', v => { st.con = v; checkDup(); }); const a = $r('#gm-con [data-allcon]'); if (a) a.addEventListener('click', () => { showAll(); }); };
+    wireCon();
+    const checkDup = () => {
+      const t = $r('#gm-t').value, d = dupOf(t, st.con, g?.id), k = norm(t);
+      const others = k ? S.giochi.filter(x => x.id !== g?.id && norm(x.titolo) === k && x.con !== st.con) : [];
+      $r('#gm-dup').textContent = d ? `Hai già «${d.titolo}» su ${conOf(d.con).sigla}${d.stato === 'wish' ? ' nei desideri' : ''}.` : others.length ? `Ce l'hai già su ${[...new Set(others.map(x => conOf(x.con).sigla))].join(', ')}: puoi aggiungerlo anche qui.` : '';
+    };
+    $r('#gm-t').addEventListener('input', checkDup);
+    root.querySelectorAll('[data-also]').forEach(b => b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on)); if (on) st.extra.add(b.dataset.also); else st.extra.delete(b.dataset.also); }));
+    wireChips(root, 'fm', v => { st.formato = v; $r('#gm-acc-w').hidden = v === 'fisico'; });
+    root.querySelectorAll('[data-sq]').forEach(b => b.addEventListener('click', () => sessQuick(g, b.dataset.sq)));
+    st.multi = new Set(g?.multi || []); st.racc = new Set(g?.racc || []);
+    const togg = (key, set) => root.querySelectorAll(`[data-${key}]`).forEach(b => b.onclick = () => { const v = b.dataset[key], on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on)); if (on) set.add(v); else set.delete(v); });
+    togg('mu', st.multi); togg('rc', st.racc);
+    $r('#gm-rcnew').addEventListener('click', () => {
+      const nome = (window.prompt ? null : null);
+      const box = $r('#gm-rc');
+      if (box.querySelector('#gm-rcin')) return;
+      box.insertAdjacentHTML('beforeend', '<span style="display:flex;gap:6px;width:100%"><input id="gm-rcin" placeholder="Nome della raccolta" style="flex:1;min-width:0;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface)"><button type="button" class="chip" id="gm-rcok">Crea</button></span>');
+      const inp = $r('#gm-rcin'); inp.focus();
+      const ok = () => { const n = inp.value.trim(); if (!n) return; const r = {id:'r' + uid(), nome:n, col:PALETTE[S.raccolte.length % PALETTE.length]}; S.raccolte.push(r); st.racc.add(r.id); save();
+        inp.parentElement.remove(); $r('#gm-rcnew').insertAdjacentHTML('beforebegin', `<button type="button" class="chip" data-rc="${r.id}" aria-pressed="true"><span class="dot" style="background:${r.col}"></span>${esc(r.nome)}</button>`); togg('rc', st.racc); };
+      $r('#gm-rcok').addEventListener('click', ok); inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); ok(); } });
+    });
+    if (!wishMode){
+      rateWidget(root, '#gm-rate', st.voto, v => st.voto = v);
+      $r('#gm-or').addEventListener('change', e => { $r('#gm-ab-w').hidden = e.target.value !== 'abbonamento'; });
+      const bw = $r('#gm-bil-w'), pp = $r('#gm-p'); if (bw && pp) pp.addEventListener('input', () => { const v = parseAmount(pp.value); bw.hidden = !(v > 0); if (!(v > 0)) $r('#gm-bil').checked = false; });
+      if (bw && !g) bw.hidden = true;
+      const tr = $r('#gm-tr'); tr.addEventListener('change', () => { if (+tr.value === 100 && ['finito', 'corso'].includes($r('#gm-st').value)) $r('#gm-st').value = 'cento'; });
+    }
+    root.querySelectorAll('[data-q]').forEach(b => b.addEventListener('click', () => quick(g, b.dataset.q)));
+    $r('#fg').addEventListener('submit', e => {
+      e.preventDefault();
+      const err = $r('#gm-err'), titolo = $r('#gm-t').value.trim().replace(/\s+/g, ' ');
+      if (!titolo) return err.textContent = 'Scrivi il titolo del gioco.';
+      const num = (sel, lbl) => { const raw = $r(sel)?.value.trim(); if (!raw) return null; const v = parseAmount(raw); if (!(v >= 0)) throw lbl; return v; };
+      let obj;
+      try {
+        obj = {titolo, con:st.con, formato:st.formato, account:st.formato === 'fisico' ? '' : $r('#gm-acc').value.trim(), genere:$r('#gm-ge').value.trim(), note:$r('#gm-n').value.trim(), edizione:$r('#gm-ed').value.trim(), dlc:$r('#gm-dlc').value.split(/\r?\n/).map(x => x.trim()).filter(Boolean), multi:[...st.multi], racc:[...st.racc], saga:$r('#gm-sa').value.trim(), sagaN:parseInt($r('#gm-sn').value, 10) || null, agg:g?.agg || new Date().toISOString()};
+        if (st.formato !== 'fisico' && g && g.prestito) obj.prestito = null;
+        if (wishMode) Object.assign(obj, {stato:'wish', prezzoMax:num('#gm-pm', 'Il prezzo deve essere un numero, ad esempio 19,99.')});
+        else {
+          const stato = $r('#gm-st').value;
+          const trRaw = $r('#gm-tr').value.trim(), trofei = trRaw === '' ? null : Math.round(+trRaw);
+          if (trofei !== null && !(trofei >= 0 && trofei <= 100)) throw 'I trofei sono una percentuale da 0 a 100.';
+          Object.assign(obj, {trofei, esce:$r('#gm-or').value === 'abbonamento' ? ($r('#gm-es').value || null) : null, origine:$r('#gm-or').value, abbo:$r('#gm-or').value === 'abbonamento' ? $r('#gm-ab').value.trim() : '', stato, voto:st.voto,
+            ore:(() => { const v = parseHours($r('#gm-h').value); if (Number.isNaN(v)) throw 'Scrivi le ore come 12, 12,5 oppure 12:30 (ore:minuti).'; return v === null ? null : Math.round(v * 100) / 100; })(), durata:num('#gm-du', 'La durata deve essere un numero di ore, ad esempio 20.'), prezzo:num('#gm-p', 'Il prezzo deve essere un numero, ad esempio 19,99.'),
+            data:$r('#gm-d').value || null, fine:$r('#gm-f').value || ((stato === 'finito' || stato === 'cento') && !(g && g.fine) ? today() : (g?.fine || null))});
+          if (stato === 'corso' && !g?.inizio) obj.inizio = today();
+        }
+      } catch(m){ return err.textContent = m; }
+      const wantBil = $r('#gm-bil') && $r('#gm-bil').checked;
+      if (g){ Object.assign(g, obj); if (!g.prestito) delete g.prestito; delete g.esempio; const sent = wantBil && sendToBil(g); save(); closeSheet(); keepScroll(render); toast(sent ? 'Salvato · prezzo mandato a Bilancino' : 'Salvato'); return; }
+      const cons = [st.con, ...[...st.extra].filter(c => c !== st.con)];
+      let n = 0, firstId = null;
+      for (const c of cons){
+        if (dupOf(titolo, c)) continue;
+        const base = {id:uid(), voto:0, ore:null, prezzo:null, data:null, inizio:null, fine:null, abbo:'', pref:false, origine:'acquisto'};
+        if (c === st.con || !firstId) firstId = base.id;
+        S.giochi.push(c === st.con ? {...base, sessioni:[], ...obj, con:c, ...(foto ? {foto:true} : {})} : {...base, sessioni:[], dlc:[], multi:obj.multi, racc:obj.racc, account:'', durata:obj.durata || null, titolo, con:c, formato:'digitale', genere:obj.genere, note:'', stato:wishMode ? 'wish' : 'da', agg:obj.agg});
+        n++;
+      }
+      if (!n) return err.textContent = 'Questo gioco c\'è già su tutte le console scelte.';
+      if (wantBil){ const fg = S.giochi.find(x => x.id === firstId); if (fg && fg.prezzo > 0) sendToBil(fg); }
+      if (foto && firstId){ const fg = S.giochi.find(x => x.id === firstId); if (fg){ fg.foto = true; fotoPut(firstId, foto).then(() => keepScroll(render)).catch(() => toast('Non sono riuscito a salvare la foto: memoria piena?')); } }
+      save(); closeSheet(); keepScroll(render);
+      toast(wishMode ? `${titolo} aggiunto ai desideri` : `${titolo} aggiunto${n > 1 ? ` su ${n} console` : ''}`);
+    });
+    const del = $r('#gm-del'); if (del) twoTap(del, 'Tocca di nuovo per eliminare', () => { S.giochi = S.giochi.filter(x => x !== g); fotoCleanup(); save(); closeSheet(); keepScroll(render); toast(`Eliminato: ${g.titolo}`); });
+  });
+}
+function sessBlock(g){
+  const on = S.sessione && S.sessione.gid === g.id, ses = (g.sessioni || []).slice().reverse();
+  const tot = (g.sessioni || []).reduce((t, x) => t + x.min, 0);
+  return `<div class="sess"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><button type="button" data-sq="edit" style="border:0;background:none;padding:0;display:flex;align-items:center;gap:8px;color:inherit" aria-label="Modifica le ore giocate"><span class="big num">${fmtHours(g.ore)}</span><span class="ed" style="width:auto;height:auto;color:var(--accent)">${PEN}</span></button><span class="muted" style="font-size:13px">${g.durata ? `durata stimata ~${g.durata} h${g.ore ? ` · ${Math.min(100, Math.round(g.ore / g.durata * 100))}%` : ''}` : 'giocate in tutto'}</span></div>
+    ${on ? `<button type="button" class="btn" data-sq="stop">⏹ Ferma il timer · ${fmtClock(Date.now() - S.sessione.start)}</button>` : `<button type="button" class="btn" data-sq="start">⏱ Sto giocando: avvia il timer</button>`}
+    <div class="btnrow"><button type="button" class="btn ghost" data-sq="30">+30 min</button><button type="button" class="btn ghost" data-sq="60">+1 h</button><button type="button" class="btn ghost" data-sq="120">+2 h</button></div>
+    ${ses.length ? `<div class="sub">Ultime sessioni · ${ses.length} in tutto, ${fmtMin(tot)}</div><ul>${ses.slice(0, 5).map(x => `<li><span>${fmtShort(x.data)}</span><span class="num">${fmtMin(x.min)}</span></li>`).join('')}</ul>` : ''}</div>`;
+}
+const fmtNum1 = v => Number(v).toLocaleString('it-IT', {maximumFractionDigits:1});
+/* accetta 12 · 12,5 · 12:30 · 12h30 · 12 h 30 min · 45 min */
+function parseHours(v){
+  const t = String(v || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  if (!t) return null;
+  let m = t.match(/^(\d+)\s*(m|min|minuti)$/);
+  if (m) return +m[1] / 60;
+  m = t.match(/^(\d+)\s*[:.h]\s*(\d{1,2})\s*(m|min|minuti)?$/);
+  if (m && (t.includes(':') || t.includes('h'))) return +m[1] + Math.min(59, +m[2]) / 60;
+  m = t.match(/^(\d+(?:[.,]\d+)?)\s*(h|ore|ora)?(?:\s*e?\s+(\d{1,2})\s*(m|min|minuti))?$/);
+  if (m && (m[1] || m[3])) return parseFloat(m[1].replace(',', '.')) + (m[3] ? Math.min(59, +m[3]) / 60 : 0);
+  m = t.match(/^(\d+)\s*(m|min|minuti)$/);
+  if (m) return +m[1] / 60;
+  return NaN;
+}
+const hoursIn = h => { if (!h) return ''; const tot = Math.round(h * 60), hh = Math.floor(tot / 60), mm = tot % 60; return mm ? `${hh}:${pad(mm)}` : String(hh); };
+const fmtHours = h => { const tot = Math.round((h || 0) * 60), hh = Math.floor(tot / 60), mm = tot % 60; return mm ? `${hh} h ${mm} min` : `${hh} h`; };
+function hoursSheet(g){
+  const ses = (g.sessioni || []).map((x, i) => ({...x, i})).reverse();
+  const tot = Math.round((g.ore || 0) * 60);
+  openSheet(`<h2>Ore di ${esc(g.titolo)}</h2>
+    <p>Scrivi il totale che vedi sulla console o sul profilo, per esempio sulla PS5 o su Steam.</p>
+    <div class="grid2">
+      <div class="field"><label for="hh-h">Ore</label><input id="hh-h" class="num" type="number" min="0" inputmode="numeric" value="${Math.floor(tot / 60)}" style="font-size:24px;font-weight:600" autofocus></div>
+      <div class="field"><label for="hh-m">Minuti</label><input id="hh-m" class="num" type="number" min="0" max="59" inputmode="numeric" value="${tot % 60}" style="font-size:24px;font-weight:600"></div>
+    </div>
+    <div class="err" id="hh-err"></div>
+    <button class="btn wide" id="hh-ok">Salva le ore</button>
+    <button class="btn ghost wide" id="hh-zero">Azzera</button>
+    ${ses.length ? `<div class="sub">Sessioni registrate</div><p style="font-size:13px">Puoi togliere una sessione sbagliata: le sue ore vengono sottratte dal totale.</p>
+      <div class="list">${ses.map(x => `<div class="crow"><div class="main"><div class="t">${fmtShort(x.data)}</div></div><span class="num">${fmtMin(x.min)}</span><button type="button" class="ed" data-sdel="${x.i}" aria-label="Togli la sessione del ${fmtShort(x.data)}">×</button></div>`).join('')}</div>` : ''}
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    const $r = q => root.querySelector(q);
+    $r('#hh-ok').addEventListener('click', () => {
+      const h = parseInt($r('#hh-h').value, 10) || 0, m = parseInt($r('#hh-m').value, 10) || 0;
+      if (h < 0 || m < 0 || m > 59) return $r('#hh-err').textContent = 'I minuti vanno da 0 a 59.';
+      const snap = snapshot(); g.ore = Math.round((h + m / 60) * 100) / 100 || null; delete g.esempio;
+      save(); render(); formGame(g.id); toast(`Ore aggiornate: ${fmtHours(g.ore)}`); offerUndo(snap);
+    });
+    twoTap($r('#hh-zero'), 'Tocca di nuovo per azzerare', () => { g.ore = null; save(); render(); formGame(g.id); toast('Ore azzerate'); });
+    root.querySelectorAll('[data-sdel]').forEach(b => b.addEventListener('click', () => {
+      const i = +b.dataset.sdel, x = g.sessioni[i]; if (!x) return;
+      const snap = snapshot();
+      g.sessioni.splice(i, 1); g.ore = Math.max(0, Math.round(((g.ore || 0) - x.min / 60) * 100) / 100) || null;
+      save(); render(); hoursSheet(g); toast(`Sessione tolta: ${fmtMin(x.min)}`); offerUndo(snap);
+    }));
+  });
+}
+function sessQuick(g, q){
+  if (q === 'edit') return hoursSheet(g);
+  if (q === 'start') return startTimer(g);
+  if (q === 'stop') return stopSheet();
+  const snap = snapshot(); addSession(g, +q); save(); render(); formGame(g.id); toast(`+${fmtMin(+q)} a ${g.titolo}`); offerUndo(snap);
+}
+function quick(g, q){
+  const snap = snapshot();
+  if (q === 'pausa'){ g.stato = 'pausa'; save(); closeSheet(); keepScroll(render); toast(`${g.titolo} in pausa`); offerUndo(snap); return; }
+  if (q === 'corso'){ if (g.stato === 'pausa'){ g.ripreso = today(); g.inizio = g.inizio || today(); } else g.inizio = today(); g.stato = 'corso'; save(); closeSheet(); keepScroll(render); toast(`Buon divertimento con ${g.titolo}!`); offerUndo(snap); }
+  else if (q === 'pref'){ g.pref = !g.pref; delete g.esempio; save(); closeSheet(); keepScroll(render); toast(g.pref ? 'Aggiunto ai preferiti' : 'Tolto dai preferiti'); }
+  else if (q === 'finito' || q === 'cento') finishSheet(g, q);
+  else if (q === 'bought') boughtSheet(g);
+  else if (q === 'lend') lendSheet(g);
+  else if (q === 'back'){ const nm = g.prestito.a; delete g.prestito; save(); closeSheet(); keepScroll(render); toast(`${g.titolo} è tornato a casa da ${nm}`); offerUndo(snap); }
+  else if (q === 'sell') sellSheet(g);
+  else if (q === 'unsell'){ delete g.venduto; save(); closeSheet(); keepScroll(render); toast(`${g.titolo} è di nuovo in libreria`); offerUndo(snap); }
+}
+function lendSheet(g){
+  const names = [...new Set(S.giochi.map(x => x.prestito?.a || x.prestitoUltimo).filter(Boolean))];
+  openSheet(`<h2>Presti ${esc(g.titolo)}</h2>
+    <div class="field"><label for="ln-a">A chi</label><input id="ln-a" list="ln-al" placeholder="Es. Marco" autofocus autocomplete="off"><datalist id="ln-al">${names.map(n => `<option value="${esc(n)}"></option>`).join('')}</datalist></div>
+    <div class="field"><label for="ln-d">Da quando</label><input id="ln-d" type="date" value="${today()}"></div>
+    <div class="err" id="ln-err"></div>
+    <button class="btn wide" id="ln-ok">Segna come prestato</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    root.querySelector('#ln-ok').addEventListener('click', () => {
+      const a = root.querySelector('#ln-a').value.trim(); if (!a) return root.querySelector('#ln-err').textContent = 'Scrivi a chi l\'hai prestato.';
+      const snap = snapshot(); g.prestito = {a, dal:root.querySelector('#ln-d').value || today()}; g.prestitoUltimo = a; delete g.esempio;
+      save(); closeSheet(); keepScroll(render); toast(`${g.titolo} prestato a ${a}`); offerUndo(snap);
+    });
+  });
+}
+function sellSheet(g){
+  openSheet(`<h2>${esc(g.titolo)}</h2><p>Esce dalla libreria e finisce tra i venduti. Puoi sempre annullare dalla sua scheda.</p>
+    <div class="field"><label for="sl-p">Quanto ci hai ricavato (€)</label><input id="sl-p" class="num" inputmode="decimal" placeholder="Lascia vuoto se l'hai scambiato" autofocus></div>
+    <div class="grid2">
+      <div class="field"><label for="sl-d">Quando</label><input id="sl-d" type="date" value="${today()}"></div>
+      <div class="field"><label for="sl-n">Nota</label><input id="sl-n" placeholder="Es. scambiato con…" autocomplete="off"></div>
+    </div>
+    <div class="err" id="sl-err"></div>
+    <button class="btn wide" id="sl-ok">Segna come venduto</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    root.querySelector('#sl-ok').addEventListener('click', () => {
+      const raw = root.querySelector('#sl-p').value.trim(), p = raw ? parseAmount(raw) : null;
+      if (raw && !(p >= 0)) return root.querySelector('#sl-err').textContent = 'Il prezzo deve essere un numero, ad esempio 15.';
+      const snap = snapshot(); g.venduto = {data:root.querySelector('#sl-d').value || today(), prezzo:p, nota:root.querySelector('#sl-n').value.trim()}; delete g.prestito; delete g.esempio;
+      if (S.sessione && S.sessione.gid === g.id) S.sessione = null;
+      save(); closeSheet(); keepScroll(render); toast(p ? `${g.titolo} venduto a ${eur.format(p)}` : `${g.titolo} tra i venduti`); offerUndo(snap);
+    });
+  });
+}
+function finishSheet(g, q){
+  let voto = g.voto || 0;
+  openSheet(`<h2>${q === 'cento' ? '🏆 ' : '🏁 '}${esc(g.titolo)}</h2><p>${q === 'cento' ? 'Completato al 100%: complimenti!' : 'Finito! Com\'è stato?'}</p>
+    <div class="field"><span class="lbl">Voto</span><div class="rate" id="fs-rate"></div></div>
+    <div class="grid2">
+      <div class="field"><label for="fs-h">Ore giocate</label><input id="fs-h" class="num" inputmode="text" placeholder="Es. 12 o 12:30" value="${hoursIn(g.ore)}" autocomplete="off"></div>
+      <div class="field"><label for="fs-d">Finito il</label><input id="fs-d" type="date" value="${g.fine || today()}"></div>
+    </div>
+    <div class="err" id="fs-err"></div>
+    <button class="btn wide" id="fs-ok">Salva</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    rateWidget(root, '#fs-rate', voto, v => voto = v);
+    root.querySelector('#fs-ok').addEventListener('click', () => {
+      const h = parseHours(root.querySelector('#fs-h').value);
+      if (Number.isNaN(h)) return root.querySelector('#fs-err').textContent = 'Scrivi le ore come 12, 12,5 oppure 12:30 (ore:minuti).';
+      const snap = snapshot();
+      Object.assign(g, {stato:q, voto, ore:h ?? g.ore, fine:root.querySelector('#fs-d').value || today()}); delete g.esempio;
+      save(); closeSheet(); keepScroll(render); toast(q === 'cento' ? 'Platino! 🏆' : `${g.titolo}: finito!`); offerUndo(snap);
+    });
+  });
+}
+function boughtSheet(g){
+  openSheet(`<h2>${esc(g.titolo)}</h2><p>Lo sposto nella libreria come «Da iniziare».</p>
+    <div class="seg" role="group" aria-label="Formato"><button type="button" data-fm="digitale" aria-pressed="${g.formato !== 'fisico'}">Digitale</button><button type="button" data-fm="fisico" aria-pressed="${g.formato === 'fisico'}">Fisico</button></div>
+    <div class="field"><label for="bo-p">Prezzo pagato (€)</label><input id="bo-p" class="amount-in num" inputmode="decimal" placeholder="0,00" value="${g.prezzoMax ? amtIn(g.prezzoMax) : ''}" autofocus style="font-size:24px;font-weight:600"></div>
+    ${bilOn() ? '<label class="check"><input type="checkbox" id="bo-bil" checked><span>Registra il prezzo in Bilancino</span></label>' : ''}
+    <div class="err" id="bo-err"></div>
+    <button class="btn wide" id="bo-ok">Sposta in libreria</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    let fm = g.formato;
+    wireChips(root, 'fm', v => fm = v);
+    root.querySelector('#bo-ok').addEventListener('click', () => {
+      const raw = root.querySelector('#bo-p').value.trim(), p = raw ? parseAmount(raw) : null;
+      if (raw && !(p >= 0)) return root.querySelector('#bo-err').textContent = 'Il prezzo deve essere un numero, ad esempio 19,99.';
+      const snap = snapshot();
+      Object.assign(g, {stato:'da', formato:fm, origine:'acquisto', prezzo:p, data:today(), agg:new Date().toISOString()}); delete g.esempio;
+      const saved = g.prezzoMax && p !== null ? g.prezzoMax - p : 0;
+      const sent = root.querySelector('#bo-bil') && root.querySelector('#bo-bil').checked && sendToBil(g);
+      save(); closeSheet(); keepScroll(render);
+      toast((saved > 0 ? `In libreria! Hai speso ${eur.format(saved)} meno del previsto` : `${g.titolo} è in libreria`) + (sent ? ' · in Bilancino' : '')); offerUndo(snap);
+    });
+  });
+}
+
+/* ---------- obiettivo, desideri, CSV ---------- */
+function goalSheet(){
+  const y = String(new Date().getFullYear()), cur = S.obiettivo[y] || '';
+  openSheet(`<h2>Obiettivo ${y}</h2><p>Quanti giochi vuoi finire quest'anno?</p>
+    <div class="field"><label for="go-n">Giochi da finire</label><input id="go-n" class="num" type="number" min="1" max="365" inputmode="numeric" value="${cur}" placeholder="Es. 12" style="font-size:24px;font-weight:600" autofocus></div>
+    <div class="wrapchips">${[6, 12, 24, 52].map(n => `<button type="button" class="chip" data-gn="${n}">${n} ${n === 12 ? '(uno al mese)' : n === 52 ? '(uno a settimana)' : ''}</button>`).join('')}</div>
+    <div class="err" id="go-err"></div>
+    <button class="btn wide" id="go-ok">Salva</button>
+    ${cur ? '<button class="btn ghost wide" id="go-del">Togli l\'obiettivo</button>' : ''}
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    root.querySelectorAll('[data-gn]').forEach(b => b.addEventListener('click', () => root.querySelector('#go-n').value = b.dataset.gn));
+    root.querySelector('#go-ok').addEventListener('click', () => { const n = parseInt(root.querySelector('#go-n').value, 10); if (!(n > 0)) return root.querySelector('#go-err').textContent = 'Scrivi un numero maggiore di zero.'; S.obiettivo[y] = n; save(); closeSheet(); render(); toast(`Obiettivo ${y}: ${n} giochi`); });
+    const d = root.querySelector('#go-del'); if (d) d.addEventListener('click', () => { delete S.obiettivo[y]; save(); closeSheet(); render(); toast('Obiettivo tolto'); });
+  });
+}
+function wishText(){
+  const l = S.giochi.filter(g => g.stato === 'wish');
+  const lines = ['🎁 *I giochi che vorrei*'];
+  const byCon = {}; l.forEach(g => (byCon[g.con] ||= []).push(g));
+  for (const [cid, gs] of Object.entries(byCon)){ lines.push('', `*${conOf(cid).nome}*`); gs.sort((a, b) => a.titolo.localeCompare(b.titolo)).forEach(g => lines.push(`- ${g.titolo}${g.formato === 'fisico' ? ' (fisico)' : ''}${g.prezzoMax ? ` · circa ${eur0.format(g.prezzoMax)}` : ''}`)); }
+  lines.push('', `_Dalla mia ${APP}_`);
+  return lines.join('\n');
+}
+function csvSheet(){
+  const head = ['Titolo','Console','Formato','Stato','Come l\'ho avuto','Abbonamento','Account','Saga','N. saga','Genere','Edizione','DLC','Voto','Ore','Durata stimata','Trofei %','Prezzo','Acquistato il','Finito il','Prestato a','Venduto il','Ricavo vendita','Raccolte','Note'];
+  const rows = S.giochi.slice().sort((a, b) => a.titolo.localeCompare(b.titolo)).map(g => [g.titolo, conOf(g.con).nome, g.formato === 'fisico' ? 'Fisico' : 'Digitale', g.venduto ? 'Venduto' : ST[g.stato].nome, ORN[g.origine] || '', g.abbo || '', g.account || '', g.saga || '', g.sagaN || '', g.genere || '', g.edizione || '', (g.dlc || []).join(', '), g.voto || '', g.ore ? String(Math.round(g.ore * 10) / 10).replace('.', ',') : '', g.durata || '', g.trofei ?? '', g.prezzo ? String(g.prezzo).replace('.', ',') : '', g.data ? g.data.split('-').reverse().join('/') : '', g.fine ? g.fine.split('-').reverse().join('/') : '', g.prestito ? g.prestito.a : '', g.venduto ? g.venduto.data.split('-').reverse().join('/') : '', g.venduto && g.venduto.prezzo ? String(g.venduto.prezzo).replace('.', ',') : '', (g.racc || []).map(r => raccOf(r)?.nome).filter(Boolean).join(', '), (g.note || '').replace(/\r?\n/g, ' ')]);
+  const csv = [head, ...rows].map(r => r.map(c => { c = String(c ?? ''); return /[;"\n]/.test(c) ? `"${c.replace(/"/g, '""')}"` : c; }).join(';')).join('\r\n');
+  const name = `gelus-collection-${today()}.csv`, data = '﻿' + csv;
+  openSheet(`<h2>Esporta per Excel</h2><p>${S.giochi.length} giochi, con desideri e venduti. Si apre con Excel o Fogli Google.</p>
+    <button class="btn wide" id="x-sh" hidden>Condividi il file…</button>
+    <button class="btn ghost wide" id="x-dl">Scarica il file CSV</button>
+    <button class="btn ghost wide" id="x-cp">Copia il testo</button>
+    <div class="field"><label for="x-ta">Anteprima</label><textarea id="x-ta" class="mono" readonly>${esc(csv.slice(0, 20000))}</textarea></div>
+    <button class="btn ghost wide" data-close>Chiudi</button>`, root => {
+    const sh = root.querySelector('#x-sh'); sh.hidden = !(navigator.canShare && window.File);
+    sh.addEventListener('click', async () => { try { let f = new File([data], name, {type:'text/csv'}); if (!navigator.canShare({files:[f]})) f = new File([data], name.replace(/\.csv$/, '.txt'), {type:'text/plain'}); if (!navigator.canShare({files:[f]})) throw 0; await navigator.share({files:[f], title:name}); } catch(e){ if (!e || e.name !== 'AbortError') toast('Condivisione non disponibile qui. Usa Scarica o Copia.'); } });
+    root.querySelector('#x-dl').addEventListener('click', () => { try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], {type:'text/csv;charset=utf-8'})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); toast('Download avviato. Se non parte, usa Copia.'); } catch(_){ toast('Download non disponibile qui. Usa Copia.'); } });
+    root.querySelector('#x-cp').addEventListener('click', () => { const ta = root.querySelector('#x-ta'), fb = () => { ta.focus(); ta.select(); toast('Testo selezionato: copialo dal menu'); }; try { navigator.clipboard.writeText(csv).then(() => toast('Copiato'), fb); } catch(_){ fb(); } });
+  });
+}
+
+/* ---------- il tuo anno ---------- */
+function yearData(y){
+  const all = S.giochi.filter(g => g.stato !== 'wish');
+  const fin = all.filter(g => (g.stato === 'finito' || g.stato === 'cento') && g.fine && g.fine.startsWith(y)).sort((a, b) => a.fine.localeCompare(b.fine));
+  const ses = all.flatMap(g => (g.sessioni || []).filter(x => x.data.startsWith(y)).map(x => ({g, ...x})));
+  const minTot = ses.reduce((t, x) => t + x.min, 0);
+  const byCon = {}; ses.forEach(x => byCon[x.g.con] = (byCon[x.g.con] || 0) + x.min);
+  if (!ses.length) [...fin, ...all.filter(g => g.inizio && g.inizio.startsWith(y))].forEach(g => byCon[g.con] = (byCon[g.con] || 0) + 1);
+  const topCon = Object.entries(byCon).sort((a, b) => b[1] - a[1])[0];
+  const byGame = {}; ses.forEach(x => byGame[x.g.id] = (byGame[x.g.id] || 0) + x.min);
+  const best = fin.slice().sort((a, b) => (b.voto || 0) - (a.voto || 0) || (b.ore || 0) - (a.ore || 0))[0] || (Object.keys(byGame).length ? S.giochi.find(g => g.id === Object.entries(byGame).sort((a, b) => b[1] - a[1])[0][0]) : null);
+  const bought = all.filter(g => g.data && g.data.startsWith(y)), spent = bought.reduce((t, g) => t + (g.prezzo || 0), 0);
+  const soldY = S.giochi.filter(g => g.venduto && g.venduto.data.startsWith(y)), ric = soldY.reduce((t, g) => t + (g.venduto.prezzo || 0), 0);
+  const gen = {}; [...fin, ...all.filter(g => g.inizio && g.inizio.startsWith(y))].forEach(g => { if (g.genere) gen[g.genere] = (gen[g.genere] || 0) + 1; });
+  const topGen = Object.entries(gen).sort((a, b) => b[1] - a[1])[0];
+  const byM = {}; ses.forEach(x => { const m = x.data.slice(5, 7); byM[m] = (byM[m] || 0) + x.min; });
+  const topM = Object.entries(byM).sort((a, b) => b[1] - a[1])[0];
+  return {fin, minTot, topCon:topCon ? conOf(topCon[0]) : null, best, bought, spent, ric, soldN:soldY.length, topGen:topGen ? topGen[0] : null, topM:topM ? new Date(+y, +topM[0] - 1, 1).toLocaleDateString('it-IT', {month:'long'}) : null, cento:fin.filter(g => g.stato === 'cento').length};
+}
+function yearSheet(y){
+  const years = [...new Set(S.giochi.flatMap(g => [g.fine, g.data, g.inizio, ...(g.sessioni || []).map(x => x.data)]).filter(Boolean).map(x => x.slice(0, 4)))].sort().reverse();
+  const d = yearData(y);
+  const text = [`🎮 Il mio ${y} da giocatore`, `🏁 ${d.fin.length} giochi finiti${d.cento ? `, ${d.cento} al 100%` : ''}`, d.minTot ? `⏱ ${Math.round(d.minTot / 60)} ore di gioco` : '', d.topCon ? `🕹 Console più usata: ${d.topCon.nome}` : '', d.best ? `⭐ Gioco dell'anno: ${d.best.titolo}` : '', d.topGen ? `🎯 Genere preferito: ${d.topGen}` : '', '', `_Fatto con ${APP}_`].filter((x, i, a) => x !== '' || i === a.length - 2).join('\n');
+  openSheet(`${years.length > 1 ? `<div class="chips">${years.map(x => `<button type="button" class="chip" data-yy="${x}" aria-pressed="${x === y}">${x}</button>`).join('')}</div>` : ''}
+    <div class="wrapped">
+      <span class="wk">Il tuo anno da giocatore</span>
+      <div class="wb">${y}</div>
+      <div class="wg">
+        <div class="wc"><span class="wk">Finiti</span><b class="num">${d.fin.length}</b>${d.cento ? `<span style="font-size:13px">di cui ${d.cento} al 100% 🏆</span>` : ''}</div>
+        <div class="wc"><span class="wk">Ore col timer</span><b class="num">${d.minTot ? Math.round(d.minTot / 60) : '–'}</b>${d.topM ? `<span style="font-size:13px">soprattutto a ${d.topM}</span>` : ''}</div>
+        <div class="wc"><span class="wk">Console più usata</span><b>${d.topCon ? esc(d.topCon.nome) : '–'}</b></div>
+        <div class="wc"><span class="wk">Genere preferito</span><b>${d.topGen ? esc(d.topGen) : '–'}</b></div>
+      </div>
+      ${d.best ? `<div class="wc" style="background:rgba(255,255,255,.18)"><span class="wk">Il gioco del tuo anno</span><b style="font-size:24px">${esc(d.best.titolo)}</b>${d.best.voto ? `<span style="color:#FFD86B">${stars(d.best.voto)}</span>` : ''}</div>` : ''}
+      ${d.fin.length ? `<div><span class="wk">Tutti i finiti, in ordine</span><ol style="margin-top:6px">${d.fin.map(g => `<li>${esc(g.titolo)} <span style="opacity:.75">· ${esc(conOf(g.con).sigla)}</span></li>`).join('')}</ol></div>` : '<p style="color:#fff;opacity:.9;margin:0">Nessun gioco finito con una data in quest’anno.</p>'}
+      <div class="wg">
+        <div class="wc"><span class="wk">Comprati</span><b class="num">${d.bought.length}</b><span style="font-size:13px">${eur0.format(d.spent)} spesi</span></div>
+        <div class="wc"><span class="wk">Venduti</span><b class="num">${d.soldN}</b><span style="font-size:13px">${d.ric ? `${eur0.format(d.ric)} ricavati` : '&nbsp;'}</span></div>
+      </div>
+    </div>
+    <a class="btn wide" href="https://wa.me/?text=${encodeURIComponent(text)}" target="_blank" rel="noopener" style="text-align:center;text-decoration:none">Condividi su WhatsApp</a>
+    <button class="btn ghost wide" data-close>Chiudi</button>`, root => {
+    root.querySelectorAll('[data-yy]').forEach(b => b.addEventListener('click', () => yearSheet(b.dataset.yy)));
+  });
+}
+
+/* ---------- abbonamenti ---------- */
+function formAbbo(id){
+  const a = id ? S.abbonamenti.find(x => x.id === id) : null;
+  const n = a ? S.giochi.filter(g => g.origine === 'abbonamento' && norm(g.abbo) === norm(a.nome) && !g.venduto).length : 0;
+  openSheet(`<h2>${a ? esc(a.nome) : 'Nuovo abbonamento'}</h2>
+    <div class="field"><label for="ab-n">Abbonamento</label><input id="ab-n" list="ab-nl" value="${esc(a?.nome || '')}" placeholder="Es. PS Plus" ${a ? '' : 'autofocus'} autocomplete="off"><datalist id="ab-nl">${ABBO.map(x => `<option value="${x}"></option>`).join('')}</datalist></div>
+    <div class="field"><label for="ab-d">Scade il</label><input id="ab-d" type="date" value="${a?.scade || ''}"></div>
+    ${a ? `<p style="font-size:13px">${n} ${n === 1 ? 'gioco viene' : 'giochi vengono'} da questo abbonamento.</p>` : ''}
+    <div class="err" id="ab-err"></div>
+    <button class="btn wide" id="ab-ok">${a ? 'Salva' : 'Aggiungi'}</button>
+    ${a ? '<button class="btn danger wide" id="ab-del">Elimina</button>' : ''}
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    root.querySelector('#ab-ok').addEventListener('click', () => {
+      const nome = root.querySelector('#ab-n').value.trim(), scade = root.querySelector('#ab-d').value;
+      if (!nome) return root.querySelector('#ab-err').textContent = 'Scrivi il nome dell\'abbonamento.';
+      if (!scade) return root.querySelector('#ab-err').textContent = 'Scegli la data di scadenza.';
+      if (a) Object.assign(a, {nome, scade}); else S.abbonamenti.push({id:uid(), nome, scade});
+      save(); closeSheet(); render(); toast('Abbonamento salvato');
+    });
+    const del = root.querySelector('#ab-del'); if (del) twoTap(del, 'Tocca di nuovo per eliminare', () => { S.abbonamenti = S.abbonamenti.filter(x => x !== a); save(); closeSheet(); render(); toast('Abbonamento eliminato'); });
+  });
+}
+function formRacc(id){
+  const r = S.raccolte.find(x => x.id === id); if (!r) return;
+  let col = r.col;
+  const n = S.giochi.filter(g => (g.racc || []).includes(r.id)).length;
+  openSheet(`<h2>Raccolta</h2>
+    <div class="field"><label for="rc-n">Nome</label><input id="rc-n" value="${esc(r.nome)}" autocomplete="off"></div>
+    <div class="field"><span class="lbl">Colore</span><div class="swatches">${PALETTE.map(p => `<button type="button" class="sw" data-col="${p}" aria-pressed="${p === col}" aria-label="Colore" style="background:${p}"></button>`).join('')}</div></div>
+    <p style="font-size:13px">${n} giochi in questa raccolta.</p>
+    <div class="err" id="rc-err"></div>
+    <button class="btn wide" id="rc-ok">Salva</button>
+    <button class="btn ghost wide" id="rc-see">Vedi i giochi</button>
+    <button class="btn danger wide" id="rc-del">Elimina la raccolta</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    wireChips(root, 'col', v => col = v);
+    root.querySelector('#rc-ok').addEventListener('click', () => { const nome = root.querySelector('#rc-n').value.trim(); if (!nome) return root.querySelector('#rc-err').textContent = 'Scrivi un nome.'; Object.assign(r, {nome, col}); save(); closeSheet(); render(); toast('Raccolta salvata'); });
+    root.querySelector('#rc-see').addEventListener('click', () => { closeSheet(); Object.assign(V, {racc:r.id, con:'tutte', stato:'tutti', formato:'tutti', acc:'tutti', q:''}); goTab('lib'); });
+    twoTap(root.querySelector('#rc-del'), 'Tocca di nuovo: i giochi restano', () => { S.raccolte = S.raccolte.filter(x => x !== r); S.giochi.forEach(g => g.racc = (g.racc || []).filter(x => x !== r.id)); save(); closeSheet(); render(); toast('Raccolta eliminata'); });
+  });
+}
+function maybeRemind(){
+  if (S.lastRemind === today()) return;
+  const ab = S.abbonamenti.filter(a => daysTo(a.scade) <= 7 && daysTo(a.scade) >= -3), lv = leaving(7);
+  if (!ab.length && !lv.length) return;
+  S.lastRemind = today(); save();
+  openSheet(`<h2>Promemoria</h2>
+    ${ab.length ? `<div class="sub">Abbonamenti in scadenza</div><div class="list">${ab.map(a => `<div class="crow"><div class="main"><div class="t">${esc(a.nome)}</div><div class="s">${daysTo(a.scade) < 0 ? 'Scaduto' : 'Scade'} ${inDays(daysTo(a.scade))} · ${fmtShort(a.scade)}</div></div></div>`).join('')}</div>` : ''}
+    ${lv.length ? `<div class="sub">Giochi che escono dal catalogo</div><div class="list">${lv.map(gameRow).join('')}</div>` : ''}
+    <button class="btn wide" data-close>Va bene</button>`, root => {
+    root.querySelectorAll('[data-game]').forEach(b => b.addEventListener('click', () => formGame(b.dataset.game)));
+  });
+}
+
+/* ---------- gioco a caso ---------- */
+function randomSheet(exclude = []){
+  const pool = library().filter(g => g.stato === 'da' && (V.pickCon === 'tutte' || g.con === V.pickCon) && durOk(g) && mpOk(g));
+  if (!pool.length) return toast('Nessun gioco da iniziare qui');
+  let cand = pool.filter(g => !exclude.includes(g.id)); if (!cand.length){ cand = pool; exclude = []; }
+  const w = cand.map(g => (g.origine === 'abbonamento' ? 2 : 1) + (g.pref ? 1 : 0) + (g.esce && daysTo(g.esce) <= 30 ? 2 : 0));
+  let r = Math.random() * w.reduce((a, b) => a + b, 0), g = cand[0];
+  for (let i = 0; i < cand.length; i++){ r -= w[i]; if (r <= 0){ g = cand[i]; break; } }
+  const c = conOf(g.con), pic = FOTO.get(g.id);
+  openSheet(`<p style="text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:600">Stasera giochi a…</p>
+    ${pic ? `<div class="photo"><img src="${pic}" alt="" style="max-height:220px"></div>` : ''}
+    <div style="display:flex;gap:14px;align-items:center">${tile(c).replace('class="tile"', 'class="tile" style="width:64px;height:64px;font-size:14px;background:' + c.col + '"')}<div style="min-width:0"><h2>${esc(g.titolo)}</h2><p>${esc(c.nome)} · ${g.formato === 'fisico' ? 'fisico' : 'digitale'}${g.genere ? ' · ' + esc(g.genere) : ''}${g.durata ? ` · circa ${g.durata} ore` : ''}${g.account ? ` · ${esc(g.account)}` : ''}</p></div></div>
+    ${g.origine === 'abbonamento' ? `<p>Ce l'hai con ${esc(g.abbo || 'un abbonamento')}${g.esce ? `: esce dal catalogo ${inDays(daysTo(g.esce))}` : ': meglio giocarlo finché è attivo'}.</p>` : ''}
+    ${g.note ? `<p>${esc(g.note)}</p>` : ''}
+    <button class="btn wide" id="rd-go">▶ Ok, inizio questo</button>
+    <button class="btn ghost wide" id="rd-tm">⏱ Inizio e avvio il timer</button>
+    <button class="btn ghost wide" id="rd-again">🎲 Pescane un altro</button>
+    <button class="btn ghost wide" data-close>Chiudi</button>`, root => {
+    root.querySelector('#rd-go').addEventListener('click', () => quick(g, 'corso'));
+    root.querySelector('#rd-again').addEventListener('click', () => randomSheet([...exclude, g.id]));
+    root.querySelector('#rd-tm').addEventListener('click', () => startTimer(g));
+  });
+}
+
+/* ---------- inserimento di massa ---------- */
+function bulkSheet(){
+  const st = {con:(V.con !== 'tutte' ? V.con : (mine()[0] || S.console[0]).id), formato:'digitale'};
+  openSheet(`<h2>Aggiungi tanti giochi</h2><p>Un titolo per riga. Vanno tutti sulla console che scegli; i doppioni vengono saltati.</p>
+    <div class="field"><span class="lbl">Console</span><div id="bk-con">${conChips(st.con)}</div></div>
+    <div class="seg" role="group" aria-label="Formato"><button type="button" data-fm="digitale" aria-pressed="true">Digitali</button><button type="button" data-fm="fisico" aria-pressed="false">Fisici</button></div>
+    <div class="grid2">
+      <div class="field"><label for="bk-or">Come li hai avuti</label><select id="bk-or">${ORIGINI.map(([k, n]) => `<option value="${k}">${n}</option>`).join('')}</select></div>
+      <div class="field"><label for="bk-st">Stato</label><select id="bk-st">${STATI.map(s => `<option value="${s.id}" ${s.id === 'da' ? 'selected' : ''}>${s.nome}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label for="bk-acc">Account (facoltativo)</label><input id="bk-acc" list="bk-accl" placeholder="Es. PSN principale" autocomplete="off"><datalist id="bk-accl">${accounts().map(a => `<option value="${esc(a)}"></option>`).join('')}</datalist></div>
+    <div class="field" id="bk-ab-w" hidden><label for="bk-ab">Quale abbonamento</label><input id="bk-ab" list="bk-abl" placeholder="Es. PS Plus" autocomplete="off"><datalist id="bk-abl">${ABBO.map(a => `<option value="${a}"></option>`).join('')}</datalist></div>
+    <div class="field"><label for="bk-ta">Titoli</label><textarea id="bk-ta" placeholder="Hades&#10;Celeste&#10;Hollow Knight" autofocus></textarea><small class="muted" id="bk-n"></small></div>
+    <div class="err" id="bk-err"></div>
+    <button class="btn wide" id="bk-ok">Aggiungi</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    const $r = q => root.querySelector(q);
+    const wireCon = () => { wireChips($r('#bk-con'), 'pc', v => { st.con = v; count(); }); const a = $r('#bk-con [data-allcon]'); if (a) a.addEventListener('click', () => { $r('#bk-con').innerHTML = conChips(st.con, 'pc', S.console).replace(/<button type="button" class="chip add"[^>]*>Altre…<\/button>/, ''); wireChips($r('#bk-con'), 'pc', v => { st.con = v; count(); }); }); };
+    wireCon();
+    wireChips(root, 'fm', v => st.formato = v);
+    $r('#bk-or').addEventListener('change', e => $r('#bk-ab-w').hidden = e.target.value !== 'abbonamento');
+    const titles = () => [...new Map($r('#bk-ta').value.split(/\r?\n/).map(t => t.replace(/^\s*([-*•]|\d+[.)])\s*/, '').trim()).filter(Boolean).map(t => [norm(t), t])).values()];
+    const count = () => { const t = titles(), dup = t.filter(x => dupOf(x, st.con)).length; $r('#bk-n').textContent = t.length ? `${t.length} titoli${dup ? `, ${dup} già presenti su ${conOf(st.con).sigla}` : ''}` : ''; };
+    $r('#bk-ta').addEventListener('input', count);
+    $r('#bk-ok').addEventListener('click', () => {
+      const t = titles(); if (!t.length) return $r('#bk-err').textContent = 'Scrivi almeno un titolo.';
+      const snap = snapshot(), stato = $r('#bk-st').value, origine = $r('#bk-or').value, abbo = origine === 'abbonamento' ? $r('#bk-ab').value.trim() : '';
+      let n = 0;
+      t.forEach((titolo, i) => { if (dupOf(titolo, st.con)) return; S.giochi.push({id:uid(), titolo, con:st.con, formato:st.formato, account:st.formato === 'fisico' ? '' : $r('#bk-acc').value.trim(), durata:null, sessioni:[], origine, abbo, stato, voto:0, ore:null, prezzo:null, data:null, inizio:null, fine:null, genere:'', note:'', pref:false, agg:new Date(Date.now() + i).toISOString()}); n++; });
+      save(); closeSheet(); V.con = st.con; goTab(stato === 'wish' ? 'wish' : 'lib');
+      toast(`${n} ${n === 1 ? 'gioco aggiunto' : 'giochi aggiunti'} su ${conOf(st.con).sigla}${t.length - n ? ` · ${t.length - n} già presenti` : ''}`); offerUndo(snap);
+    });
+  });
+}
+
+/* ---------- account ---------- */
+function accSheet(a){
+  const n = S.giochi.filter(g => g.account === a).length;
+  openSheet(`<h2>Account «${esc(a)}»</h2><p>${n} giochi.</p>
+    <div class="field"><label for="ac-n">Nome</label><input id="ac-n" value="${esc(a)}" autocomplete="off" autofocus></div>
+    <div class="err" id="ac-err"></div>
+    <button class="btn wide" id="ac-ok">Rinomina</button>
+    <button class="btn danger wide" id="ac-del">Togli l'account dai suoi giochi</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    root.querySelector('#ac-ok').addEventListener('click', () => {
+      const nn = root.querySelector('#ac-n').value.trim();
+      if (!nn) return root.querySelector('#ac-err').textContent = 'Scrivi un nome, oppure usa «Togli l\'account».';
+      const snap = snapshot(); S.giochi.forEach(g => { if (g.account === a) g.account = nn; }); if (V.acc === a) V.acc = nn;
+      save(); closeSheet(); render(); toast('Account rinominato'); offerUndo(snap);
+    });
+    twoTap(root.querySelector('#ac-del'), 'Tocca di nuovo per toglierlo', () => { S.giochi.forEach(g => { if (g.account === a) g.account = ''; }); save(); closeSheet(); render(); toast('Account tolto'); });
+  });
+}
+
+/* ---------- console ---------- */
+function formCon(id){
+  const c = id ? S.console.find(x => x.id === id) : null;
+  let col = c?.col || PALETTE[S.console.length % PALETTE.length];
+  const n = c ? S.giochi.filter(g => g.con === c.id).length : 0;
+  openSheet(`<h2>${c ? 'Modifica console' : 'Nuova console o negozio'}</h2>
+    <form id="fc" class="settings" novalidate>
+      <div class="field"><label for="c-nom">Nome</label><input id="c-nom" value="${esc(c?.nome || '')}" placeholder="Es. Steam Deck, Game Boy Advance" ${c ? '' : 'autofocus'} autocomplete="off"></div>
+      <div class="field"><label for="c-sig">Sigla breve (max 6 lettere)</label><input id="c-sig" maxlength="6" value="${esc(c?.sigla || '')}" placeholder="Es. Deck, GBA" autocomplete="off"></div>
+      <div class="field"><span class="lbl">Colore</span><div class="swatches">${PALETTE.map(p => `<button type="button" class="sw" data-col="${p}" aria-pressed="${p === col}" aria-label="Colore" style="background:${p}"></button>`).join('')}</div></div>
+      <div class="err" id="c-err"></div>
+      <button class="btn wide" type="submit">${c ? 'Salva' : 'Aggiungi'}</button>
+      ${c ? `<button class="btn danger wide" type="button" id="c-del">${n ? `Elimina (anche i suoi ${n} giochi)` : 'Elimina'}</button>` : ''}
+      <button class="btn ghost wide" type="button" data-close>Annulla</button>
+    </form>`, root => {
+    const $r = q => root.querySelector(q);
+    wireChips(root, 'col', v => col = v);
+    $r('#fc').addEventListener('submit', e => {
+      e.preventDefault();
+      const nome = $r('#c-nom').value.trim(), sigla = ($r('#c-sig').value.trim() || nome.slice(0, 6));
+      if (!nome) return $r('#c-err').textContent = 'Scrivi il nome della console.';
+      if (c) Object.assign(c, {nome, sigla, col}); else S.console.push({id:'c' + uid(), nome, sigla, col, mia:true});
+      save(); closeSheet(); render(); toast(c ? 'Console salvata' : `${nome} aggiunta`);
+    });
+    const del = $r('#c-del'); if (del) twoTap(del, 'Tocca di nuovo per eliminare', () => { S.giochi = S.giochi.filter(g => g.con !== c.id); fotoCleanup(); S.console = S.console.filter(x => x !== c); if (V.con === c.id) V.con = 'tutte'; save(); closeSheet(); render(); toast('Console eliminata'); });
+  });
+}
+function onboarding(){
+  const sel = new Set(S.console.filter(c => c.mia).map(c => c.id));
+  openSheet(`<h2>Benvenuto in ${APP}</h2><p>Quali console e negozi usi? Potrai cambiarli quando vuoi dalle Impostazioni.</p>
+    <div class="wrapchips">${S.console.map(c => `<button type="button" class="chip" data-ob="${c.id}" aria-pressed="${sel.has(c.id)}"><span class="dot" style="background:${c.col}"></span>${esc(c.nome)}</button>`).join('')}</div>
+    <div class="err" id="ob-err"></div>
+    <button class="btn wide" id="ob-mine">Inizio con i miei giochi</button>
+    <button class="btn ghost wide" id="ob-ex">Prima guardo gli esempi</button>`, root => {
+    root.querySelectorAll('[data-ob]').forEach(b => b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on)); if (on) sel.add(b.dataset.ob); else sel.delete(b.dataset.ob); }));
+    const apply = () => { S.console.forEach(c => c.mia = sel.has(c.id)); S.onboard = 'done'; };
+    root.querySelector('#ob-mine').addEventListener('click', () => {
+      if (!sel.size) return root.querySelector('#ob-err').textContent = 'Scegli almeno una console.';
+      apply(); S.giochi = S.giochi.filter(g => !g.esempio); save(); closeSheet(); goTab('lib'); toast('Tocca + per il primo gioco, o «Aggiungi tanti giochi» per un elenco');
+    });
+    root.querySelector('#ob-ex').addEventListener('click', () => { if (sel.size) apply(); S.onboard = 'done'; save(); closeSheet(); render(); setTimeout(maybeRemind, 300); });
+  });
+}
+
+/* ---------- backup ---------- */
+function exportSheet(withFoto){
+  const fotos = withFoto ? Object.fromEntries([...FOTO].filter(([id]) => S.giochi.some(g => g.id === id))) : null;
+  const json = JSON.stringify({app:'gelu-inc-gelus-collection', esportato:new Date().toISOString(), ...S, ...(fotos ? {fotoBackup:fotos} : {})}, withFoto ? null : null, withFoto ? 0 : 2), name = `gelus-collection-${today()}${withFoto ? '-con-foto' : ''}.json`;
+  const nF = FOTO.size, kb = Math.round(json.length / 1024);
+  openSheet(`<h2>Esporta backup</h2><p>Salvalo su Drive o mandalo a te stesso. File di circa ${kb > 1024 ? (kb / 1024).toFixed(1).replace('.', ',') + ' MB' : kb + ' KB'}.</p>
+    ${nF ? `<label class="check"><input type="checkbox" id="x-foto" ${withFoto ? 'checked' : ''}><span>Includi le ${nF} foto dei giochi<br><span class="muted" style="font-size:13px">Il file diventa più pesante, ma sul telefono nuovo ritrovi anche le foto.</span></span></label>` : ''}
+    <button class="btn wide" id="x-sh" hidden>Condividi su Drive, email, WhatsApp…</button>
+    <button class="btn ghost wide" id="x-dl">Scarica file</button>
+    <button class="btn ghost wide" id="x-cp">Copia testo del backup</button>
+    <div class="field"><label for="x-ta">Backup</label><textarea id="x-ta" class="mono" readonly>${esc(json.length > 300000 ? json.slice(0, 300000) + '\n… (testo troppo lungo da mostrare: usa Condividi o Copia)' : json)}</textarea></div>
+    <button class="btn ghost wide" data-close>Chiudi</button>`, root => {
+    const xf = root.querySelector('#x-foto'); if (xf) xf.addEventListener('change', () => exportSheet(xf.checked));
+    const sh = root.querySelector('#x-sh'); sh.hidden = !(navigator.canShare && window.File);
+    sh.addEventListener('click', async () => {
+      try { let f = new File([json], name, {type:'application/json'}); if (!navigator.canShare({files:[f]})) f = new File([json], name.replace(/\.json$/, '.txt'), {type:'text/plain'}); if (!navigator.canShare({files:[f]})) throw 0; await navigator.share({files:[f], title:name}); toast('Condiviso'); }
+      catch(e){ if (e && e.name === 'AbortError') return; toast('Condivisione non disponibile qui. Usa Scarica o Copia.'); }
+    });
+    root.querySelector('#x-dl').addEventListener('click', () => { try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], {type:'application/json'})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); toast('Download avviato. Se non parte, usa Copia.'); } catch(_){ toast('Download non disponibile qui. Usa Copia.'); } });
+    root.querySelector('#x-cp').addEventListener('click', () => { const ta = root.querySelector('#x-ta'), fb = () => { ta.focus(); ta.select(); toast('Testo selezionato: copialo dal menu'); }; try { navigator.clipboard.writeText(json).then(() => toast('Copiato'), fb); } catch(_){ fb(); } });
+  });
+}
+function restoreSheet(){
+  openSheet(`<h2>Ripristina backup</h2><p>Sostituisce la collezione attuale con quella del backup.</p>
+    <div class="field"><label for="r-file">File di backup</label><input id="r-file" type="file" accept=".json,.txt,application/json,text/plain"></div>
+    <div class="field"><label for="r-ta">Oppure incolla il testo</label><textarea id="r-ta" class="mono"></textarea></div>
+    <div class="err" id="r-err"></div>
+    <button class="btn wide" id="r-ok">Ripristina</button>
+    <button class="btn ghost wide" data-close>Annulla</button>`, root => {
+    const ta = root.querySelector('#r-ta');
+    root.querySelector('#r-file').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => ta.value = r.result; r.readAsText(f); });
+    twoTap(root.querySelector('#r-ok'), 'Tocca di nuovo: la collezione attuale verrà sostituita', () => {
+      try { const o = JSON.parse(ta.value); if (!o || !Array.isArray(o.giochi)) throw 0; const fb = o.fotoBackup; delete o.app; delete o.esportato; delete o.fotoBackup; S = migrate(o); if (fb && typeof fb === 'object') for (const [id, data] of Object.entries(fb)) if (typeof data === 'string' && data.startsWith('data:image/')) fotoPut(id, data).then(() => keepScroll(render)).catch(() => {}); S.onboard = 'done'; save(); applyTheme(); closeSheet(); render(); toast(`Ripristinati ${library().length} giochi`); }
+      catch(_){ root.querySelector('#r-err').textContent = `Il testo non è un backup valido di ${APP}. Controlla di averlo copiato per intero.`; }
+    });
+  });
+}
+function applyTheme(){ const t = S.tema || 'auto', el = document.documentElement; if (t === 'auto') el.removeAttribute('data-theme'); else el.setAttribute('data-theme', t); }
+
+/* ---------- eventi ---------- */
+document.querySelector('nav.tabs').addEventListener('click', e => { const t = e.target.closest('[data-tab]'); if (t) goTab(t.dataset.tab); });
+$('#setBtn').addEventListener('click', () => goTab(V.tab === 'impo' ? 'lib' : 'impo'));
+$('#fab').addEventListener('click', () => V.tab === 'wish' ? formGame(null, {stato:'wish'}) : formGame());
+$('#view').addEventListener('click', e => {
+  const gm = e.target.closest('[data-game]'); if (gm) return formGame(gm.dataset.game);
+  const cn = e.target.closest('[data-con]'); if (cn){ V.con = cn.dataset.con; return keepScroll(render); }
+  const pc = e.target.closest('[data-pcon]'); if (pc){ V.pickCon = pc.dataset.pcon; return keepScroll(render); }
+  const wc = e.target.closest('[data-wcon]'); if (wc){ V.wishCon = wc.dataset.wcon; return keepScroll(render); }
+  const stl = e.target.closest('[data-stale]'); if (stl){ const [k, id] = stl.dataset.stale.split(':'), g = S.giochi.find(x => x.id === id); if (g){ const snap = snapshot(); if (k === 'pausa'){ g.stato = 'pausa'; toast(`${g.titolo} in pausa`); } else { g.ripreso = today(); toast(`Buon ritorno su ${g.titolo}!`); } save(); keepScroll(render); offerUndo(snap); } return; }
+  const vw = e.target.closest('[data-view]'); if (vw){ V.view = vw.dataset.view; try { localStorage.setItem(KEY + '-view', V.view); } catch(_){} return keepScroll(render); }
+  const mp = e.target.closest('[data-mp]'); if (mp){ V.mp = mp.dataset.mp; return keepScroll(render); }
+  const abe = e.target.closest('[data-abedit]'); if (abe) return formAbbo(abe.dataset.abedit);
+  const rce = e.target.closest('[data-rcedit]'); if (rce) return formRacc(rce.dataset.rcedit);
+  const dr = e.target.closest('[data-dur]'); if (dr){ V.dur = dr.dataset.dur; return keepScroll(render); }
+  const ae = e.target.closest('[data-accedit]'); if (ae) return accSheet(ae.dataset.accedit);
+  const ce = e.target.closest('[data-cedit]'); if (ce) return formCon(ce.dataset.cedit);
+  const th = e.target.closest('[data-tema]'); if (th){ S.tema = th.dataset.tema; save(); applyTheme(); return render(); }
+  const a = e.target.closest('[data-act]'); if (!a) return;
+  const act = a.dataset.act;
+  if (act === 'random') randomSheet();
+  else if (act === 'stopTimer') stopSheet();
+  else if (act === 'year') yearSheet(a.dataset.y);
+  else if (act === 'newAbbo') formAbbo();
+  else if (act === 'goal') goalSheet();
+  else if (act === 'csv') csvSheet();
+  else if (act === 'showLent'){ Object.assign(V, {formato:'prestati', con:'tutte', stato:'tutti', racc:'tutte', acc:'tutti', q:''}); render(); }
+  else if (act === 'bulk') bulkSheet();
+  else if (act === 'newWish') formGame(null, {stato:'wish'});
+  else if (act === 'newCon') formCon();
+  else if (act === 'export') exportSheet(false);
+  else if (act === 'restore') restoreSheet();
+  else if (act === 'clearSamples'){ const snap = snapshot(); S.giochi = S.giochi.filter(g => !g.esempio); fotoCleanup(); save(); render(); toast('Esempi cancellati'); offerUndo(snap); }
+  else if (act === 'wipe'){
+    if (a.dataset.armed){ const snap = snapshot(); S.giochi = []; fotoCleanup(); save(); render(); toast('Giochi cancellati'); offerUndo(snap); }
+    else { a.dataset.armed = '1'; a.textContent = 'Tocca di nuovo per cancellare tutto'; setTimeout(() => { if (a.isConnected){ delete a.dataset.armed; a.textContent = 'Cancella tutti i giochi'; } }, 3500); }
+  }
+});
+$('#view').addEventListener('change', e => { const m = e.target.closest('[data-mia]'); if (m){ const c = S.console.find(x => x.id === m.dataset.mia); if (c){ c.mia = m.checked; save(); } } });
+
+/* ---------- installazione ---------- */
+const installBtn = $('#installBtn');
+let deferredPrompt = null;
+const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches || navigator.standalone === true;
+const markInstalled = v => { try { v ? localStorage.setItem(KEY_INST, '1') : localStorage.removeItem(KEY_INST); } catch(_){} };
+const wasInstalled = () => { try { return localStorage.getItem(KEY_INST) === '1'; } catch(_){ return false; } };
+function updateInstallBtn(){ installBtn.hidden = isStandalone() || wasInstalled(); }
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; markInstalled(false); updateInstallBtn(); const n = document.getElementById('in-now'); if (n) n.hidden = false; });
+window.addEventListener('appinstalled', () => { deferredPrompt = null; markInstalled(true); updateInstallBtn(); toast('App installata'); });
+window.matchMedia('(display-mode: standalone)').addEventListener?.('change', updateInstallBtn);
+async function doInstall(){
+  const ev = deferredPrompt; if (!ev) return false;
+  deferredPrompt = null;
+  try { ev.prompt(); const r = await ev.userChoice; if (r.outcome === 'accepted'){ markInstalled(true); updateInstallBtn(); closeSheet(); } } catch(_){}
+  return true;
+}
+async function installChecks(){
+  const ua = navigator.userAgent, out = [], add = (ok, t, help) => out.push({ok, t, help});
+  add(location.protocol === 'https:', 'Indirizzo sicuro (https)', 'Apri l\'app dall\'indirizzo https://gelu92.github.io/…');
+  const inApp = /; wv\)|FBAN|FBAV|Instagram|GitHub|WhatsApp/i.test(ua), chrome = /Chrome\//.test(ua) && !/EdgA|OPR|SamsungBrowser|Firefox/i.test(ua);
+  add(chrome && !inApp, 'Aperta in Chrome', inApp ? 'Sei nel browser interno di un\'altra app: menu ⋮ → «Apri in Chrome».' : 'Apri l\'indirizzo con Google Chrome.');
+  let man = null; try { const r = await fetch(document.querySelector('link[rel=manifest]').href, {cache:'no-store'}); if (r.ok) man = await r.json(); } catch(_){}
+  add(!!(man && man.id), 'Manifest trovato' + (man && man.id ? ` (${man.id})` : ''), 'Il file manifest.json non è nella stessa cartella di index.html.');
+  let icons = false; try { const r = await fetch('icon-512.png', {cache:'no-store'}); icons = r.ok; } catch(_){}
+  add(icons, 'Icone trovate', 'I file icon-192.png e icon-512.png non sono nella stessa cartella di index.html.');
+  let sw = false; try { const reg = 'serviceWorker' in navigator && await navigator.serviceWorker.getRegistration(); sw = !!(reg && (reg.active || reg.waiting || reg.installing)); } catch(_){}
+  add(sw, 'Funzionamento offline attivo', 'Il file sw.js non è nella stessa cartella oppure la pagina va ricaricata.');
+  add(!!deferredPrompt, 'Chrome pronto a installare', 'Tocca qualche schermata e lascia l\'app aperta circa 30 secondi: si attiva da solo. Se avevi già rifiutato l\'installazione, Chrome per un po\' non la ripropone: usa il menu ⋮.');
+  return out;
+}
+function installSheet(){
+  openSheet(`<h2>Installa ${APP}</h2>
+    <button class="btn wide" id="in-now" hidden>Installa ora</button>
+    <div id="in-ck" class="list"><div class="crow"><div class="main"><div class="t">Controllo in corso…</div></div></div></div>
+    <div class="sub">Oppure dal menu di Chrome</div>
+    <ol class="steps"><li>Tocca il menu <b>⋮</b> in alto a destra.</li><li>Scegli <b>Installa app</b> (o <b>Aggiungi a schermata Home</b>, poi <b>Installa</b>).</li><li>Conferma.</li></ol>
+    <button class="btn ghost wide" data-close>Chiudi</button>`, root => {
+    const now = root.querySelector('#in-now'); now.addEventListener('click', doInstall);
+    let timer = null;
+    const tick = async () => {
+      if (!root.isConnected){ clearInterval(timer); return; }
+      now.hidden = !deferredPrompt;
+      const l = await installChecks(); if (!root.isConnected) return;
+      root.querySelector('#in-ck').innerHTML = l.map((c, i) => `<div class="crow"><div class="main"><div class="t">${c.t}</div>${c.ok ? '' : `<div class="s">${c.help}</div>`}</div>${c.ok ? '<span class="pill st-finito">OK</span>' : `<span class="pill st-cento">${i === l.length - 1 ? 'In attesa' : 'Da sistemare'}</span>`}</div>`).join('');
+    };
+    tick(); timer = setInterval(tick, 2000);
+  });
+}
+installBtn.addEventListener('click', async () => { if (!(await doInstall())) installSheet(); });
+if (isStandalone()) markInstalled(true);
+updateInstallBtn();
+if ('serviceWorker' in navigator && location.protocol === 'https:'){
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+
+/* ---------- scorciatoie ---------- */
+function handleAzione(){
+  let a = null; try { a = new URLSearchParams(location.search).get('azione'); } catch(_){}
+  if (!a) return false;
+  try { history.replaceState(null, '', location.pathname); } catch(_){}
+  if (a === 'nuovo'){ goTab('lib'); formGame(); }
+  else if (a === 'caso'){ goTab('backlog'); randomSheet(); }
+  else if (a === 'timer'){ if (S.sessione) stopSheet(); else goTab('backlog'); }
+  else return false;
+  return true;
+}
+
+/* ---------- avvio ---------- */
+load();
+applyTheme();
+render();
+fotoLoadAll().then(() => { if (FOTO.size) keepScroll(render); });
+if (!handleAzione()){ if (S.onboard === 'pending') onboarding(); else maybeRemind(); }
+})();
+</script>
+</body>
+</html>

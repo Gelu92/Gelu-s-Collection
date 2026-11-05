@@ -1,0 +1,77 @@
+{
+  "id": "gelu-inc-gelus-collection",
+  "name": "Gelu's Collection",
+  "short_name": "Collection",
+  "description": "La collezione dei tuoi videogiochi, digitali e fisici, su tutte le console. Di Gelu Inc.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F1F0F7",
+  "theme_color": "#14121F",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Aggiungi un gioco",
+      "short_name": "Aggiungi",
+      "url": "./?azione=nuovo",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Cosa gioco adesso?",
+      "short_name": "Gioco a caso",
+      "url": "./?azione=caso",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Timer di gioco",
+      "short_name": "Timer",
+      "url": "./?azione=timer",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
